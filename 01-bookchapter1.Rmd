@@ -1,0 +1,305 @@
+---
+title: "Manuscript Chapter One"
+author: "Peter M. Erickson"
+date: |
+  `r format(Sys.time(), '%B %d, %Y')`
+abstract: |
+  
+  _This is the first chapter of the book._  
+  
+geometry: margin = 1.15in              # margin widths
+fontsize: 12pt                         # text size
+bibliography: manuscript.bib              # bibliography file
+biblio-style: authoryear               # citation style
+reference-section-title: References
+urlcolor: blue                         # links to external URLs
+citecolor: black                       # links to bibliography
+linkcolor: magenta                     # internal figures, footnotes, etc.
+indent: true                          # paragraph format
+                                       # true for indented paragraphs
+                                       
+header-includes:
+    - \usepackage{booktabs}
+    - \usepackage{longtable}
+    - \usepackage{setspace}
+    - \usepackage{sectsty}
+    - \usepackage{paralist}
+    - \usepackage{fancyhdr}
+    - \usepackage{lastpage}
+    - \usepackage{indentfirst}
+    - \usepackage{array}
+    - \usepackage{multirow}
+    - \usepackage{wrapfig}
+    - \usepackage{float}
+    - \usepackage{colortbl}
+    - \usepackage{pdflscape}
+    - \usepackage{tabu}
+    - \usepackage{threeparttable}
+    - \usepackage{threeparttablex}
+    - \usepackage[normalem]{ulem}
+    - \usepackage{makecell}
+    - \usepackage{xcolor}
+    - \usepackage{caption}
+    - \usepackage{rotating, graphicx}
+    - \usepackage{dcolumn}
+    - \usepackage{ragged2e}
+    
+output: 
+  bookdown::pdf_document2:
+    keep_tex: true
+    latex_engine: pdflatex
+    number_sections: false
+    toc: false
+    fig_caption: true
+    citation_package: biblatex
+    includes: 
+      in_header: 
+        - latex-preamble.tex
+  bookdown::htmldocument2: default
+  bookdown::word_document2:
+      toc: false
+---
+
+\doublespacing 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r loading-library, include=FALSE, echo=FALSE}
+library("here")       # file paths
+library("tidyverse")  # workhorse package
+library("tidylog")
+library("kableExtra")
+library("knitr")
+library("ggdag")
+library("dagitty")
+library("gridExtra")
+library("broom")
+library("dplyr")
+library("reshape2")
+library("pacman")
+library("ggrepel")
+library("writexl")
+library("lme4")
+library("bucky")
+library("scales")
+library("stargazer")
+library("rstatix")
+library("brglm")
+library("margins")
+library("IRdisplay")
+library("texreg")
+library("cowplot")
+library("mice")
+library("miceadds")
+library("bookdown")
+library("sandwich")
+library("mitools")
+library("modelsummary")
+library("sf")
+library("tidycensus")
+```
+\newpage
+
+# Chapter 1 - The Fundamental Norms of Democratic Civil-Military Relations
+\singlespace
+
+"When the Foundations are Destroyed, What Can the Righteous Do?"_
+Psalm 11:3
+
+\doublespace
+
+On 29 September 2023, Army General Mark Milley retired from the military after 43 years of service to the nation. In his farewell speech, surrounded by the United States' most-senior military and civilian leaders, General Milley sent a verbal salvo towards former President Donald Trump when he told the crowd, "We are unique among the world's militaries. We don’t take an oath to a country. We don’t take an oath to a tribe. We don’t take an oath to a religion. We don’t take an oath to a king, or a queen, or a tyrant or a dictator. And we don’t take an oath to a _wannabe dictator_" [@board_opinion_2023].
+
+The fact that the relationship between General Milley and the former President had soured in the years leading to the General's retirement came as no surprise to any casual observer of contemporary American politics. Hand-selected by the former President in 2018 to be the nation's top military officer, Milley and Trump then clashed during several high-profile events in the years to come, including the President's handling of domestic unrest in the Summer of 2020, the 2020 Presidential Election, and perhaps most acutely, a series of phone calls that General Milley made to Chinese military leaders before and after the election in which he communicated the fact that the President had no intent of initiating a war with China [@woodward_peril_2021; @moore_milley_2021]. 
+
+Still, General Milley could have made a different speech, one that did not come anywhere near making a not-so-subtle jab at the former Commander-in-Chief. The fact that he did not caught the attention of many, including several press outlets. The Editorial Board of the _Wall Street Journal_, for instance, acknowledged that while Mr. Trump bore some level of blame for the continuing row between the two men, "...it was still dispiriting to hear Gen. Milley’s remarks about a former President, in public, while wearing the uniform of the U.S. Army...The end-of-tour catharsis of a swipe at Mr. Trump isn’t worth polarizing the force over politics" [@board_opinion_2023]. 
+
+The public feud between General Milley and President Trump is unfortunately one of many indicators of a strained civil-military relationship in the United States. There have, in fact, been many instances in which civilian or military leaders acted in ways that have either thrust the military into politics or given the appearance of doing so. Though it would be difficult to list all such instances, several stand out. For example, there was the removal of Navy Captain Brent Crozier after the ship Captain leaked a letter to the press in which he castigated the chain of command's response to the onset of the Coronavirus pandemic in early 2020 [@associated_press_teddy_2020]. Then, later that summer, a remarkable panoply of senior retired military officers publicly excoriated former President Trump's response to domestic unrest that unfolded in cities across America following the death of George Floyd, an unarmed black man, in Minneapolis [@brooks_let_2020-1]. As a final example, consider that for more than 8 months of 2023 --- more than two years into the Presidential term of Joe Biden --- a Republican Senator from Alabama, Tommy Tuberville, waged a successful campaign that effectively blocked the promotions of nearly all of the military's flag officers --- generals and admirals --- because of the Department of Defense's policy on abortion [@youssef_republican_2023].^[Policies as of late 2023 allow female service members who travel to have an abortion to be reimbursed.] 
+
+These behaviors, and many more, have occurred during a period of intense political polarization in the United States. Moreover, these behaviors have at times appeared to violate long-standing norms of conduct in civil-military relations, causing some Americans to question, like the Editorial Board of the _Wall Street Journal_, whether the military or civilian leaders engaging in such behaviors were politicizing the military inappropriately. 
+
+This book theorizes about the causes of political behaviors that involve the military and offers a way to measure these behaviors. Because high polarization will likely remain a feature of the political landscape for the foreseeable future [@abramowitz_great_2018], it is important that scholars, civilian leaders, military officers, and all who care about the relationship between a state and its military understand more fully how, why, and the ways in which the military intervenes in politics, and how key features of the domestic environment influence these actions. 
+
+The central argument made throughout the book is that the patterns of political behavior involving the military, and the civilian and military actors who engage in these behaviors, are largely influenced by two key features of the domestic environment. The first feature is the degree of _political polarization_ prevalent in society, and the second feature is the degree to which the military is _prestigious_. These two domestic variables uniquely shape the ways in which military and civilian actors behave involving the military.   
+
+In making this argument, the book adopts and build on a "motives" and "opportunities" framework first advanced by Finer (1962) and later by Taylor (2003) to broadly describe military intervention in politics. This book argues that the relative levels of polarization and prestige in a society impact the degree to which military and civilian leaders possess motive and opportunity to engage in conduct that either adheres to or violates key principles or norms of democratic civil-military relations. By conducting a systematic exploration of the impacts of polarization and military prestige on civil-military relations, across time and within several domestic contexts, this book sheds light on what is, I argue, a recognized yet under-specified reality: civilian and military leaders are shaped by changes in the domestic environment. These changes, in turn, shape the conduct of civil-military relations in predictable ways. 
+
+Examining the impacts of polarization and military prestige on political behaviors that involve the military is an important undertaking. From a normative perspective, this book helps those who study and practice civil-military relations better appreciate how the norms and principles of civil-military relations face better prospects of thriving in certain domestic conditions, and conversely, why the same norms face real risks when other domestic conditions prevail. 
+
+Yet there is much at stake empirically as well. Since the Trump Administration, scholars and practitioners have shed much light on how various factors, to include polarization and military prestige, complicate the conduct of civil-military relations (for just two of these works, see @robinson_dangerous_2023 and @feaver_thanks_2023). This book contributes to this important endeavor. Contemporary Americans are living in an era in which the levels of polarization and military prestige are relatively high. Yet these variables have ebbed and flowed throughout the history of the United States. There is much to glean from an examination of how these variables have impacted the course of civil-military relations in previous eras.
+
+This introductory chapter proceeds in two parts. The first part identifies and exposits three central principles, or fundamental norms, of democratic civil-military relations. These foundational principles are the principle of civilian control of the military, the principle of military non-partisanship, and the principle of military non-interference. Establishing a solid consensus for and understanding of these central principles is key, for without common ground, any normative claims about specific behaviors violating certain traditions or principles --- such as the _Wall Street Journal_ Editorial Board's with respect to General Milley's retirement speech described in the opening paragraphs of the book --- lack any meaningful root. The second part of the chapter describes the aim and general plan of the book.
+
+## The Central Principles of Democratic Civil-Military Relations
+
+Before claiming that any principle holds a _fundamental_ or _central_ role that informs, guides, and facilitates the conduct of healthy civil-military relations, it is important to offer a brief word about the origin as well as the scope of these principles. In terms of origin, each of the principles explained below stem from a combination of scholarly works of civil-military relations theory and historical application. Although these principles are applicable to mature democratic states in general, this book focuses on the American context. 
+
+It is also important to point out up front that there is strong consensus among scholars and practitioners for the existence of the first two principles, that of civilian control of the military and military non-partisanship. The existence of the third principle --- that of military non-interference --- is the product of a fairly long-standing debate in civil-military relations theory that is explained in greater depth below. Consensus for this third principle still exists, or otherwise it would not be a principle, but I concede that it does require somewhat of a more careful postulation than the first two principles.
+
+This is not the first attempt to assemble a list of principles or guidelines of civil-military relations. Other scholars [for example, see @paterson_civil-military_2022] and practitioners [for example, see @noauthor_support_2022] have formulated similar lists, rules, and/or guidelines. The three central principles espoused here differ not in substance from these other lists, but rather in terms of style and, quite frankly, in length. There are only three principles assembled here; they are broad and purposely so. As I demonstrate in the empirical chapters of this book, a short list of broad principles better facilitates measuring deviations from these principles than a lengthy list of more-specific principles. 
+
+And yet there is much symmetry between the lists that others have assembled and the one explained below. Virtually all of the principles contained in lists made by other authors would fall under one of the three principles considered here to be central to the conduct of civil-military relations. For example, Paterson's list of eight principles include the dictum to "provide Congressional testimony prudently" and "civilian authorities retain control over all aspects of defense policy," principles this book affirms to be important [@paterson_civil-military_2022]. Yet these two would fall under the first broad principle listed here, that of civilian control of the military.
+
+Each of the central and foundational principles is explicitly stated, explained, and briefly derived. Special emphasis is placed on which actor or set of actors --- civilian, military, or both --- can violate each principle.  
+
+### Central Principle 1: Civilian Control of the Military
+
+The first central principle of democratic civil-military relationships is that of civilian control of the military. It is listed first deliberately, as it is the central component by which the health of civil-military relationships is maintained and assessed. Without strong adherence to the principle of civilian control of the military, it is doubtful that a democratic state's civil-military relationship can be healthy or successful. 
+
+In the United States, the principle of civilian control is embedded in the US Constitution. In particular, the principle of civilian control in the United States means that the US military must obey two civilian bosses, each of which has a unique set of powers. The first boss is the President, who is endowed in the US Constitution as the Commander in Chief of the Armed Forces [@noauthor_us_1787, Article 2, Section 2]. The second boss is the Congress, to which the Constitution grants powers of oversight [@noauthor_us_1787, Article 1, Section 8]. From the US military's perspective, appeasing two different bosses, who at times are at odds with each other, is a prospect that can and has proven difficult.
+
+At first glance, the principle of civilian control seems fairly straightforward: civilians should be in charge of the military. But in reality, there are in-fact multiple layers of this all-important principle. It is  not simply the extreme forms of military behavior such as military coups that serve as examples of acts that violate the principle of civilian control [@croissant_beyond_2010; see also @cohen_supreme_2003, 242; @beliakova_erosion_2021]. Violations to the principle of civilian control can indeed manifest themselves in very subtle forms. 
+
+Finer, for instance, warns that militaries can and will violate the principle of civilian control through "acts of commission, but also by acts of omission" [@finer_man_1962, 20]. In a similar vein, Feaver therefore argues that observers interested in the health of the principle of civilian control should examine the "patterns" of civilian control, rather than merely looking for whether the principle exists within a state [@feaver_civil-military_1996, 167]. Scholars thus share the idea that civilian control more accurately refers to the "relative political power" that exists between a nation's armed forces and its civilian leaders [@bruneau_civil-military_2019, 7; see also @brooks_shaping_2008]. For instance, Brooks, Golby, and Urben argue more precisely that civilian control refers to "the extent to which political leaders can realize the goals the American people elected them to accomplish" [@brooks_crisis_2021, 65]. Thus, the degree to which the military adheres to the principle of civilian control involves both _outcomes_ (does the military do what it is told?) and _process_ (assuming that the military does what it is told, does it do so with an attitude of willingness and openness, or one of half-hearted reluctance?). 
+
+This focus on process is important and often overlooked. Military leaders may ultimately obey the orders of their bosses, but along the way engage in a range of behaviors that thwart, stymie, and/or frustrate the will of elected civilian leaders. These behaviors range from the very subtle to the very obvious. For example, as Brooks, Golby, and Urben argue, military officers may choose to share little information with civilians about an issue, or they may comply with a civilian directive at a leisurely pace rather than with spirited initiative [@brooks_crisis_2021]. In such instances, civilian leaders and the public may never know the extent to which the military is actually willfully and deliberately challenging the principle of civilian control. 
+
+Other types of behaviors short of coups are more obvious, however. For example, a well-known Army general who writes an opinion piece strongly criticizing a President's foreign policy initiative may challenge the principle of civilian control in that such an action likely undermines popular support for the President. In doing so, the general has likely imposed some sort of political cost that the President now has to contend with, making it more difficult for the President to enact his or her desired policy.  
+
+While military actors perhaps behave in ways that most clearly violates the principle of civilian control, this book contends that civilians likewise can behave in such a way so as to violate this first central principle. When such a civilian-induced violation to the principle of civilian control occur, however, it is typically the result of failure to ensure an overall climate of civilian control, rather than the result of a single blatant act. Such an interpretation is consistent with scholarship such as Beliakova (2021), who argues that one pathway through which the "erosion" of civilian control occurs is "deference," that is, by civilians delegating too much power to the military [@beliakova_erosion_2021]. 
+
+Hypothetically speaking, civilians may fail to assert themselves sufficiently during the course of a major military operation, such as a war. In such a scenario, one could characterize civilians as failing to establish a climate in which the principle of civilian control of the military reached a sufficient level. In the contemporary United States, for instance, several critics have expressed a concern about the principle of civilian control as a result of an extremely slow and politically-charged confirmation process for senior civilian Department of Defense appointees, resulting in a shift in the overall balance of power within the Pentagon toward the uniformed military [@seligman_civilian_2020]. In this particular instance, one might accurately say that generally speaking, civilian leaders writ large have thus acted in such a way --- deliberately or not --- that harms the principle of civilian control (because civilians own the confirmation process that occurs in Congress).  
+
+In addition to the US Constitution, there is an abundance of scholarly work that establishes the primacy of the principle of civilian control of the military. Perhaps the most prominent of these is Samuel Huntington's 1957 classic, _The Soldier and the State: The Theory and Politics of Civil-Military Relations_. To see this, a brief summary of Huntington's basic argument is helpful. 
+
+Writing in the wake of the Korean War, when the danger posed to the United States by the Cold War was quite tangible, Huntington argued that American security requirements constituted a "functional imperative" in that they required the US to maintain a military that is sufficiently strong and capable of defeating external threats [@huntington_soldier_1957, 1-3]. Simultaneously, Huntington argued that the liberal character of American society generated a "societal imperative" such that the pursuit of American security requirements could never cause the US to deviate from its liberal political ideology in fundamental ways, including abandonment of the principle of civilian control of the military [@huntington_soldier_1957, 1-3]. 
+
+Huntington suggested that the best way to reconcile the twin dilemmas of securing the United States during the Cold War and maintaining American's liberal political character was the adoption of "objective civilian control" of the military [@huntington_soldier_1957, 83]. In this figurative posture , civilian political leaders would grant the military a high degree of professional autonomy and reap at least three benefits as a result: the military's professional expertise would develop, the military would choose to eschew partisan politics, and civilian political leaders would remain in control of the state. 
+
+Huntington's proposed solution has faced especially strong criticism from many scholars on the grounds that Huntington's objective civilian control fails to appropriately consider Clausewitz's famous dictum that suggests war is the "mere continuation of policy by other means" [@clausewitz_war_1976, 69, 605]. Indeed, to his critics, the objective civilian control arrangement postulated by Huntington is not only unwise, but practically impossible. Politics and war, these critics attend, are inherently connected and thus there can never be the degree of autonomy between civilian political and military leaders that Huntington suggests.
+
+Furthermore, some of these critics contend that especially in democracies, a stark separation between military and civilian realms is equivalent to anathema because civilians hold ultimate responsibility for what militaries do and fail to do, not military leaders. Eliot Cohen, for example, forcefully illustrates, with examples ranging from Lincoln to Churchill, that the world's greatest heads of state have never abdicated responsibility during wartime, and at exceptional moments, have even reached far into the details of operations to ensure that militaries understood and implemented their directives [@cohen_supreme_2003]. 
+
+Other critics focus on the practical shortfalls of Huntington's solution of objective civilian control, were his arrangement fully adopted. For instance, those such as Brooks (2020) warns that the pursuit of Huntingtonian theory leads some military officers to develop "blind spots" such that these officers engage in detrimental political actions by rationalizing that because they are "professional" officers, their actions are and always will be apolitical by default [@brooks_paradoxes_2020, 17]. Others warn that the facilitation of a strict separation between military and civilian spheres in practice, and especially during wartime, fails to recognize the degree to which military and civilian spheres must overlap in order to develop, implement, and achieve the goals of national security policy [@rapp_civil-military_2015].
+
+While these critiques of Huntington spur important debates in the field of civil-military relations, it is important to remind the reader that the overall purposes that Huntington sought are not the reason he is criticized. Scholars, like Huntington, have continued to seek ways to ensure the primacy of civilian government. Writing nearly forty years after Huntington, for instance, Peter Feaver described the "problematique" of democratic civil-military relations as a "paradox": how a state ensures that its military is strong enough to defeat threats without posing a threat to the state itself [@feaver_civil-military_1996, 150]. The challenge of implementing civil-military relations is simple yet profound, for as Feaver notes, "just as the military must protect the polity from enemies, so must it conduct its own affairs so as to not destroy or prey on the society it is intended to protect" [@feaver_civil-military_1999, 214]. From the US Constitution written in the 18th Century, to Huntington in 1957, to Feaver in 1996, there is widespread agreement among scholars for the central importance of the principle of civilian control of the military. 
+
+### Central Principle 2: Non-Partisanship of the Military Institution
+
+The second central principle of democratic civil-military relations is the principle of military non-partisanship. In essence, this principle stipulates that the military not align itself --- nor that it be made to align by civilian actors --- with a particular political party or platform. Both sets of actors, civilian and military, have a responsibility to maintain and adhere to the principle of military non-partisanship. 
+
+It would be difficult to find a scholar, civilian leader, or military practitioner who would not concur with the fact that the principle of military non-partisanship is essential to healthy civil-military relations. That said, determining where the line is drawn between appropriate "political" behavior conducted by the military versus "partisan" activity is not as clear. After all, if militaries are, in fact, as Clausewitz and the critics of Huntington have contended, inherently political creatures who "serve at the pleasure" of their civilian bosses, then it stands to reason that the military will, at some point, enact the partisan policies, wishes, desires, and goals of their elected civilian leaders, who belong to a political party [@mullen_chairman_2011]. It is behavior that is clearly partisan that is problematic. Current or former military leaders advocating for political candidates ahead of elections, or speaking at political party conventions, are two behaviors that are generally considered to violate the principle of military non-partisanship. 
+
+But there are many cases that less clearly violate the principle of military non-partisanship. For instance, some scholars and former military officers blasted the decision of President Trump to deploy US Troops to the US southern border in 2018, citing the move as a political stunt ahead of the 2018 midterm elections [@adams_trumps_2018]. Other critics alleged that President Trump's threat to use active duty forces to dispel protesters and rioters in the summer of 2020 likewise violated the military's non-partisan ethic [@brooks_dismay_2020]. And finally, consider the case of President George W. Bush and his administration, which employed a number of senior retired military officers to boost popular support during a period of the Iraq War when the former President and his policies were relatively unpopular. Barstow alleges that the Bush Administration politicized the latent popularity of dozens of retired military officials by first, warming up to these retired officers, and second, prodding them to speak favorably to the media regarding several controversial issues, including use of the detention facility at Guantanamo Bay and the broader "surge" strategy to Iraq [@barstow_behind_2008]. Indeed, these examples (and many more) indicate that often, significant debate emerges as to whether a particular behavior violated the principle of military non-partisanship or, particular in the case of civilian actors, should be considered as conducting politics as usual.
+
+What is clear, however, is that both sets of actors --- military and civilian --- have a responsibility to uphold the principle of military non-partisanship, even as scholars may not agree how such a principle is best maintained. Huntington's theory of objective civilian control, as described above, is the subject of many critiques. But as Nielsen points out, "Huntington's principle of objective control has both merits and shortcomings. On the positive side, it preserves democratic control, speaks to the importance of an apolitical military and protects military professionalism" [@nielsen_american_2012, 375]. The point here is that for whatever shortcomings of Huntington's ideas, one of his key aims was preservation of a non-partisan military ethic. 
+
+Contemporary scholars have not deviated from this principle. And in article aptly titled, "Military Officers: Political without Partisanship," Mackubin Thomas Owens reinforces the centrality of the principle of military non-partisan ethic while echoing the concerns of Brooks (2020) and Rapp (2015) --- namely, that military officers need to engage with and understand the political process --- but, "without becoming swept up in partisan politics" [@owens_military_2015, 97]. To be sure, Huntington and his critics disagree on exactly how stark the separation between figurative military and political spheres should be, yet both share the normative belief that the military avoid inappropriate partisan political entanglement. 
+
+### Central Principle 3: Military Non-Interference 
+
+The third central principle of democratic civil-military relations is the principle of military _non-interference_. This principle can be defined as the notion that the military will not seek to perform, and that civilians will not assign the military to perform, roles or missions for which military forces are not suitably designed or suited, except in limited cases involving great crises or need. 
+
+The key issue at stake in this principle therefore centers around the roles fulfilled and purposes enacted by military forces. This principle implies that in every age, there are certain realms or areas of state policy into which the military should not enter. Civilians may have every right to enter into military policy, as critics of Huntingtonian theory make clear, but nowhere do these critics allege the opposite --- that the military may enter so-called civilian turf when and if it wishes to. 
+
+In democracies, civilian and military leaders comply with the principle of military non-interference when military organizations are used _primarily_ to fight the nation's external wars, and sparingly used against problem sets that are merely tangentially or indirectly related to matters involving external defense. Conversely, civilian and military leaders break the principle of military interference when they seek to primarily employ the military against problem sets that are far different from external defense. It is vital, then, to first show that there is a basis for the claim that there is a central purpose of militaries in democratic states, and that this central purpose involves militaries that are focused primarily on matters related to external defense. 
+
+American legal documents support the notion that the military is unique among governmental agencies. For instance, in broad terms, the US Constitution enables Congress to pass laws in order to "provide for the common defence" [@noauthor_us_1787]. Furthermore, Title 10 of the U.S. Code states that that "it is the intent of Congress to provide an Army, in conjunction with the other armed forces, of...preserving the peace and security, and providing for the defense, of the United States, the Commonwealths and possessions, and any areas occupied by the United States" [@noauthor_notitle_nodate]
+
+The uniqueness of the military is confirmed in the works of scholars such as Huntington, who saw the American military's fundamental purpose as defending the nation from external threats. Literally on the first page of _The Soldier and the State_, Huntington defines several terms, including that of civil-military relations, national security policy, and military security policy. In particular, Huntington defines military security policy as, "the program of activities designed to minimize or neutralize efforts to weaken or destroy the nation by armed forces operating from outside its institutional and territorial confines" [@huntington_soldier_1957, 1].
+
+This raison d'etre of external defense for American military forces is then entirely consistent with efforts Huntington makes throughout the rest of the book, particularly as he claims that the military officer corps constitutes a profession. Huntington saw military forces and military officers in particular as being uniquely qualified to provide the vital purpose of defending the nation from threats. Thus, the military officer corps would generate several professional characteristics, including unique knowledge, skills, qualifications, and standards, all of which would prove vital to the health of the military and its ability to protect the nation during the Cold War [@huntington_soldier_1957, 7-18]. 
+
+Huntington also devotes an entire chapter to the development of the notion of the "military mind," which to him consists of the "values, attitudes, and perspectives which inhere in the performance of the professional military function and which are deducible from the nature of that function" [@huntington_soldier_1957, 61]. In short, Huntington is arguing that the uniqueness and distinction of the military --- in terms of its mindset, corporate ethic, and values --- stems from the military's fundamental and unique purpose of defending the nation from external threats. The implication here is simple but profound: a professional military is one that is used only to fill roles that are directly related to national defense and/or the security of the nation. 
+
+The point that must be made now is that although Huntington has been criticized by many scholars, a point made clear throughout this chapter, the substance of these criticisms mainly involved the degree of autonomy the military should have, and not the purposes for which military forces should be used. More specifically, it is Huntington's theory of objective civilian control of the military that scholars have criticized, on the grounds that the figurative separation between military and civilian spheres Huntington advocated for results in a number of shortcomings, including that of military officers failing to appreciate both their proper roles in the political process [@rapp_civil-military_2015; @brooks_paradoxes_2020; @owens_military_2015] and the ultimate and pervasive authority that civilians hold [@cohen_supreme_2003]. 
+
+Yet there is common ground between Huntington and his critics. If in fact civilians should control the military, a point upon which Huntington and his critics agree, and even if in fact the notion of a military domain is not altogether separate from a civilian domain but merely one part of it, a point about which critics of Huntington's theory of objective civilian control of the military are adamant, then it can at least be stated that both Huntington and his critics agree there is a military domain that is necessarily limited. 
+
+```{r nonint, include=TRUE, echo=FALSE, fig.height=2.5, fig.width=4, fig.cap="Distinction Between Civil and Military Spheres According to Huntington (Left), Critics of Huntington (Middle), and an Unrestrained Military (Right)"}
+
+include_graphics(here("data", "civmilspheres.drawio.png"))
+
+```
+
+Figure \@ref(fig:nonint) graphically depicts the placement of figurative civilian and military spheres as advocated for by Huntington (left), his critics (center), and a military actively violating the principle of military non-interference. Huntington imagined two distinct spheres, one political and one military, with the military subordinate (shown as being underneath civilians) to civilian power. His critics, on the other hand, instead argue that for both theoretical and practical reasons, the domain of the military is, while perhaps unique, nonetheless still part of the civilian leader's ultimate domain, as shown in the middle of Figure \@ref(fig:nonint). On the right side, an unrestrained military is actively seeking to expand the figurative size of its domain by taking on responsibility for issues other than external defense, either at the request of a civilian leader or of its own accord. 
+
+In his excellent work on Israeli civil-military relations, Yehuda Ben-Meir (1995) infers the principle of military non-interference, separating the affairs of the state into four broad areas including political affairs, domestic affairs, national security, and the armed forces [@ben-meir_civil-military_1995]. He further argues that civilians should and do influence all four of these areas of politics, whereas the military should influence the three areas of domestic affairs, national security, and the armed forces [@ben-meir_civil-military_1995].^[In terms of the activities which constitute political affairs, Ben-Meir includes items such as "taking control of the government (coups), influencing political appointments, or interfering in the decision making process. See @ben-meir_civil-military_1995, 4-5 for an excellent description and diagram.] 
+
+During the 20th and 21st Centuries in the United States, civilian leaders employed the US military primarily to fight external rather than internal threats. But there have most certainly been times when the US military has taken on roles other than that of fighting wars abroad. Desegregating schools by the National Guard in the late 1950s, responding to natural disasters, helping combat the flow of illegal drugs into the US in the 1980s and 1990s, and most recently, assisting Federal authorities in responding to the Coronavirus pandemic from 2020-2021 are examples during which civilian authorities chose to use the military in non-traditional ways. These uses did not constitute violation of the principle of military non-interference because even as the military engaged in these activities,  the military still primarily focused on matters related to external defense. In most cases, such use was temporary.
+
+Yet it does not require significant imagination to see how other examples could quickly necessitate or justify the principle of military non_interference. When the Chairman of the Joint Chiefs of Staff, General Mark Milley, foresaw no role for the military in the 2020 Presidential Election, he was implicitly invoking the principle by implying that it was not appropriate for the military to involve itself in settling electoral disputes [@silva_gen_2020]. Furthermore, across the world, the role of militaries in responding to the Coronavirus pandemic has raised numerous normative concerns over whether the military should occupy the roles that they have, including in the provision of healthcare and logistics, to include the distribution and contracting of vaccines [@erickson_domestic_2022].^[At one point in late 2020, an active duty four star general apologized to the nation for a mix-up in information regarding the distribution of COVID vaccine, leading some critics to express concern that the military was making inherently political decisions that, from a normative perspective, posed some problems. See @passy_gen_2020 for more details. Other scholars of civil-military relations have explored how the tasks, missions, and roles of militaries change, and why this change matters with respect to the conduct of civil-military relations. For example, see @harig_operational_2022 and @wilen_versatile_2022.]
+
+To further illustrate the principle of military non-interference, a couple of hypothetical examples may help. Most Americans would likely not want a Navy Admiral to design and implement a plan to overhaul social security, nor an Army General to restructure streaming services for our favorite television shows. We may chuckle a bit in reading these examples, as the reader may rightfully think that a military in a democracy should not find itself in such positions, that there are other agencies and institutions that should handle these types of problems, and that the military is better used for other purposes.^[If a US President were to direct that the military take the lead role in devising solutions to these real problems, that would not violate the principle of military non-interference strictly speaking as I have defined it here, but there would likely be significant other underlying issues driving such a decision.] These hypothetical scenarios are instructive if only to demonstrate that mature democracies tend to use their militaries in ways that differ from non-democracies or weakly developed democracies. Some scholarly literature that covers comparative civil-military relations denotes that in many countries with weak institutions, such a principle of military non_interference does not exist. For instance, Stepan's concept of "the new professionalism of internal security and national development" traces the development of the Brazilian military's role expansion into domestic affairs as a result of having to primarily confront internal rather than external threats [@stepan_new_1973].
+
+Finally, the principle of military non-interference has had at least some historical precedent in the United States. In a well known address given to the cadets at West Point in May of 1962, MacArthur captures well the spirit of the principle of military non-interference by encouraging the soon-to-be officers to focus their careers on winning in combat and leaving other issues for politicians to solve: 
+
+\singlespacing
+
+> **Yours is the profession of arms, the will to win, the sure knowledge that in war there is no substitute for victory, that if you lose, the Nation will be destroyed, that the very obsession of your public service must be Duty, Honor, Country. Others will debate the controversial issues, national and international, which divide men’s minds. But serene, calm, aloof, you stand as the Nation’s war guardians, as its lifeguards from the raging tides of international conflict, as its gladiators in the arena of battle. For a century and a half you have defended, guarded and protected its hallowed traditions of liberty and freedom, of right and justice. Let civilian voices argue the merits or demerits of our processes of government. Whether our strength is being sapped by deficit financing indulged in too long, by federal paternalism grown too mighty, by power groups grown too arrogant, by politics grown too corrupt, by crime grown too rampant, by morals grown too low, by taxes grown too high, by extremists grown too violent; whether our personal liberties are as firm and complete as they should be. These great national problems are not for your professional participation or military solution. Your guidepost stands out like a tenfold beacon in the night: Duty, Honor, Country** [@macarthur_duty_1962].
+
+\doublespacing
+
+
+\singlespace
+### Summary of Three Central Principles of US Civil-Military Relations
+\doublespace
+
+The principles of civilian control of the military, non-partisanship of the military, and non-interference of the military constitute broad central principles of democratic civil-military relations. As this book will show, these principles have not always been followed by the civilian and military leaders who engage in the conduct of civil-military relations. Yet there is a strong scholarly basis for the centrality of these principles and the role that each plays in facilitating healthy civil-military relations in democratic states.
+
+Though it is not the primary purpose of this book, it should be acknowledged here that these principles were not formed instantaneously, either in the American context nor in the context of other democratic states. Care can and will be exercised throughout the book to account for the fact that the specific application of these three principles have been different during one era than another. When certain principles were still developing, the scope of behaviors construed to be in violation of the same principle were far less strict. For example, it was not uncommon in the early 19th Century for currently-serving military figures (such as Winfield Scott, a hero of the Mexican War) to run for President, whereas the same behavior would be viewed with suspicion in the 21st Century, when the principle of non-partisanship is much further developed [@skelton_american_1992, 286-287; see also @teigen_why_2018]. The three central principles of civil-military relations have always held some normative power, but this power has generally increased as American democracy has matured.^[Huntington asserts that the development of the US military as a profession largely occurred after the US Civil War, and was largely the function of the geographical and social isolation experienced by the military officer corps. Several military historians reject this claim, however, and instead argue that the US military exhibited real signs of professionalization well before the post-US Civil War Era. For instance, Skelton (1992) argues that the US military made substantive strides towards professionalization beginning after the War of 1812 [@skelton_american_1992; see also @heiss_professionalization_2012]. Grandstaff (1998) as well as Connelly (2005) take a more nuanced view, arguing that the process of military professionalization occurred in two distinct waves during the 19th Century, one before and one after the Civil War [@grandstaff_preserving_1998; @connelly_american_2005]. In Chapter 5 of this book, which involves the post-US Civil War military and its leaders, I substantiate that even in the process of professionalizing, military leaders and officers in particular both understood and assented to the importance of basic principles of civil-military relations, including that of civilian control and an avoidance of engaging in overtly partisan politics. For one military historian's analysis of Huntington, see @coffman_long_1991.]   
+
+Can we be confident that these are the right central principles of civil-military relations? Similarly, are there any principles that may have been forgotten, and that we need on this list? Conversely, do we really need all three of these principles? Are not the first two principles, that of civilian control of the military and the non-partisanship of the military, sufficient? While these questions will be unpacked throughout the book, let us briefly consider the importance of each of these principles when taken together. 
+
+When all three principles are healthy and present, a state's military is subservient to civilians, not acting or made to act in an overtly partisan manner, and primarily focused on defending against external threats --- its core purpose. If the first two principles are followed but not the third, then the military is obedient to its civilian bosses and rightfully avoiding partisan entanglement. However, the purposes for which military force is employed are not consistent with the military's central purpose. The issue here becomes that the military is not unique. Ideally there are many governmental agencies that obey broad principles of civilian control and non-partisanship. Yet we want those agencies to do the things for which they were designed as well.   
+
+If the second and third principles are followed but not the first, then the military may in fact act in such a way so as to avoid inappropriate partisan entanglement while focusing on preparing to fight and win external wars, but in so doing, the military is insufficiently obedient to its bosses. Such an arrangement is problematic. And finally, if the first and third principles are followed but not the second, the military is generally obedient to its civilian bosses and focused on fulfilling its primary purpose of defending against foreign threats. In so doing, however, such a military is acting in ways that are inappropriately partisan, a status that undercuts healthy and effective civil-military relations. 
+
+Therefore, all three central principles of civil-military relations are important, and both sets of actors, military and civilian, have a role in ensuring the health of each. When adhered to, followed, and respected, the three central principles of civil-military relations generally constrain the behavior of both civilian and military actors in important ways, and help facilitate relatively harmonious civil-military relations. Table \@ref(tab:principles) captures these three principles, a concise definition of each principle, and a few pertinent examples of behaviors that violate each principle.  
+
+```{r principles, include=TRUE, echo=FALSE}
+
+text_tbl1 <- tribble(~"Central Principle", ~"Description", ~"Military Example of Violation", ~"Civilian Example of Violation",
+  "Civilian Control", "Civilian Political Goals are Actualized and Implemented; Mechanisms of Civilian Oversight Function; No Overt Military Insubordination", "Resigning in protest of policy; slow-rolling policy implementation; authoring an op-ed that blatantly criticizes a President's policy preferences", "Failing to establish mechanisms and processes of oversight; delegating too much power to the military",
+  "Non-Partisanship",  "The Military Institution Exists and Operates outside of Partisan Politics; Military Actors Fully Obey Political Leaders, and Do Not Advocate for Partisan Policies, Persons, or Platforms", "Advocating for the platform of a political party or denouncing that of another; Declaring candidacy for partisan political office while in uniform", "Urging several military generals and admirals to speak at a party political convention",
+  "Non-Interference", "There are Areas or Realms of State Policy making (unrelated to matters of external defense) into which the Military does not Enter or Seek to Influence, except in instances of great crisis or need", "Advocating that the President place the military in charge of overhauling social security", "Appointing a serving unformed military officer as the Secretary of Labor or Education")
+ 
+
+text_tbl1 %>% kable(booktabs=T, caption="Central Principles of US Civil-Military Relations", format="latex") %>%
+  kable_styling(full_width = F, font_size=10, latex_options="striped" ) %>% 
+  column_spec(1, width="6em") %>% 
+  column_spec(2, width="12em") %>% 
+  column_spec(3, width="12em") %>% 
+  column_spec(4, width="12em") 
+  
+
+```
+
+## Aim and Plan of the Book
+
+This book has two major aims. The first is to explore whether and to what degree American civilian and political leaders have behaved in ways that are congruent with the three central principles of civil-military relations described above. The second aim is to argue that particular features of a state's domestic environment --- the level of polarization within a state and the level of prestige of the military --- influence the degree to which civilian and military leaders respect and thus behave in ways that are congruent with these principles.  
+
+While other scholars have raised alarms about the impacts of rising political polarization and the popularity of the military on various aspects of the conduct of US civil-military relations [for example, see @robinson_michael_danger_2018; @burbach_partisan_2019; @feaver_military_2020; @feaver_we_2016; @barno_how_2016; @golby_jim_americas_2020; @karlin_case_2020; @burke_retired_2020; @golby_uncivil-military_2021], and while others have examined several specific political behaviors by the US military over time such as the endorsement of political candidates by retired military officers and social media habits by members of the military [@griffiths_not_2019; @dempsey_our_2010; @urben_party_2013; @urben_wearing_2014], few scholars have as of yet attempted to develop either an encompassing theoretical justification to explain, or a detailed measurement scheme to assess, variation in particular behaviors that are committed by both sets of actors, civilian and military, that involve the military.^[One work that has looked at both civilian and military perspectives is @bove_beyond_2020, in the context of terrorism.] 
+
+As mentioned in the book's introduction, the book's main argument is that the confluence of two factors --- political polarization and military prestige --- greatly impacts the willingness of civilian and military actors to adhere to the three central principles of civil-military relations in important ways. Furthermore, when these actors are less constrained to adhere to the principles of civil-military relations, each actor will behave in ways that violate these principles. 
+
+If this argument is at least moderately true, then this book will help us do a couple of things that are worth flagging early on. The first is understand or appreciate the idea that the political behaviors that occur involving the military are the product not merely of circumstances and individual personalities (specific political and military leaders), but rather the broader context in which civilian and leaders engage in the conduct civil-military relations. Building upon this idea further, this book may help scholars and practitioners appreciate the idea that central principles of democratic civil-military relations are more likely to thrive in certain domestic conditions than in other conditions. Finally, the book will help us understand what, if anything, can be done to help attenuate certain behaviors that, especially in recent years, have buffeted against the central principles of civil-military relations. An Army Chief of Staff or a Marine Corps Commandant has a difficult and demanding job during any point in time, but could the job be more difficult when polarization is high? Similarly, a President or a Secretary of State's duties and responsibilities are always difficult, but how are these made different and more difficult when the military is exceedingly prestigious? This book seeks to point out the extent which these types of leaders can help. 
+
+Explaining why and how militaries intervene in politics is a massive topic within civil-military relations and international relations more broadly [for a sampling of this scholarship, see @finer_man_1962; @taylor_politics_2003; @croissant_beyond_2010; @teigen_why_2018; @bove_beyond_2020; @beliakova_erosion_2021]. Some works focus on specific types or forms of military intervention in politics, such as coups [@horowitz_coup_1980; @de_bruin_will_2019], while others focus on explaining a range of intervention outcomes that can occur within a particular country or region of the world [for instance, see @stepan_new_1973; @fitch_armed_1998]. 
+
+This book adds to this important body of knowledge at a critical time. The United States is on the eve of yet another massive election, the results of which will impact not just everyday Americans, but many other parts of the world. The Democrat and Republican political parties are more divided than ever and polarization is at an all-time high. Confidence in all kinds of institutions, to include the media and universities, is at an all-time low. Against this back drop, the military remains engaged in various parts of the world as conflicts in the Ukraine and the Middle East unfold. America's longest war, Afghanistan, ended abruptly just a few years ago, and many of the military services are failing to recruit enough young men and women into the military services. Against this backdrop, this book aims to provide a helpful if sobering look at our military and civilian leaders, both now and in historical perspective.  
+
+In Chapter Two, the book exposits a theory regarding the causes of political behavior involving the military in democracies. The theory posits that two variables in particular --- the levels of political polarization and military prestige --- shape the degree to which the central principles of civil-military relations effectively constrain the behaviors of civilian and military actors. This chapter concludes with the formulation of distinct hypotheses, which are subsequently tested throughout the remainder of the book.  
+
+Chapters Three and Four serve as quantitative, large-N studies of specific types of political behaviors undertaken by military (Chapter Three) and civilian (Chapter Four) actors. Chapter Three investigates retired military officer opinion commentary in depth by analyzing opinion commentary authored by retired US military officers over the past roughly four decades (1979-2020). This original analysis reveals that retired military officers are criticizing civilian officials at a greater frequency, adopting expressly partisan positions, and weighing in on topics that fall outside of traditional military expertise more frequently than in past years, and argues that these results are largely driven by increases in the level of political polarization. 
+
+Chapter Four then examines a political behavior conducted by civilian actors --- the airing and the content of Presidential campaign advertisements. Using data assembled from the Wisconsin Advertising Project and the Wesleyan Media Project, Chapter Four analyzes all television airings of presidential campaign advertisements occurring over the five elections from 2000 - 2016, inclusively. This original analysis explores the degree to which military symbols and images appear in the advertisements, as well as the frequency with which various military figures appear in advertisements and engage in explicitly partisan behaviors, such as endorsing or attack political candidates. Furthermore, this chapter measures military prestige through a proxy by examining the veteran percentage of the population in the geographic area, or media market, in which an advertisement is aired. The statistical analysis reveals that in areas of the United States with higher veteran densities, civilian candidates and political parties are increasingly likely to air campaign ads that show military images and that include military figures who violate the principles of civil-military relations. 
+
+Chapters Three and Four are important because each chapter empirically demonstrates a link between a type of actor (military or civilian) and a particular form of political behavior (writing an op-ed or featuring a campaign advertisement in which a military figure engages in an explicitly partisan act). From a methodological standpoint, the quantitative analysis performed in each of these chapters is vital in that it helps to disentangle the variables of polarization and military prestige, which often vary in the same direction. 
+
+After these large-N quantitative chapters, the book turns to two historical case studies. Chapter Five compares the types and characteristics of the political behaviors undertaken by civilian and military actors in the period immediately leading to the impeachment of Andrew Johnson with those undertaken 12-15 years later. Over this time period, the level of political polarization in the United States remained relatively high, but the level of overall military prestige decreased dramatically, driven sharply by a decline in the centrality or importance of the military to the nation at a period when the nation faced few significant external threats.   
+Chapter Six examines civilian and military actor political behavior in the era after the attacks of September 11, 2001. During this period, the level of military prestige remained relatively high and constant, but the level of polarization rose sharply. This chapter explores, compares, and contrasts two episodes. The first is the 2006 so-called "Revolt of the Generals," and the second case involves several instances of political behavior involving the military undertaken in 2020 and again after the US withdrawal from Afghanistan in 2021. This chapter argues that although both episodes involved military and civilian actors undertaking substantial violations of the principles of civil-military relations, those undertaken in 2020 and in 2021 were reflective of a far more insidious domestic environment than the so-called "Revolt of the Generals". 
+
+Chapter Seven concludes the book. Here, main findings are summarized, critical implications are discussed, and recommendations for future research are given. This chapter also points out the relative strengths and limitations of the book as a whole. The central conclusion reached in this book is that sustaining the three central principles of civil-military relations explained in this chapter is an extremely difficult task during eras of high and prolonged political polarization. Or, to be more blunt --- the foundational and central principles of civil-military relations best thrive when polarization and military prestige do not exist at relatively extreme levels. 
+
+\pagebreak
+\singlespace
+
+
+
+
+
+

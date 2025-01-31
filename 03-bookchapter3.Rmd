@@ -1,0 +1,2032 @@
+---
+title: "When the Pen Becomes a Sword: Retired Military Officers and Opinion Commentary"
+author: "Peter M. Erickson"
+date: |
+  `r format(Sys.time(), '%B %d, %Y')`
+abstract: |
+  
+  _This paper explores variation in opinion commentary authored by retired military officers and published in major US newspapers between 1979-2020. The paper focuses in particular on the degree to which these published op-eds conform to what the author argues are critical norms and principles that are vital to healthy civil-military relations. Incorporating an original data set, the paper employs statistical analysis to argue that levels of polarization strongly indicate whether published opinion commentary violates fundamental principles of civil-military relations. This paper was modified from a chapter of the author's dissertation. The views expressed in this paper are the author's alone, and do not reflect those of the Army or the Department of Defense._  
+  
+geometry: margin = 1.15in              # margin widths
+fontsize: 12pt                         # text size
+bibliography: IUSPaper.bib              # bibliography file
+biblio-style: authoryear               # citation style
+reference-section-title: References
+urlcolor: blue                         # links to external URLs
+citecolor: black                       # links to bibliography
+linkcolor: magenta                     # internal figures, footnotes, etc.
+indent: true                          # paragraph format
+                                       # true for indented paragraphs
+                                       
+header-includes:
+    - \usepackage{booktabs}
+    - \usepackage{longtable}
+    - \usepackage{setspace}
+    - \usepackage{sectsty}
+    - \usepackage{paralist}
+    - \usepackage{fancyhdr}
+    - \usepackage{lastpage}
+    - \usepackage{indentfirst}
+    - \usepackage{array}
+    - \usepackage{multirow}
+    - \usepackage{wrapfig}
+    - \usepackage{float}
+    - \usepackage{colortbl}
+    - \usepackage{pdflscape}
+    - \usepackage{tabu}
+    - \usepackage{threeparttable}
+    - \usepackage{threeparttablex}
+    - \usepackage[normalem]{ulem}
+    - \usepackage{makecell}
+    - \usepackage{xcolor}
+    - \usepackage{caption}
+    - \usepackage{rotating, graphicx}
+    - \usepackage{dcolumn}
+    - \usepackage{ragged2e}
+    
+output: 
+  bookdown::pdf_document2:
+    keep_tex: true
+    latex_engine: pdflatex
+    number_sections: false
+    toc: false
+    fig_caption: true
+    citation_package: biblatex
+    includes: 
+      in_header: 
+        - latex-preamble.tex
+  bookdown::htmldocument2: default
+  bookdown::word_document2:
+      toc: false
+---
+
+\doublespacing 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r loading-library, include=FALSE, echo=FALSE}
+library("here")       # file paths
+library("tidyverse")  # workhorse package
+library("tidylog")
+library("kableExtra")
+library("knitr")
+library("ggdag")
+library("dagitty")
+library("gridExtra")
+library("broom")
+library("dplyr")
+library("reshape2")
+library("pacman")
+library("ggrepel")
+library("writexl")
+library("lme4")
+library("bucky")
+library("scales")
+library("stargazer")
+library("rstatix")
+library("brglm")
+library("margins")
+library("IRdisplay")
+library("texreg")
+library("cowplot")
+library("mice")
+library("miceadds")
+library("bookdown")
+library("sandwich")
+library("mitools")
+library("modelsummary")
+library("sf")
+library("tidycensus")
+```
+\newpage
+
+# When the Pen Becomes A Sword
+\doublespace
+In May of 1959, retired General of the Army Omar Bradley gave an address on the occasion of Armed Forces Day in New Canaan, Connecticut. During the address, the retired five-star General, who 15 years earlier played a significant role in the Allied invasion at Normandy and in the subsequent campaigns in Europe to defeat Hitler's forces, stated, "I am convinced that the best service a retired general can perform is to turn in his tongue along with his suit and mothball his opinions" [Omar Bradley in @times_bradley_1959]. Bradley's comments were in response to his former British colleague and fellow hero, retired British Field Marshall Viscount Bernard Montgomery, who just days earlier had publicly criticized the leadership of U.S. President Dwight Eisenhower, also a retired five star general and previous boss of both Montgomery and Bradley [@times_bradley_1959]. 
+
+By admonishing Montgomery, Bradley seems to convey the idea that it simply is not wise for a popular military figure to weigh in on contemporary political issues. Though he certainly does not mention or allude explicitly to the existence of any central principles of civil-military relations in defending his reasoning, it is clear that Bradley has concern for the ways in which retired officers --- especially those with high rank --- possess the potential to influence politics by what they say. Bradley went on to state, in fact, that, "It is not my purpose to contest the right of anyone -- even a retired officer -- to speak what he chooses. But when he presumes to speak with an authority which derives from his retired rank, he should exercise a sensible degree of circumspection and be discreet in the choice of causes to which he lends his name" [Bradley in @times_bradley_1959].
+
+Sixty-one years later, in the Summer of 2020, a remarkable turn of domestic events in the United States sparked a flurry of retired military officers who spoke out publicly, and in a manner that runs antithetical to the spirit of Bradley's advice. This occurred during a very tough domestic period for the United States. After a Minneapolis Police officer killed an unarmed black man named George Floyd, and after the controversial arrest that led to Floyd's death was caught on camera and played for several nights in a row by major media outlets, protests erupted, particularly in major cities. The nation was already on edge after the Coronavirus had, several months prior, disrupted the normal routines such as school and work for Americans. 
+
+It was in this difficult environment that the military soon found itself at or near the center of the public's attention [@feaver_military_2020]. To begin with, the Secretary of Defense, Mark Esper, and the Chairman of the Joint Chiefs of Staff, General Mark Milley, appeared in controversial photos in the press after they had been summoned to the White House in early June. These photos sparked controversy because they were as President Trump walked to St. John's Church for a photo shoot right after security forces had displaced throngs of protesters Lafayette Square, which neighbors the White House.^[According to Esper, neither he nor Milley knew about the plan to walk to the church, nor about the photo shoot that occurred there.  They were both, according to Esper, under the impression that they would merely walk into Lafayette Square themselves to check on the status of the protests that had been occurring.  See @macias_pentagon_2020 for more.] The images of the Secretary of Defense and the Chairman of the Joint Chiefs of Staff on the White House lawn, at a time when the use of military forces was being raised as a potential option to quell riots, distraught many Americans as the nation writ large was grappling with the broader issue of race in America. Within just a few days, Secretary of Defense Esper then publicly disagreed with the possibility of President Trump invoking the Insurrection Act of 1807, which in fact might have led to the use of active-duty military forces to quell the domestic riots that were occurring [@esper_secretary_2020]. General Milley himself then apologized during a virtual graduation address at the National Defense University, telling those graduating senior military officers that he "should not have been there," and that his actions had "created a perception of the military involved in domestic politics" [@milley_official_2020].
+
+The confluence of these events seemed to turn on a spigot of public opinion commentary by several high-ranking retired military officers, so much so that some civil-military relations scholars concluded that the events of the Summer of 2020 marked "the most intense division between a president and retired officers in a generation" [@brooks_let_2020]. However, there was also discernible variation in the tone and tenor of the remarks these officers made. To be sure, each expressed a deep concern about the prospect of active-duty forces confronting peaceful protesters in the US, thus violating protections held by the First Amendment of the US Constitution [@brooks_dismay_2020; @dempsey_former_2020]. But some officers went much further than others in their criticisms, leveling direct insults at President Trump, including his fitness to lead [@goldberg_james_2020], his administration's broader policies on race in America [@allen_moment_2020], and his overall leadership abilities during a time of crisis [@mullen_i_2020]. 
+
+In the weeks and months that followed, several other retired and even active-duty military officers engaged in similar behavior that certainly challenged, and perhaps violated, one or more of the central principles of civil-military relations. For instance, a group of junior Army officers, all of whom were recent graduates of West Point who finished at or near the top of their respective classes, wrote a lengthy treatise calling for West Point to acknowledge its culture of "whiteness", to adopt a host of "anti-racist" measures, and to explicitly state that "Black Lives Matter" [@askew_anti-racist_2020]. Another example included a pair of retired Army lieutenant colonels, both of whom who were somewhat known within defense circles for helping the military revise the military's counter-insurgency doctrine more than a decade earlier when the military was heavily engaged in Iraq and Afghanistan, who penned an open letter to the Chairman of the Joint Chiefs of Staff to prepare to remove the President from office after the upcoming 2020 Election by force if necessary [@nagl__2020]. Indeed, throughout the Summer of 2020 and well into the fall ahead of the 2020 Presidential Election, much of the public commentary published in major media outlets and authored by military actors seemed to openly challenge the President of the United States and one or more of his policy stances. 
+
+This chapter therefore explores systematically the degree to which the specific political activity of writing public commentary by military actors has adhered to the central principles of civil-military relations. The answer to this question can certainly help us put in perspective the activities outlined above. Was 2020 simply an anomaly? Have there been other periods like 2020 before in terms of what retired military officers said publicly? 
+
+But in addition to answering these important questions, the analysis undertaken in this chapter also helps inform the broader purpose of this book, which is to determine what factors, if any, drive the degree to which military and civilian actors behave in ways that violate the central principles of civil-military relations. Using advanced statistical methods to explore public commentary written by military actors over a period of _four decades_, this chapter argues that rising political polarization is in fact moderately associated with an increase in the frequency with which military actors violate the central principles of civil-military relations through the opinion pieces they publish. In other words, this chapter will show that as the level of polarization has risen in America, so too has the frequency with which military actors have published opinion pieces in major media outlets that have violated the principles of civilian control of the military, non-partisanship of the military institution, and non-interference of the military, also risen. Furthermore, this chapter claims that there is moderate evidence to support the notion that at the root of heightened polarization in a domestic society, there exists contestation over issues in the political square that directly involve _the Image of God_ and its application in politics. These are important takeaways that provide evidence for the book's broad argument. 
+
+The chapter proceeds in three parts. First, I explaining the methodology employed and the data examined in this chapter. The chapter then presents an analysis and an interpretation of the data examined. The chapter concludes by addressing alternative viewpoints before setting up chapter four, which turns to an analysis of a political behavior involving the military undertaken not by military actors, but by civilians.  
+
+## Methodology
+
+This chapter helps to evaluate the first two hypotheses presented in the previous chapter (H1 and H2). It does so by disentangling the relative influence, if any, of the levels of polarization and military prestige on a specific type of political behavior --- authoring opinion commentary --- available to military actors. The general methodology employed in this chapter is to examine all of the available cases of military actors authoring opinion commentary over a finite period of time, determine those instances that constitute violations of the central principles of civil-military relations, and finally, to control for all other relevant variables that change during the examined time period. 
+
+The time range of the data explored spans from 1979-2020. Over this period, the level of military prestige changes from one that was relatively low to high. Consider for instance that in 1979, only 54% of Americans surveyed expressed either a "great deal" or "quite a lot" of trust in the nation's military, and in 2020, 72% of those surveyed expressed the same notion [@noauthor_confidence_2020]. Public opinion data on this question dates as far back as 1975, just a couple of years after the end of the Vietnam War. The lowest and highest percentage of the American population expressing these levels of confidence in the nation's military across the data are 50% (1981) and 85% (February of 1991)[@noauthor_confidence_2020].^[1991 is the only year in which two data points are given. The level of confidence dropped to 69% by October of the same year, suggesting that the February data point captured an effect related to the Gulf War, which ended in early 1991.] 
+
+On the other hand, the level of polarization in the US House of Representatives, which is routinely measured by examining roll-call voting patterns of members of Congress and then organized by the two major US political parties, also generally rose over the same timeframe. In 1979, the scaled value (using DW-NOMINATE scores) of polarization in the US House of Representatives was roughly 59.6, whereas in 2020, the same value was roughly 87.3, the highest on record in our nation's history [@jeffrey_b_lewis_voteview_2020]. The levels of trust in the military and polarization in the US House of Representatives from 1979 - 2020 are displayed in Figure \@ref(fig:polar-trust-oped). Because both of the independent variables examined in this study change during the time period examined in this paper (and in the same direction!), and because the theory predicts that military actors will increasingly violate the central principles of civil-military relations as both variables increase, a systematic investigation of the data will help disentangle the relative impacts of both the levels of polarization and military prestige on opinion commentary written by military actors. 
+
+```{r trust-ch3-prep, include=FALSE, warning=FALSE, echo=FALSE}
+
+df_trust_polar_ch3 <- read_csv("../shareddata/polar-inst-trust-time.csv")
+
+df_trust_polar_ch3 <- df_trust_polar_ch3 %>% select(-Congress) %>% filter(Year<=2020) %>% 
+  mutate(
+    house_polar_dim1 = house_polar_dim1 *100,
+    sen_polar_dim1 = sen_polar_dim1 *100,
+    ) %>% pivot_longer(Military:house_polar_dim1, names_to = "value", values_to = "Score") %>% distinct() %>% na.omit() 
+```
+
+```{r polar-trust-oped, include=T, echo=F, warning=FALSE, message=F, fig.height=4, fig.width=6, fig.cap = "Public Trust (L) and Polarization (R), 1979-2020" }
+
+# Note: this is the first of many adjusted graphs from my dissertation. 
+# These changes mainly transform any colored graphs into a black and white graph. 
+# Here, note that instead of calling the function "color" within aes(), I call "linetype".  
+# This is the main difference in this graph versus the dissertation chapter 3 graph. 
+
+df_trust_polar_ch3 %>%  ggplot(aes(x = Year, y = Score, linetype = value)) +
+  geom_line() +   
+  geom_point(size = 0.7) +   
+  labs(x = "Year", y = "Trust in Institutions") +
+  scale_linetype_manual(values = c("Military" = "solid", "house_polar_dim1" = "dashed"), name="Trust;\nPolarization",
+                         breaks=c("Military",  "house_polar_dim1"),
+                         labels=c("Trust In\nMilitary","US House\nPolarization")) + 
+  scale_y_continuous(sec.axis = sec_axis(~., name = "Polarization (Scaled)")) + 
+theme(legend.position = "bottom")
+
+```
+
+
+### Why Explore Opinion Commentary Authored by Retired Military Officers? 
+
+We should stop to consider why an examination of the specific behavior of written opinion commentary authored by retired military officers is of value. For starters, recall from the previous chapter that the political behaviors available to military actors exist along a spectrum that ranges in severity. Authoring opinion commentary authored by military actors is a type of political behavior that does not necessarily violate _any_ of the central principles of civil-military relations. This is different from other political behaviors available to military actors, such as explicit insubordination and endorsing political candidates at political conventions (a form of politicking). These behaviors in particular almost always violate one of the central principles of civil-military relations. To know if opinion commentary authored by retired military officers actually violates the principles of civil-military relations, we need to know more details about the commentary. What does it say? What message does it convey? Does the _content_ of the opinion piece uphold the principles of civil-military relations? 
+
+Written opinion commentary contains two intrinsic advantages from a research perspective compared to other forms of commentary, such as television or radio interviews, or even pieces published on personal social-media accounts. The first advantage is that written opinion pieces, especially those intended for publication in a major newspaper, are deliberately intended for consumption by a wide public audience. While social media postings and television or radio interviews may certainly end up in the public eye and perhaps even reach a wider audience than newspaper articles, there is nonetheless a qualitative difference between commentary published in a major newspaper versus through other outlets in that the author must craft a deliberate and intentional message --- often in the form of an argument, or a stance --- that addresses a particular topic or issue. Unlike posting to personal social media accounts, where the author can in some cases publish instantly and without any external review, publishing an op-ed in a major newspaper can be a very competitive process. Indeed, it is not uncommon to see opinion pieces in the most prominent of major US newspapers published by heads of state, members of Congress, and leaders of industry and academia. 
+
+Thus, a second advantage of examining written opinion editorials versus other types of opinion commentary is that the author's intent is likely to be more-clearly discernible compared to other forms of commentary. While television and radio interviews certainly offer glimpses into the personalities of whomever is speaking, and while social media posts likely do the same, television interviews and social media posts are also avenues that may increase the chance that a retired officer either misspeaks, or is later misquoted out of context.^[For this reason, I do not include examining published interviews with retired military officers, nor short forms of analysis, such as the "Monkey Cage" featured in _The Washington Post_ (retired and active military officers are featured in or author "Monkey Cage" analysis somewhat regularly.] A written op-ed or letter to the editor, on the other hand, must be carefully crafted, from start to finish, to convey an argument that is intended to persuade the reader. For these reasons, it is far less likely that a reader of an op-ed would misunderstand the author's intended message, or take such a message out of context. 
+
+We also should think through why it is worth focusing on retired versus active military officers in this chapter. I claim that there are several related reasons, all of which enable the researcher to better investigate this particular political behavior undertaken by military actors. First, retired military officers are _far more likely_ to publish opinion commentary than active-duty military officers. This claim cannot be supported empirically, but logically, it would seem that many active-duty military officers are deterred to a greater extent than retirees from publishing opinion pieces. This claim flows from the fact that while there are no express prohibitions that prevent active-duty service members from publishing opinion pieces altogether, active-duty military nonetheless face greater scrutiny when doing so than retired military personnel.^[For example, Department of Defense Directive 1344.10 (February 2008) indicates that while active duty members of the Armed Forces may "write a letter to the editor of a newspaper expressing the member's personal views on public issues or political candidates" so long as "the letter clearly states the views expressed are those of the individual only and not those of the Department of Defense," the same directive also expressly prohibits active service members from "allowing or causing to be published partisan political articles, letters, or endorsements signed or written by the member that solicits votes for or against a partisan political party, candidate, or cause." Retired officers do not face the same restrictions. See @department_of_defense_political_2008 for more.] Therefore, because retired military officers are more likely to publish opinion commentary than their active-duty counterparts, there is likely far greater variance in the content and tone of the opinion commentary that these retired military actors generate when published. 
+
+The above claim about greater variance in the pieces that are published is underscored even more, in my view, when we consider the variety in age and experience of retired military actors compared to active-duty military actors at any given snapshot in time. To see this, consider that active-duty senior military officers at any given point in time are generally those between 30 and 40 years of military service,  and who vary roughly within 10 years of age from each other (depending on how old they were when they joined the military, or became an officer). On the other hand, the retired senior military officer community at any point in time includes those who had very recently retired, but also those who may have retired two or even three (or more, depending on how old they are now) decades previously. My point here is that while the active and retired military actors communities served in the same profession, they did so at different points in time. Whereas active-duty military officers possess recent experience while serving under one or two different presidential administrations and former defense secretaries, the pool of retired senior military officers may have served for many more, perhaps five or six presidents and defense secretaries. Thus, retired senior military likely hold a wider palette of professional perspectives that are informed by different military experiences compared to the current active-duty senior military officers. 
+
+Simultaneously, we need to keep in mind that the words spoken by retired military officers, and especially those who reached the most senior in ranks, still carry significant weight. In fact, the conventional wisdom is that retired military officers, especially retired generals and admirals, speak for the institution, or are certainly perceived to do so, even in retirement. The historian Richard Kohn once remarked, for instance, that "retired general and flag officers are analogous to the cardinals of the Roman Catholic Church" [Richard Kohn as cited in @owens_rumsfeld_2006, 70]. 
+
+### The Data
+
+The data consist of all op-eds or letters to the editor (391) whose authors identify as retired or former military officers and published between 1979 - 2020 in a total of five major US newspapers: _The Wall Street Journal_ (WSJ), _The New York Times_ (NYT), _The Washington Post_ (WaPo), _The Los Angeles Times_, and _The USA Today_. With the exception of _The USA Today_, all of the newspapers have long and established histories (the _USA Today_ began in 1982 [@noauthor_about_nodate]). Furthermore, three of the five newspapers in particular -- the _The Wall Street Journal_ (WSJ), _The New York Times_ (NYT), and _The Washington Post_ (WaPo) -- are likely the most circulated among the defense and national security communities, as they are located in New York City and Washington D.C., respectively, where a significant number of prominent think tanks, international organizations, and the Pentagon are based. Thus, these newspapers together constitute both a fairly wide and likely "net" into which retired senior military actors may seek to publish their viewpoints. 
+
+To obtain the observations, I use a series of key-word searches in several different online databases.^[These include Factiva, Lexus-Uni, and ProQuest Historical Newspapers.] These searches look for words that would appear in the article byline describing the author of the piece, such as "retired military officer," "former General," "former Admiral," etc.^[Please see this paper's Appendix for the exact search parameters used to collect the data. So far as I know, this data constitutes the entirety of opinion commentary published in these newspaper sources over the time period examined. The data were assembled by the author from 2019-2021.] In some instances, especially when the same retired military officer authored or co-authored multiple publications within the data, the officer did not in every case refer to himself or herself as a retired military officer.^[This occurred especially when an officer had been appointed to a high-level government civilian position. For example, Army General Barry McCaffrey served as President Clinton's Director of the Office of National Drug Control Policy after retiring from the Army. However, because members of the public might recognize authors such as McCaffrey as a prominent retired military figure, and not only as a governmental appointee, I include in the data pieces authored by those officers who were serving in a civilian government role at the time an opinion piece was authored.] In these instances, I simply institute a control for whether the author self-identifies as a retired military officer in the publication.^[Overall, there were two main challenges in collecting the data. The first was that not all retired military officers clearly identify themselves as such. For instance, some op-eds introduced authors not by their rank, but by the organizational position that the author formerly held, such as "Former Commander of US Central Command." In many cases, this required further investigation of a biographical nature to conclusively determine whether the author was in fact a retired military officer. The second challenge was that each of the databases used to collect the data organizes and classifies historical newspaper articles somewhat differently. Some databases include editorials as a stand-alone source type to search for, making the acquisition of data easier. Other databases did not, which resulted in completing a more exhaustive search of a much larger set of potential articles to sift through. Of note, I include in the data both opinion articles and letters to the editor regardless of whether these were published in print or online, but count identical articles published in both mediums only once, even if the online and print versions contain somewhat different titles (sometimes they do).]
+
+During the statistical analysis, I also incorporate measurements of polarization, military prestige, and military casualties. Data on polarization comes primarily from DW-NOMINATE (dynamic-weight, nominal three step estimation) scores, which use roll-call voting data to assign members of Congress a score on the liberal-conservative dimension, ranging from -1 (extremely liberal) to 1 (extremely conservative) [@jeffrey_b_lewis_voteview_2020]. I also include a measurement of affective polarization, which relies mainly on "feeling-thermometer" scores as measured during the American National Election Study (ANES). This measure gauges how partisans who identify with one political party generally feel about the other political party [@iyengar_affect_2012; @iyengar_strengthening_2018; @iyengar_origins_2019]. I rely on public opinion data measuring trust in the US military as a proxy for military prestige. This measure comes from Gallup public opinion data that captures the level of trust that the public places in various institutions in America, such as the Presidency, Congress, Church, and the Police [@noauthor_confidence_2020]. Finally, I rely on data regarding the level of casualties sustained by the US military in a given calendar year, which comes from a variety of Department of Defense sources.^[See @department_of_defense_dcas_2011; @department_of_defense_dcas_2021; @department_of_defense_dcas_2021-1; @department_of_defense_dcas_2021-2; @department_of_defense_dcas_2021-3; @department_of_defense_dcas_2021-4; @department_of_defense_dcas_2021-5; @department_of_defense_dmdc_2021 for more details.]
+
+After presenting the data and summary statistics, the analysis proceeds in two major steps. The first analyzes the general topics which retired military officers are addressing in their publications. This helps answer the question, "what are retired military officers writing about?" The second step of the analysis determines whether and why any variation exists in the frequency with which particular opinion pieces violate one or more of the central principles of civil-military relations. This helps answer the more central question of this chapter, which is, "is polarization associated with the degree to which military actors are violating the central principles of civil-military relations?"
+
+```{r introduction, include = FALSE}
+
+# Read in the Data
+
+dataset <- read_csv("../shareddata/ch3MilEditorialsfinal.csv")
+# Only read in the first 391 rows - row 392 is full of N/A data?
+dataset %>% summary()
+
+# Replace NA with 0 in the data for variables letter_ed to online_only, and leg_act #to role
+adjdataset <- dataset[1:391,] %>%
+  mutate_at(
+    .vars = vars(letter_ed:online_only, Leg_Act:Role),
+    .funs = ~ case_when(is.na(.) ~0, TRUE ~ 1)
+) %>% mutate(
+    PubYr = lubridate::year(PubDate),
+    HostCasRate=case_when(
+      PubYr==1979~0,
+      PubYr==1981~0,
+      PubYr==1982~.094669,
+      PubYr==1983~13.23,
+      PubYr==1984~.327356,
+      PubYr==1985~.2325,
+      PubYr==1986~.0918,
+      PubYr==1987~1.8,
+      PubYr==1988~.8012,
+      PubYr==1989~1.0889,
+      PubYr==1990~.04885,
+      PubYr==1991~7.5619,
+      PubYr==1992~.056369,
+      PubYr==1993~1.731,
+      PubYr==1994~0,
+      PubYr==1995~.4659,
+      PubYr==1996~1.3733,
+      PubYr==1997~0,
+      PubYr==1998~.21722,
+      PubYr==1999~0,
+      PubYr==2000~1.2387,
+      PubYr==2001~4.188,
+      PubYr==2002~1.204648526,
+      PubYr==2003~21.92014883,
+      PubYr==2004~52.08012261,
+      PubYr==2005~53.62790218,
+      PubYr==2006~56.06864727,
+      PubYr==2007~61.97806503,
+      PubYr==2008~25.10292556,
+      PubYr==2009~24.33760906,
+      PubYr==2010~31.86616212,
+      PubYr==2011~31.313254,
+      PubYr==2012~21.49178707,
+      PubYr==2013~8.67877259,
+      PubYr==2014~4.034406012,
+      PubYr==2015~1.750460447,
+      PubYr==2016~1.229532132,
+      PubYr==2017~1.76745244,
+      PubYr==2018~1.075840616,
+      PubYr==2019~1.799775028,
+      PubYr==2020~1.121495327,),
+    HostCasRateLagged=case_when(
+      PubYr==1979~0,
+      PubYr==1981~0.438862,
+      PubYr==1982~0,
+      PubYr==1983~.094669,
+      PubYr==1984~13.23,
+      PubYr==1985~.327356,
+      PubYr==1986~.2325,
+      PubYr==1987~.0918,
+      PubYr==1988~1.8,
+      PubYr==1989~.8012,
+      PubYr==1990~1.0889,
+      PubYr==1991~.04885,
+      PubYr==1992~7.5619,
+      PubYr==1993~.056369,
+      PubYr==1994~1.731,
+      PubYr==1995~0,
+      PubYr==1996~.4659,
+      PubYr==1997~1.3733,
+      PubYr==1998~0,
+      PubYr==1999~.21722,
+      PubYr==2000~0,
+      PubYr==2001~1.2387,
+      PubYr==2002~4.188,
+      PubYr==2003~1.204648526,
+      PubYr==2004~21.92014883,
+      PubYr==2005~52.08012261,
+      PubYr==2006~53.62790218,
+      PubYr==2007~56.06864727,
+      PubYr==2008~61.97806503,
+      PubYr==2009~25.10292556,
+      PubYr==2010~24.33760906,
+      PubYr==2011~31.86616212,
+      PubYr==2012~31.313254,
+      PubYr==2013~21.49178707,
+      PubYr==2014~8.67877259,
+      PubYr==2015~4.034406012,
+      PubYr==2016~1.750460447,
+      PubYr==2017~1.229532132,
+      PubYr==2018~1.76745244,
+      PubYr==2019~1.075840616,
+      PubYr==2020~1.799775028,
+      PubYr==2020~1.121495327,)
+) %>% print()
+
+summary(adjdataset)
+names(adjdataset) 
+
+# count the number of observations by type of binary variable and store as new dataframe
+countbytype  <- adjdataset %>% mutate(
+    Topic=case_when(
+      Topic=="Support" ~ "Support",
+      Topic=="Warfighting" ~ "Warfighting/Operations",
+      Topic=="ForeignPolicy" ~ "Foreign Policy",
+      Topic=="BdgtWpnsTrps" ~ "Budget, Weapons, Troops",
+      Topic=="DomesticPolicy" ~ "Domestic Policy",
+      Topic=="CivMilBalance" ~ "Civil-Military Relations",
+      Topic=="ServiceCulture" ~ "Service Culture",
+      Topic=="SocialPolicy" ~ "Social Policy"
+    )
+  ) %>% count(Topic)
+
+# count the number of observations by source
+countbysource <- adjdataset %>% 
+  count(Source) %>% print()
+
+#count the number of times each source occurs in the data
+WSJcount <- adjdataset %>% count(Source=="WSJ") %>% print()
+NYTcount <- adjdataset %>% count(Source=="NYT") %>% print()
+WaPOcount <- adjdataset %>% count(Source=="WaPO") %>% print()
+USATodaycount <- adjdataset %>% count(Source=="USA Today") %>% print()
+LATimescount <- adjdataset %>% count(Source=="LA Times") %>% print()
+
+# Create a new variable called Yrcount, which is a count of the yearly number of published op-eds
+
+adjdataset <- adjdataset %>% 
+  group_by(PubYr) %>% 
+  mutate(Yrcount=n()) %>% 
+  print()
+
+
+# number of authors and author teams
+adjdataset %>% 
+  group_by(Author) %>% 
+  count() %>% 
+  print()
+```
+
+## Analysis
+
+The data set includes a total of 391 observations written by a total of 217 distinctly different authors or author teams. Eight of these observations were written by anonymous authors. Included in the data also are cases in which at least one retired military officer co-authored a piece with one or more civilian authors.^[There are several co-authored pieces. For example, where General (Retired) David Petraeus wrote one publication and another one was written by General (Retired) David Petraeus and Michael O'Hanlon, I count these as two different authors for coding purposes.] There are also several authors who penned multiple observations. The most prolific of these officers include Retired Army Lieutenant General William Odom (22 publications in total), Retired Air Force General Michael Hayden (20 publications in total), and Retired Marine Lieutenant Colonel Robert McFarlane, who later served as President Reagan's National Security Adviser (18 publications). 
+
+### Summary Statistics
+```{r, include=FALSE, echo=FALSE}
+# show summary stats for yearly count, rank, and then a breakdown according to source
+# yearly count
+yearstats <- adjdataset %>% 
+  select(PubYr, Yrcount) %>% 
+  distinct(PubYr, Yrcount) %>% 
+  print ()
+
+
+# create an observation for 1980 to handle the year in which there were/are no observations in 1980
+Obs_1980 <- data.frame(1980, 0)      
+#Naming the missing Data Frame - Step 2  
+names(Obs_1980) <- c("PubYr", "Yrcount")  
+#Using rbind() function to insert above observation  
+yearstats <- rbind(yearstats, Obs_1980)
+
+
+summary(yearstats)
+sd(yearstats$Yrcount)
+var(yearstats$Yrcount)
+
+#rank
+rankstats <- adjdataset %>% 
+  filter(AuthRank <=10) %>% 
+  select(Author, AuthRank) %>% print()
+
+summary(rankstats)
+sd(rankstats$AuthRank)
+var(rankstats$AuthRank)
+
+#sex
+adjdataset %>% group_by(AuthSex) %>% count()
+
+#service
+adjdataset %>% group_by(Service) %>% count()
+
+Descriptive_Stats <- tribble(
+  ~Variable, ~Min, ~Max, ~Mean, ~SD, ~N, 
+  'Author Rank', 4, 10, 8.36, 1.95, 391,
+  'Number of Yearly Publications', 0, 27, 9.31, 6.93, 391)
+
+Sex_Stats <- tribble(~Breakdown, ~Observations, ~Percentage,
+   'Male Authors', 375, 95.9,
+  'Female Authors', 3, .8,
+  'Mixed  Authorship', 5, 1.3,
+  'Sex Unknown', 8, 2,)
+  
+Service_Stats <- tribble(~Breakdown, ~Observations, ~Percentage,
+  'Army', 206, 52.7,
+  'Navy',  56, 14.3,
+  'Marine Corps', 47, 12.0,
+  'Air Force', 63, 16.1,
+  'Coast Guard',3,.8,
+  'Mixed Service Authorship', 16, 4.1)
+  
+
+ rankdistrib <- adjdataset %>% group_by(AuthRank) %>% count()
+ rankdistrib_scaled <- rankdistrib %>% 
+   mutate(
+     Rank=case_when(
+       AuthRank== 4 ~ "4: Major/Lieutenant Commander",
+       AuthRank== 5 ~ "5: Lieutenant Colonel/Commander",
+       AuthRank ==6 ~ "6: Colonel/Captain",
+       AuthRank ==7 ~ "7: Brigadier General/Rear Admiral (Lower Half)",
+       AuthRank == 8 ~ "8: Major General/Rear Admiral (Upper Half)",
+       AuthRank ==9 ~ "9: Lieutenant General/Vice Admiral",
+       AuthRank == 10 ~ "10: General/Admiral",
+       AuthRank == 11 ~ "Unknown"
+     ), 
+     Rank=fct_relevel(Rank, "4: Major/Lieutenant Commander", "5: Lieutenant Colonel/Commander", "6: Colonel/Captain", "7: Brigadier General/Rear Admiral (Lower Half)", "8: Major General/Rear Admiral (Upper Half)", "9: Lieutenant General/Vice Admiral", "10: General/Admiral", "Unknown")
+   )
+ 
+ 
+
+```
+
+In addition to recording the date and source of each publication, I record and include several pieces of biographical information about each author. This includes the branch of military service of the author, the rank achieved by the author during his or her time in service, and the sex of the author. Summary statistics for the variables of author rank and the annual count of publications are displayed in Table \@ref(tab:desc-stats). The variable for author rank is coded equivalently to the officer's military pay grade.^[For example, a rank of "10" means the officer achieved the pay grade of O-10, or four star general or admiral, the highest rank that an officer can achieve in the contemporary military. A rank value of "7" denotes a one star general or admiral. A rank of "4" corresponds to a pay grade of O-4, which in the Army, Air Force, and Marine Corps, refers to the rank of Major. In the Navy and Coast Guard, a pay grade of O-4 refers to the rank of Lieutenant Commander. A rank of 5 in the Army, Air Force, and Marine Corps refers to a Lieutenant Colonel, whereas in the Navy and Coast Guard, a rank of "5" denotes a Commander. A rank of "6" in the Army, Air Force, and Marine Corps refers to a Colonel, whereas in the Navy and Coast Guard, a rank of 6 corresponds to the rank of Captain.] The ranks of retired military officers in the data set range from an O-4 (Major or Lieutenant Commander) to O-10 (four star general or admiral), and the range of annual number of publications spans from 0 to 27 (In 1980 only, there were 0 publications). 
+```{r desc-stats, echo=FALSE, include=TRUE, warning=FALSE, error=FALSE}
+T1 <- kable(Descriptive_Stats, 
+            format = 'simple', 
+            booktabs = TRUE, 
+            caption = "Descriptive Statistics for Author Rank and Yearly Number of Publications Breakdown of Observations by Author Sex and Service Affiliation",
+            align = c('l', 'c', 'c', 'c'),
+            digits = 2)
+
+T1
+```
+
+Table \@ref(tab:sex-stats) and Table \@ref(tab:service-stats) show the breakdown of observations by author sex and service affiliation, respectively. Mixed Authorship in Table \@ref(tab:sex-stats) refers to publications that were authored by a mixture of male and female authors, whereas Mixed Service authorship in Table \@ref(tab:service-stats) denotes publications that were authored by a team that had served in multiple service branches (for example, a retired Colonel who had served in the Air Force and a retired Admiral who had served in the Navy write an op-ed together). 
+```{r sex-stats, echo=FALSE, include=TRUE, warning=FALSE, error=FALSE}
+T2 <- kable(Sex_Stats, 
+            format = 'simple', 
+            booktabs = TRUE, 
+            caption = "Breakdown of Observations by Author Sex",
+            align = c('l', 'c', 'c', 'c'),
+            digits = 2)
+
+T2
+```
+
+In terms of the sex of the author, male authors comprise the bulk of the sample (95.9%). Because the sample includes publications dating back to 1979-2020, a probable reason for this is the difference in sex and gender at the highest ranks of service --- a feature that will likely change in the future as the restrictions on women serving in combat occupational specialties have been removed, and as women increasingly advance to senior ranks and positions. 
+
+Additionally, retired military officers who served in the Army comprise the largest segment (52.7%) of authors in the sample, as Table \@ref(tab:service-stats) shows. Authors who served in the Navy and Air Force comprised 14.3% and 16.1% of the sample, respectively. Representation from authors who served in the Marine Corps (12%) and Coast Guard (.8%) round out the sample. There is little theoretical importance of including the service breakdown except to initially observe whether any obvious disparities appear.^[If such a disparity were to exist, such as 90% of the authors are Air Force veterans, we would have to examine whether there is something unique about service in the Air Force that drives veterans of that particular service to write op-eds in major newspapers.] 
+
+These percentages somewhat correspond to the relative size of each service in comprising the active duty military. In 2018, for instance, the Army comprised 35% of the active duty force; the Navy, 24%; the Air Force, 24%, the Marine Corps, 14%, and the Coast Guard, 3% [@noauthor_demographics_2020]. But it is difficult to state with certainty that Army authors are over-represented in the sample, and that Coast Guard officers are underrepresented, mainly because the relative sizes of the military services change over time. Particularly when large land wars are fought, such as during Vietnam and the Gulf War, the Army tends to grow. 
+
+```{r service-stats, echo=FALSE, include=TRUE, warning=FALSE, error=FALSE}
+T3 <- kable(Service_Stats, 
+            format = 'simple', 
+            booktabs = TRUE, 
+            caption = "Breakdown of Observations by Author Service Affiliation",
+            align = c('l', 'c', 'c', 'c'),
+            digits = 2)
+
+T3
+```
+
+
+Figure \@ref(fig:rank-pubs) displays the distribution of publications by author rank. The plot shows that publications tend to be authored by those of a higher rank --- 185 of the 391 publications (47.3%) were authored by retired four star generals or admirals. Additionally, 277 of the total 391 publications (70.8%) were authored by generals or admirals (one-, two-, three-, or four-star flag officers). The fact that high ranking officers tend to publish in the newspapers examined is unsurprising and confirms the competitive nature of publishing an opinion piece in one of the premier newspapers in the nation. At the same time, there are enough authors who are not retired generals or admirals (29.2%) to show that those who do not attain the highest ranks still have a respectable opportunity to publish their views in the examined sources. 
+
+```{r rank-pubs, include=TRUE, echo=FALSE, warning=FALSE, fig.cap="Opinion Pieces authored by Retired Military Officers Broken Down by Author Rank, 1979-2020", fig.height=4.5, fig.width=6}
+colplot1 <- ggplot(data=rankdistrib_scaled, aes(x=Rank, y=n)) + labs(x="Author Pay Grade / Rank", y="Number of Publications") + geom_col() + geom_text(aes(label=n), position=position_dodge(width=.9), vjust=-.25)+ theme(axis.text.x = element_text(angle=90)) + scale_x_discrete(labels=wrap_format(18))
+
+colplot1
+
+```
+
+The distribution of the data according to newspaper source is displayed in Figure \@ref(fig:source-pubs). The data shows that the overwhelming number (380, or 97.2%) of opinion publications were authored by retired military officers in the _New York Times_, _Washington Post_, or _Wall Street Journal._ Only 11 of the 391 publications (2.8%) were authored in either the _USA Today_ or the _Los Angeles Times_.  This is not surprising. Not only are the former three newspapers among the most prestigious and most circulated across the world, but they are based in the nation's capital and New York City, where think tanks, international organizations, and government offices are highly concentrated.
+
+```{r source-pubs, include=TRUE, echo=FALSE, warning=FALSE, fig.cap= "Opinion Pieces Authored by Retired Military Officers Broken Down by Newspaper Source, 1979-2020", fig.width=4, fig.height=3.1}
+
+colplot2 <- ggplot(data=countbysource, aes(x=Source, y=n)) + labs(x="Source", y="Number of Publications") + geom_col() + geom_text(aes(label=n), position=position_dodge(width=.9), vjust=-.25) + expand_limits(y=160)
+
+colplot2
+
+```
+
+Finally, Figure \@ref(fig:year-count) displays the annual count of publications authored by retired military officers across the dataset. The smoothed trend line indicates that the average yearly count of publications rose steadily from 1979 until the early 2000s, at which time, a decline occurred until approximately 2008. From 2008 until the present day, the average yearly count of opinion publications rose heavily during the early years of the Obama Presidency before sharply falling. Retired military officers then resumed a high rate of opinion commentary publication during the Trump Administration.  
+
+```{r year-count, fig.align="center", warning=FALSE, error=FALSE, message=FALSE, include=TRUE, echo=FALSE, fig.cap="Annual Number of Op-Eds and/or Letters to the Editor Authored by Retired Military Officers and Published in Major US Newspapers (WSJ, NYT, WaPo, USA Today, LA Times), 1979-2020", fig.width=6, fig.height=4}
+  
+# construct a scatter plot with line and smoothing
+
+ggplot(data=yearstats, aes(x=PubYr, y=Yrcount)) + geom_point() + geom_line() + geom_smooth(method="loess", linetype="dashed", color="black") + labs(
+  x="Year", 
+  y="yearly count", 
+  caption="Note: Data as of 1 December 2020"
+  ) + scale_x_continuous(limits=c(1979, 2020)) + scale_y_continuous(limits=c(-7, 28)) + 
+geom_vline(xintercept = 1981, size=.2, colour="black") + 
+  geom_vline(xintercept=1989, size=.2, colour="black") + 
+  geom_vline(xintercept=1993, size=.2, colour="black") + geom_vline(xintercept=2001, size=.2, colour="tomato") + 
+  geom_vline(xintercept=2009, size=.2, colour="black") +
+  geom_vline(xintercept=2017, size=.2, colour="black") +
+  geom_text(aes(x=1981, label="Reagan",y=10), colour="black", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1989, label="Bush 41",y=15), colour="black", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1993, label="Clinton",y=20), colour="black", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2001, label="Bush 43",y=-2), colour="black", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2009, label="Obama",y=-2), colour="black", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2017, label="Trump",y=-2), colour="black", angle=90, vjust=1, text=element_text(size=9)) 
+  
+```
+
+Before proceeding, it is worth noting from a macro perspective the breadth of the events that have occurred during the past four decades that have impacted the military and the nation. In terms of external threats and wars, this period includes the final years of the Cold War against the Soviet Union (through 1991), the Gulf War in Iraq (1990-1991), operations in the Balkans (primarily 1993-1995), and the post-9/11 wars in Iraq (2003-present day) and Afghanistan (2001-2021), as well as a host of smaller but important military operations in Grenada (1983), Panama (1989), Somalia (1992-1993), and Haiti (1994-1995). 
+
+The military has also undergone significant social and institutional changes in the time period examined. For example, the late 1970s came just years after the US Government ended the draft (1973). The debates over the "Don't Ask, Don't Tell" policies, instituted in 1994 before being repealed in 2011, are also captured in the data set, along with numerous other social debates that have involved the military, including opening up combat arms branches to women (2014-2015) and debates over the inclusion of transgender troops. In short, the period from 1979-2020 has provided plentiful opportunities for retired military officers to share their thoughts with the public through written opinion commentary. 
+
+### What Are Retired Military Officers Writing About?
+
+The first step of the analysis involves determining what topics retired military officers have addressed. This requires classifying each of the observations by topic area. Because historical and contextual circumstances change over time, the possible range of topics should be broad enough to classify every observation yet narrow enough to generate meaningful comparison across both topics and time. I therefore develop a categorical variable for topic that can take one of eight possible values as shown in Table \@ref(tab:topic-scheme).^[Classifying each observation into one of the eight possible topics requires some judgement on the part of the researcher. Some observations address multiple topics. To assist in determining the primary topic addressed in each publication, I identified what I thought was the opinion piece's thesis statement, which helped answer the fundamental question, "what topic does the central argument address in this editorial?"]
+
+```{r topic-scheme, include=TRUE, echo=FALSE}
+topic_categories <- tribble(~Topic, ~Description, ~Examples,
+   'Foreign Policy','If the publication primarily addresses American Foreign Policy or overarching National Security Policy', 'A Disaster Puts Putin in a Bind, by William Odom; The Test Ban Solution, by John Shalikashvili',
+  'Warfighting and Operations', 'If the publication primarily addresses an ongoing conflict or a central aspect related to the ability of the military to fight and win on the battlefield', 'A Month in Macedonia Will Not Be Enough, by Wesley Clark; A Plan to Save Iraq from ISIS and Iran, by Jack Keane',
+  'Social Policy', 'If the publication primarily addresses questions or issues related to who should serve, and/or why', 'Banning Transgender Troops Only Hurts Us, by Mike Mullen; US Military Readiness Requires the Draft, by William Westmoreland',
+  'Domestic Policy', 'If the publication primarily addresses issues that do not have an immediate and direct impact on the military, or that describe the general operating atmosphere and political conditions in Washington D.C.', 'The Travel Ban Hurts American Spies - and America, by Michael Hayden; Our Republic is Under Attack from the President, by William McRaven',
+  'Budget/Weapons/Troops', 'If the publication primarily addresses issues such as defense budgets, a particular weapons system, or troop benefits/pay', 'Washington Tightwads are Creating a Hollow Military, by Gordon Sullivan; We Need More Troops, by Barry McCaffrey',
+  'Support', 'If the publication primarily makes general or specific calls of support for the military or for particular military or defense figures', 'In Defense of Donald Rumsfeld, by John Crosby and Thomas McInerney; From Forward Operating Base to Boardroom, by Stanley McChrystal',
+  'Civil-Military Relations', 'If the publication primarily addresses how military and civilians can better interact and relate to each other, or discusses how organizations and departments can be best structured to offer advice to civilian leaders, issues of strategy, etc.', 'Who Decides When We Go to War, by David Barno; Military Leaders Do Not Belong at Political Conventions, by Martin Dempsey',
+  'Service Culture', 'If the publication primarily addresses an ongoing issue - positive or negative - that is occurring within the military itself and that bears on the internal culture of the military', 'Yet Another Insult to Women, by Wayne Johnson; The Navys Blues, by David Evans',)
+
+
+  kable(topic_categories, booktabs=T, caption="Categorical Values of the Topic of Retired Military Officer Public Commentary") %>%
+  kable_styling(full_width = F, font_size=11, latex_options="striped") %>% 
+  column_spec(1, width="10.5em") %>% 
+  column_spec(2:3, width="16em") 
+```
+
+Table \@ref(tab:pub-subject) displays the breakdown of observations by topic category. The topics of _Warfighting and Operations_ and _Foreign policy_ account for a total of 230 of the 391 observations (58.8% of the total sample). The categories of _Support_, _Domestic Policy_, and _Budget/Weapons/Troops_ account for a total of 120 observations, or 30.7% of the sample. Finally, the topics of _Social Policy_, _Civil-military Relations_, and _Service Culture_ combined account for the remaining 41 observations, or 10.5% of the sample. 
+
+```{r pub-subject, fig.align="center", include=TRUE, echo=FALSE, warning=FALSE}
+countbytype %>%
+  kable(format="latex", caption="Publication Breakdown by Subject") %>%
+  kable_styling(latex_options = "striped", font_size=10) %>% 
+  row_spec(0, bold=T)
+```
+
+
+```{r topic-counts-props, include=FALSE, echo=FALSE}
+
+# I create several variables that count the number
+# and proportion of articles by topic type. 
+
+adjdataset <- adjdataset %>% group_by(PubYr) %>% 
+  mutate(
+    dom_pol_count=sum(Topic=="DomesticPolicy"),
+    dom_pol_prop=(dom_pol_count/Yrcount),
+    war_count=sum(Topic=="Warfighting"),
+    war_prop=(war_count/Yrcount), 
+    fp_count=sum(Topic=="ForeignPolicy"),
+    fp_prop=(fp_count/Yrcount),
+    soc_pol_count=sum(Topic=="SocialPolicy"),
+    soc_pol_prop=(soc_pol_count/Yrcount), 
+    bud_count=sum(Topic=="BdgtWpnsTrps"),
+    bud_prop=(bud_count/Yrcount),
+    spt_count=sum(Topic=="Support"),
+    spt_prop=(spt_count/Yrcount),
+    civ_mil_count=sum(Topic=="CivMilBalance"),
+    civ_mil_prop=(civ_mil_count/Yrcount),
+    svc_cul_count=sum(Topic=="ServiceCulture"),
+    svc_cul_prop=(svc_cul_count/Yrcount)
+  ) 
+
+
+# Prepare this data for graphing, below. 
+topic_graph_df <- adjdataset %>% 
+  select(PubYr, dom_pol_prop, war_prop, fp_prop, soc_pol_prop, bud_prop, spt_prop, civ_mil_prop, svc_cul_prop) %>% pivot_longer(dom_pol_prop:svc_cul_prop, names_to = "statistic", values_to = "Proportion") %>% distinct () %>% print()
+
+# graph for topics over time 
+topic_graph <- topic_graph_df %>% ggplot(aes(x=PubYr, y=Proportion, color=statistic)) + geom_smooth(se=FALSE) + labs(x="Year", y="Proportion of Commentary") + scale_color_discrete(name="Topic",
+                         breaks=c("bud_prop", "civ_mil_prop", "dom_pol_prop", "fp_prop", "soc_pol_prop", "spt_prop", "svc_cul_prop", "war_prop"), labels=c("Budget/Weapons/Troops", "Civil-Military Relations","Domestic Policy", "Foreign Policy","Social Policy", "Support", "Service Culture", "Warfighting")) + theme(legend.position="bottom") + geom_vline(xintercept = 1981, size=.2, colour="tomato")+
+  geom_vline(xintercept=1989, size=.2, colour="tomato") + 
+  geom_vline(xintercept=1993, size=.2, colour="dodgerblue") + geom_vline(xintercept=2001, size=.2, colour="tomato") + 
+  geom_vline(xintercept=2009, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=2017, size=.2, colour="tomato") +
+  geom_text(aes(x=1981, label="Reagan",y=.42), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1989, label="Bush 41",y=.35), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1993, label="Clinton",y=.35), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2001, label="Bush 43",y=.25), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2009, label="Obama",y=.3), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2017, label="Trump",y=.4), colour="tomato", angle=90, vjust=1, text=element_text(size=9))  
+
+
+```
+
+This breakdown of observations by topic type is not necessarily surprising. Based on the experiences and expertise of retired military officers, we would reasonably expect that this type of military actor would address matters that relate to _Warfighting and Operations_ and _Foreign Policy_ often. After all, many retired military officers are veterans of wars, and have served in significant positions of responsibility within government. However, a rather interesting picture emerges when I trace the proportion of each topic area addressed over time using smoothed trend lines. This is displayed in Figure \@ref(fig:topics-time). 
+
+
+```{r topics-time, include=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, fig.cap="Proportion of Opinion Publications authored by Retired Military Officers by Topic Area, 1979-2020", fig.height=4.5, fig.width=6}
+
+topic_graph
+
+```
+
+Figure \@ref(fig:topics-time) shows that since 1979, the proportion of three of the eight topic areas addressed by retired military officer commentary has varied significantly. First, the proportion of retired military officer commentary that addressed topics related to foreign policy was relatively high during the late 1980s and early 1990s, but then dropped continually until approximately 2011, when it began to rise again. Second, the proportion of commentary addressing warfighting topics increased throughout the 1990s, but began to decline around 2008, and has since declined even more drastically. Finally, note that the proportion of topics addressing domestic policy has risen sharply since about 2010. For the 31 years prior to that, the proportion of commentary addressing domestic policy never climbed above 10 percent; at the end of the data range, in 2020, this proportion is instead near 35%. 
+
+We should certainly expect some variance in the topics retired military officers address. For example, the nation is not always engaged in a war, and when they do occur, they range in terms of their intensity, the number of casualties that are inflicted, and a number of other factors. We might reasonably expect a relative spike in topics that address warfighting/operations or foreign policy, for example, when a war or a major foreign policy crisis is unfolding. Indeed, we partly see this unfold in Figure \@ref(fig:topics-time). For example, the proportion of commentary addressing topics related to warfighting and operations peaked around 2007, coinciding with the surge to Iraq, and topics addressing matters of foreign policy peaked in the early 1990s, coinciding with multiple crises that developed in the Balkans, Haiti, and Somalia after the end of the Cold War. 
+
+But the variance we see occur in Figure \@ref(fig:topics-time) after 2010 seems to suggest that something deeper than a cycle of war and peace are at play. For instance, Figure \@ref(fig:topics-time) shows that prior to Donald Trump assuming the Presidency in 2017, the highest relative proportion of commentary authored by retired military officers in a given year addressed topics related to warfighting/operations and foreign policy, even as the proportion of commentary addressing topics related to domestic policy was rising. Throughout the Trump Presidency, however, the topic that retired military officers have addressed most has been domestic policy. In other words, during the Trump Presidency, retired military officers have been first and foremost domestic commentators, rather than experts who address topics regarding foreign policy and warfighting. 
+
+This clear shift in the proportion of different topics addressed by retired military officers is evidence that is consistent with the theory offered in this paper. As polarization has reached very high values in recent years, and as the nation grapples with primarily domestic political topics that include significant moral undertones -- such as the massive topics of race, gender, and their implications today -- it seems that retired military officers are increasingly weighing in on these types of topics more so than on topics which they have historically aligned themselves with, such as warfighting and foreign policy.  
+
+\singlespace
+### Is Retired Military Officer Opinion Commentary Violating the Principles of Civil-Military Relations?
+\doublespace
+
+To measure variation in adherence to the principles of civilian control, non-partisanship, and non-interference of the military institution into certain realms of state policy, I develop three dichotomous indicator variables that capture a potential violation of each principle. I operationalize violations of the principle of civilian control by coding instances in which a retired military officer blatantly criticizes or excoriates a civilian leader. Because the observations are all opinion pieces, and thus somewhat argumentative in nature, my goal is not to simply identify publications which point out shortcomings of policy, or make recommendations for civilian leaders to implement. We would expect most published opinion commentary pieces to do these things.
+
+Instead, I look for strong, blatant, and direct criticism of a civilian official, and particularly, the Commander in Chief or members of his cabinet. Blatant criticism of the sitting Commander in Chief or members of the President's cabinet by a retired military officer may undermine the principle of civilian control because engaging in this behavior may generate political costs that a civilian leader then has to contend with. These political costs may be small or large, but their presence alone likely makes it more difficult for the President or members of the cabinet to enact their intended policy goals [@brooks_crisis_2021]. 
+
+A second operationalization involves violations to the principle of non-partisanship. Here, I code instances of opinion commentary that explicitly endorse or rebuke a party platform, including the endorsement or rebuke of candidates running for office. Commentary that undertakes these sorts of partisan pronouncements violates the principle of non-partisanship because the author's position conveys his or her partisan affiliation, allegiance, or alignment. 
+
+Finally, I operationalize violations of the principle of non-interference of the military into certain realms of state policy by looking for commentary in which retired military actors address topics that are indirectly, tangentially, or altogether unrelated to the military or to defense policy. The key question I answer when looking for violations to the principle of non-interference is whether the author's expertise as a retired military officer serves as reasonable credentialing for the author to inform the topic he or she is addressing. Two points of clarification about this particular indicator are worth underscoring, however. 
+
+The first is that the roles, responsibilities, and missions undertaken by the military have significantly expanded over the past several decades, both overseas and domestically [@brooks_how_2016]. The US military now plays a prominent role not only in preparing to fight conventional wars, but also in implementing other aspects of America's expansive foreign policy. The US military also routinely provides support to civilian authorities domestically in responding to various types of natural disasters and civil unrest.^[The military's role during the COVID-19 Pandemic has only magnified these tendencies. For example, Operation Warp Speed, the logistics operation designed by the Trump Administration to help manufacture, produce, and deliver a vaccine for COVID-19, has heavily thrust the military into conversation and relationships with the healthcare community, private corporations, and transportation companies. Operation Warp Speed is run, moreover, by a four-star Army General, Gustave Perna. Some civil-military relations scholars have expressed concerns, shared by this author, that placing the military in charge of this operation has had, at times, the unintended consequences of the military being placed in a position to make decisions (related to the distribution of the vaccine) that from a normative perspective should have been made by civilian leaders, not military officers.] 
+
+A second point of clarification is that it is theoretically possible to connect many political issues to the nation's "security." Problems such as racism, extremism, climate change, polarization, immigration, the lack of civil discourse in America, and others constitute problems that, broadly defined and to varying degrees, pose a potential danger to the world in which we live. But this does not mean that retired military officers should necessarily address all of these topics. For example, the nation has scientists who know far more about climate change than an average retired military officer. Thus, a normative question begins to emerge: "Should the military be actors who address this issue?"^[ Ultimately, this is an opinion question that is open for debate, but I attempt to be both charitable and reasonable: I only code issues or topics that strike me as considerably outside or tangential to relevant military expertise in the US setting.] Therefore, in looking for violations to the principle of non-interference, I try to keep in mind that even as the military has become increasingly involved in a great number of issues and events, military actors are not necessarily subject matter experts on every noteworthy topic. 
+
+Two further methodological points of caution are worth highlighting. The first is that some retired military officers do in fact go on to serve as appointees in political administrations, or run for office and serve as politicians themselves. For this reason, I control for whether a retired military officer wrote a publication while serving or having previously served in a political role that would legitimately correspond to that officer no longer having to adhere to the principles of civil-military relations in the same way that most retired military officers would. For example, in my view, we can and should hold former Senator John McCain, who retired from the Navy at the rank of Captain (O-6), to a different standard than other retired Navy Captains who do not go on to serve as US Senators. Senators, as elected officials, make partisan statements all of the time. Therefore, I do not include violations by retired military officers who later serve as elected or appointed partisan positions for the remainder of the statistical analysis.^[This applies to 14 of the 391 observations (3.6%), eight of which violate one or more of the principles of civil-military relations.]
+
+The second point of caution is that, unlike the categorical topic variable which can only take on one unique value, I allow for the possibility that a single observation can violate more than one principle of civil-military relations. In other words, I allow for the possibility that an opinion piece can blatantly criticize the President, while making a partisan endorsement and speaking out on a topic that is at best tangentially related to the military. Such a case would constitute violating all three principles of civil-military relations.   
+
+Figure \@ref(fig:norms-challenged) plots the number of challenges to each of the three central principles of civil-military relations as well as the total number of violations to these principles by year. Early on in the data, from 1979-1988, there were relatively few instances of retired military officer commentary expressly challenging the principles of civil-military relations. From 1989 throughout the 1990s, the frequency and number of instances in which retired military officer commentary challenged the central principles of civil-military relations slowly increased. From 2007-2012, retired officer commentary adhered to the central principles of civil-military relations. Since then, however, retired officer opinion commentary has consistently violated at least one of the central principles of civil-military relations each year.     
+
+```{r norms-challenged-prep, include=FALSE, warning=FALSE, message=FALSE, echo=FALSE}
+
+# Here I create variables that measure violations
+# to the central principles of CMR. 
+# First I measure the # of violations to each principles
+# and the # of total violations that occur. 
+
+# Beginning with Num_Pubs_Viol, the variables are a little different.
+# Num_Pubs_Viol counts the numbers of publications per year that contain
+# any of the three types of violations. 
+
+#I then make variables for the proportion of the
+# annual number of publications that 
+# violate each principle (Civ_Con_Prop, Non_Part_Prop, and Non_Int_Prop)
+# as well as the proportion of annual pubs that violate 
+# one of the central principles (Prop_Pubs_Viol)
+
+#this data frame, violation_reg_df, is significant.  It is 
+# the main data frame for measuring the violations to
+# the principles of CMR and for all regressions to follow. 
+
+violation_reg_df <- adjdataset %>% group_by(PubYr) %>% filter(Role != 1) %>% select(Author, Service, PubYr, Source, MID, Title, AuthRank, Topic, elecyear, letter_ed, Leg_Act, Crit_Insub, Issue_Area, Endorse_Partisan, Yrcount, party.mean.diff.d1.house, party.mean.diff.d1.senate, dem_diff_aff, rep_diff_aff, Inst_Cred_Gallup, HostCasRate, HostCasRateLagged) %>% mutate(
+  Civ_Con_Count = sum(Crit_Insub),
+  Non_Part_Count= sum(Endorse_Partisan),
+  Non_Int_Count = sum(Issue_Area),
+  Total_Viol_Count= (Civ_Con_Count+Non_Part_Count+Non_Int_Count),
+  Num_Pubs_Viol=sum(Crit_Insub==1 | Endorse_Partisan==1 | Issue_Area==1),
+  Prop_Pubs_Viol=(Num_Pubs_Viol/Yrcount),
+  Civ_Con_Prop = (Civ_Con_Count/Yrcount),
+  Non_Part_Prop = (Non_Part_Count/Yrcount),
+  Non_Int_Prop = (Non_Int_Count/Yrcount)
+  ) %>% rename(CivConViol=Crit_Insub, NonPartViol=Endorse_Partisan, NonIntViol=Issue_Area) 
+
+
+# create a data frame but summarize the counts of violations by type per publishing year
+violationdf_by_year_count <- violation_reg_df %>% select(PubYr, Civ_Con_Count, Non_Part_Count, Non_Int_Count, Total_Viol_Count) %>% group_by(PubYr, Civ_Con_Count, Non_Part_Count, Non_Int_Count, Total_Viol_Count) %>% summarise() %>% print()
+
+# create the 1980 missing observation
+viol_1980 <- data.frame(1980, 0, 0, 0, 0)    
+#Naming the missing Data Frame - Step 2  
+names(viol_1980) <- c("PubYr", "Civ_Con_Count", "Non_Part_Count", "Non_Int_Count", "Total_Viol_Count")  
+#Using rbind() function to insert above observation  
+violationdf_by_year_count <- rbind(violationdf_by_year_count, viol_1980)
+
+#using the pivot_longer function, turn this DF into a graphaple data frame of violation counts
+violationdf_by_year_graph <- violationdf_by_year_count %>% 
+  pivot_longer(Civ_Con_Count:Total_Viol_Count, names_to = "Violation_Type", values_to = "Violation_Count") %>% mutate(
+    Violation_Type=case_when(
+      Violation_Type=="Civ_Con_Count" ~ "Civilian Control",
+      Violation_Type=="Non_Part_Count" ~ "Non-Partisanship",
+      Violation_Type=="Non_Int_Count" ~ "Non-Interference",
+      Violation_Type == "Total_Viol_Count" ~ "Total Violations"
+                             )
+  ) %>% print()
+
+# create a data frame that has proportions of commentary violations by year
+violationdf_by_year_prop <- violation_reg_df %>% select(PubYr, Civ_Con_Prop, Non_Part_Prop, Non_Int_Prop, Prop_Pubs_Viol) %>% group_by(PubYr, Civ_Con_Prop, Non_Part_Prop, Non_Int_Prop, Prop_Pubs_Viol) %>% summarise() %>% print()
+
+# create the 1980 missing observation
+viol_1980_prop <- data.frame(1980, 0, 0, 0, 0)    
+#Naming the missing Data Frame - Step 2  
+names(viol_1980_prop) <- c("PubYr", "Civ_Con_Prop", "Non_Part_Prop", "Non_Int_Prop", "Prop_Pubs_Viol")  
+#Using rbind() function to insert above observation  
+violationdf_by_year_prop <- rbind(violationdf_by_year_prop, viol_1980_prop)
+
+#using the pivot_longer function, turn this DF into a graphaple data frame of violation counts
+violation_prop_year_graph <- violationdf_by_year_prop %>% 
+  pivot_longer(Civ_Con_Prop:Prop_Pubs_Viol, names_to = "Violation_Types", values_to = "Proportion") %>% mutate(
+    Violation_Types=case_when(
+      Violation_Types=="Civ_Con_Prop" ~ "Civilian Control",
+      Violation_Types=="Non_Part_Prop" ~ "Non-Partisanship",
+      Violation_Types=="Non_Int_Prop" ~ "Non-Interference",
+      Violation_Types == "Prop_Pubs_Viol" ~ "Proportion Violating"
+                             )
+  ) %>% print()
+
+```
+
+```{r norms-challenged, include=TRUE, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Instances of Retired Military Officer Commentary that Violate the Central Principles of Civil-Military Relations, 1979-2020"}
+
+## now graph raw counts of violations by year
+
+violationdf_by_year_graph %>% ggplot(aes(x=PubYr, y=Violation_Count)) + geom_point(aes(shape=Violation_Type, color=Violation_Type), position=position_jitter(width=.1, height=.1), alpha=.6, size=5) + scale_color_manual(values=c("tomato","dodgerblue2", "seagreen", "black"))+ labs(x="Publishing Year", y="Number of Violations By Type", shape="Violation\nType", color="Violation\nType") + theme(legend.position="bottom", axis.text.x=element_text(angle=90)) + scale_x_continuous(breaks=seq(1979, 2020, 1)) + guides(color = guide_legend(ncol=2,nrow=2,byrow=TRUE)) 
+```
+
+To account for the fact that the volume of commentary written by retired military officers has also increased over time, I express these violations of the principles of civil-military relations as a proportion of annual commentary written by retired military officers. This is shown in Figure \@ref(fig:norms-challenged-prop). 
+
+When the proportion of commentary that violates the central principles is expressed, we can more clearly see that there have been problematic episodes before, most notably in the early-mid 1990s and the early 2000s. Indeed, there is a cluster of years between 1993-1998 when a noticeable proportion of retired officer commentary violated the principle of civilian control when a number of retired military officers strongly criticized former President Clinton for (in their view) failing to take proper actions in Somalia, Bosnia, Chechnya, and Iraq (related to the enforcement of no-fly zones).     
+
+```{r norms-challenged-prop, include=TRUE, warning=FALSE, message=FALSE, echo=FALSE, fig.cap="Proportion of Annual Retired Military Officer Commentary that Violates the Central Principles of Civil-Military Relations, 1979-2020"}
+
+violation_prop_year_graph %>% ggplot(aes(x=PubYr, y=Proportion)) + geom_point(aes(shape=Violation_Types, color=Violation_Types), position=position_jitter(width=.01, height=.001), alpha=.6, size=5) + scale_color_manual(values=c("tomato","dodgerblue2", "seagreen", "black"))+ labs(x="Publishing Year", y="Proportion of Violations By Type", shape="Violation\nTypes", color="Violation\nTypes") + theme(legend.position="bottom", axis.text.x=element_text(angle=90)) + scale_x_continuous(breaks=seq(1979, 2020, 1)) + scale_y_continuous(breaks=seq(0, 1, .1)) + guides(color = guide_legend(ncol=2,nrow=2,byrow=TRUE)) 
+
+```
+
+A second cluster appears in the early 2000s, when several retired military officers endorsed the two Presidential Candidates running for President in 2004, the incumbent, George W. Bush, and Senator John Kerry, Bush's opponent. There were also several years (2005 and 2006) when a number of commentary pieces violated the principle of civilian control by strongly criticizing then President George W. Bush's Secretary of Defense, Donald Rumsfeld, and his leadership of the Iraq War.^[This 2006 episode is the so-called "Revolt of the Generals."]
+
+The final cluster begins in 2013, though the proportion of commentary violating the central principles from 2013-2015 was still relatively low. Within this span of years, the year 2018 saw the highest proportion of retired officer commentary violate one or more of the central principles of civil-military relations (50%). It is also noteworthy that violations to the principle of non-interference are a somewhat recent occurrence; the first instance of a violation to this principle of civil-military relations came in 2013. 
+
+Figure \@ref(fig:prop-violate-norms) depicts the proportion of annual commentary published by retired military officers that violates at least one of the central principles of civil-military relations. This graph largely reflects the trends enunciated by the previous figures: retired military officers strongly adhered to the principles of civil-military relations throughout the 1980s before deviating from these standards throughout the 1990s. After violating the central principles of civil-military relations in the early 2000s, retired military officer commentary returned to adhering to the standards of civil-military relations, until 2012. Since 2013, however, there has been a sharp increase in the proportion of retired military officer commentary that violates the either the principle of civilian control, non-partisanship, or non-interference of the military.  
+
+```{r prop-violate-norms, include = TRUE, echo=FALSE, warning = FALSE, error=FALSE, message=FALSE, fig.cap="Proportion of Op-Eds Authored by Retired Military Officers That Violate Any Principles of Civil-Military Relations, 1979-2020"}
+
+ggplot(data=violationdf_by_year_prop, mapping=aes(x=PubYr, y=Prop_Pubs_Viol)) + geom_point() + geom_smooth() + labs(x="Year", y="Proportion", color=NULL) + geom_vline(xintercept = 1981, size=.2, colour="tomato") + 
+  geom_vline(xintercept=1989, size=.2, colour="tomato") + 
+  geom_vline(xintercept=1993, size=.2, colour="dodgerblue") + geom_vline(xintercept=2001, size=.2, colour="tomato") + 
+  geom_vline(xintercept=2009, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=2017, size=.2, colour="tomato") +
+  geom_text(aes(x=1981, label="Reagan",y=.2), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1989, label="Bush 41",y=.2), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1993, label="Clinton",y=.4), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2001, label="Bush 43",y=.3), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2009, label="Obama",y=.4), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2017, label="Trump",y=.05), colour="tomato", angle=90, vjust=1, text=element_text(size=9))  
+```
+
+Collectively, Figure \@ref(fig:topics-time), Figure \@ref(fig:norms-challenged), Figure \@ref(fig:norms-challenged-prop), and Figure \@ref(fig:prop-violate-norms) demonstrate that through the opinion commentary that they publish, retired military officers are addressing domestic political topics relative to other types of topics and challenging the central principles of civil-military relations at a greater rate than they did in previous decades. Having established that these trends exist, the next task is to determine what variables, if any, are driving this variation. According to the theory posited, the variables of political polarization and military prestige -- both of which rise during the period examined -- should strongly be considered. 
+
+### Explaining A More Assertive Retired Military Officer Corps 
+
+```{r, include = FALSE, warning=FALSE, echo=FALSE}
+
+# Create a dataframe, quest_prof, that shows all commentary 
+# that violates at least one of the central principles of CMR. 
+
+quest_prof <- violation_reg_df %>% arrange(PubYr) %>% filter(CivConViol==1 | NonPartViol== 1 | NonIntViol==1) %>% select(Author, Title, Source, PubYr, Topic, CivConViol, NonPartViol, NonIntViol)
+
+# The following dataframe does the same, but includes
+# all authors, even those who may have been in a role that 
+# justified violation of the principles of CMR. Thus
+# I reach back to the df of 'adjdataset' here. 
+
+adjdataset %>% arrange(PubYr) %>% 
+  filter(Issue_Area ==1 | Crit_Insub== 1 | Endorse_Partisan ==1)  %>% 
+  rename(Crit=Crit_Insub, Endorse=Endorse_Partisan, Interference=Issue_Area
+  ) %>% 
+  select (Author, Title, Source, PubYr, Topic, Crit, Endorse, Interference, Role) 
+
+```
+
+```{r regression prep, include = FALSE, warning = FALSE, echo=FALSE}
+
+# Prepare data frames for regression. 
+
+# I also scale the data for congressional polarization by multiplying by 100
+# This will come in handy for the glm regressions that will occur later. 
+
+reg_df <- violation_reg_df %>% mutate(
+  any_CMR_viol=case_when(
+    (CivConViol==1 | NonPartViol== 1 | NonIntViol==1) ~ 1, 
+    (CivConViol !=1 & NonPartViol != 1 & NonIntViol !=1) ~ 0
+  ),
+  house_polar=party.mean.diff.d1.house*100,
+  senate_polar=party.mean.diff.d1.senate*100,
+  aff_polar=dem_diff_aff + rep_diff_aff
+) %>% print()
+
+
+reg_df %>% filter(letter_ed!=1) %>% print()
+
+# The second df is a macro level df
+# where the rows are years and the key variables are the number of 
+# violations to the principles of CMR, by type.  
+# Because some of the values for congressional polarization change by Congress and 
+# not each year, I do not use affective polarization at all AND I have to 
+# drop some of the multiple rows here (for the years 2007, 1999, and 1997)
+# Dropping these years is the final part of the coding below. 
+
+reg_df_macro <- reg_df %>% select(PubYr, HostCasRate, HostCasRateLagged, Civ_Con_Count, Non_Part_Count, Non_Int_Count, Total_Viol_Count, Num_Pubs_Viol, Inst_Cred_Gallup, house_polar, senate_polar, elecyear, Prop_Pubs_Viol, Yrcount) %>% group_by(PubYr, HostCasRate, HostCasRateLagged, Civ_Con_Count, Non_Part_Count, Non_Int_Count, Total_Viol_Count, Num_Pubs_Viol, Inst_Cred_Gallup, house_polar, senate_polar, elecyear, Prop_Pubs_Viol, Yrcount) %>% summarise() %>% print()
+
+reg_df_macro <- reg_df_macro[-c(18, 22, 31), ]
+
+# create a 1980 missing observation
+reg_macro_1980 <- data.frame(1980, .438862, 0, 0, 0, 0, 0, 0, 52, 59.60248, 58.94986, 1, 0, 0)    
+#Naming the missing Data Frame - Step 2  
+names(reg_macro_1980) <- c("PubYr", "HostCasRate", "HostCasRateLagged", "Civ_Con_Count", "Non_Part_Count", "Non_Int_Count", "Total_Viol_Count", "Num_Pubs_Viol", "Inst_Cred_Gallup", "house_polar", "senate_polar", "elecyear", "Prop_Pubs_Viol", "Yrcount")  
+#Using rbind() function to insert above observation  
+reg_df_macro <- rbind(reg_df_macro, reg_macro_1980) 
+
+```
+
+```{r initial-regression-calcs, include=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+
+# This section is rather long; it's where I conduct initial regressions. 
+# Important: the data frames in these sections incorporate non-smoothed values for polarization. 
+
+# Category 1: OLS Models 
+# DV - total Proportion of annual publications that violate standards, house & senate polarization
+
+mod1_prop_ann_violate_house_lagged <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged, data=reg_df_macro)
+summary(mod1_prop_ann_violate_house_lagged)
+
+mod1_prop_ann_violate_sen_lagged <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged, data=reg_df_macro)
+summary(mod1_prop_ann_violate_sen_lagged)
+
+# Category 2: Logistic Regression Models 
+
+# DV - the op-ed violates any of 3 central principles, all types of polarization
+
+mod2_anyviol_house_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_anyviol_house_lagged)
+
+mod2_anyviol_sen_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_anyviol_sen_lagged)
+
+mod2_anyviol_aff_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + aff_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_anyviol_aff_lagged)
+
+# Category 3 - maybe there's bias in the source or in individual authors?
+## I now include source as an independent variable, but the standard
+## error estimates are too large, likely because there is not 
+## enough variation within sources (LA Times is the problem).
+# I first drop sources from the LA Times. 
+
+xtabs(any_CMR_viol ~ Source, reg_df)
+reg_df_slim <- reg_df %>% filter(Source != "LA Times" & Source !="USA Today") %>% print()
+xtabs(any_CMR_viol ~ Source, reg_df_slim)
+
+
+reg_df_slim %>% filter(any_CMR_viol ==1) %>% group_by(Author) %>% count(Author) %>% arrange(n)
+
+# Category 3
+# DV - the op-ed violates any of 3 central principles; Also includes source as an IV.
+
+mod3_anyviol_house_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank + Source,
+    family=binomial(link="logit"),
+    data=reg_df_slim
+    )
+summary(mod3_anyviol_house_lagged)
+
+mod3_anyviol_sen_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + AuthRank +  Source ,
+    family=binomial(link="logit"),
+    data=reg_df_slim
+    )
+summary(mod3_anyviol_sen_lagged)
+
+mod3_anyviol_aff_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + aff_polar + HostCasRateLagged + AuthRank +  Source ,
+    family=binomial(link="logit"),
+    data=reg_df_slim
+    )
+summary(mod3_anyviol_aff_lagged)
+
+# Then conduct models with robust standard errors at the author level
+mod3_anyviol_house_robust_lagged <- robustify(mod3_anyviol_house_lagged, cluster=Author)
+summary(mod3_anyviol_house_robust_lagged)
+
+mod3_anyviol_sen_robust_lagged <- robustify(mod3_anyviol_sen_lagged, cluster=Author)
+summary(mod3_anyviol_sen_robust_lagged)
+
+mod3_anyviol_aff_robust_lagged <- robustify(mod3_anyviol_aff_lagged, cluster=Author)
+summary(mod3_anyviol_aff_lagged)
+
+# Then conduct mixed models where we include author random effects
+
+mod3_anyviol_house_mixed_lagged <- glmer(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank + Source + (1 | Author), family=binomial, data=reg_df_slim)
+summary(mod3_anyviol_house_mixed_lagged)
+
+mod3_anyviol_sen_mixed_lagged <- glmer(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + AuthRank + Source + (1 | Author), family=binomial, data=reg_df_slim)
+summary(mod3_anyviol_sen_mixed_lagged)
+
+mod3_anyviol_aff_mixed_lagged <- glmer(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + aff_polar + HostCasRateLagged + AuthRank + Source + (1 | Author), family=binomial, data=reg_df_slim)
+summary(mod3_anyviol_aff_mixed_lagged)
+
+## potentially change / alter the optimizer
+##check and see if the same result on the mixed model above holds for
+
+# can include source with this data
+regdata_thru2014_slim <- reg_df_slim %>% filter(PubYr <= 2014) %>% view()
+
+mod4_anyviol_house_slim <- glm(any_CMR_viol ~ Inst_Cred_Gallup + house_polar + AuthRank + elecyear + Source + MID,
+    family=binomial(link="logit"),
+    data=regdata_thru2014_slim
+    )
+summary(mod4_anyviol_house_slim)
+
+```
+
+I regress a number of different outcomes, including the proportion of annual retired officer commentary that violates at least one of the central principles of civil-military relations (models 1-3) and the log of the odds that an op-ed authored by a retired military officer violates at least one of these central principles (models 4-9).
+
+In terms of control variables, I first include multiple measurements of polarization. These include scaled estimates of polarization in the US House and US Senate, which rely on DW-NOMINATE (dynamic-weight, nominal three step estimation) scores that use roll-call voting data to assign members of Congress a score on the liberal-conservative dimension, ranging from -1 (extremely liberal) to 1 (extremely conservative) [@jeffrey_b_lewis_voteview_2020]. I include separate measures for both the House and the Senate, not only because data on polarization in both bodies is readily available, but also because there might be a difference between the effect of polarization in each body. For instance, the US House of Representatives is a larger body of elected officials where each state is assigned proportional representation, and is sometimes viewed as less congenial than the "upper house" of the Senate [@andrews_how_2021; @noel_senate_2018].
+
+I also include a measure of affective polarization, which relies on a series of "feeling thermometer" indices from the American National Election Study (ANES). Following previous literature, I use a measure of affective polarization comprising the sum of the gap between how partisans "feel" about partisans who identify with the other major party [@iyengar_affect_2012; @iyengar_strengthening_2018; @iyengar_origins_2019]. 
+One issue arises concerning how best to assign measures of polarization, and in particular, measures of affective polarization, to the data. This issue arises because although standard measures of polarization are calculated at periodic intervals, these intervals are somewhat lengthy. Congressional polarization is measured every two years as a new session of Congress begins. Measures of affective polarization are somewhat different, however. For years prior to 2004, affective polarization levels are available every two years, but for years after 2004, measures of affective polarization are available only every four years. Figure \@ref(fig:smoothed-polar) plots both the point estimates as well as the smoothed trend lines for both types of Congressional and well as affective polarization from 1978 - 2020.
+
+```{r smoothed-polar, include=T, echo=F, error=F, warning=F, message=F, fig.height=4.5, fig.width=6, fig.cap="Polarization Estimates and Smoothed Trends, 1978-2020"}
+
+# read in data sets for aff polar and cong polar
+polar_aff <- read_csv(here("ch3data", "Aff_Polarization.csv")) %>% select(Year, AffPol) %>% rename(year=Year) %>% na.omit ()
+
+polar_cong <- read_csv(here("ch3data", "cong_polarization_smoothing.csv")) %>% select(-congress) %>% mutate(
+  house.polar=house.polar*100, 
+  sen.polar=sen.polar*100
+)
+
+polar_all <- bind_rows(polar_aff, polar_cong)
+
+polar_all <- polar_all %>% pivot_longer(AffPol:sen.polar, names_to = "value", values_to = "Score") %>% na.omit()
+
+smoothed_polar_cong_plot <- polar_all %>% ggplot(aes(x=year, y=Score, color=value)) + geom_point(size=.7) + geom_smooth(se=FALSE) + labs(x="Year", y="Polarization Level") + scale_color_discrete(name="Polarization",
+                         breaks=c("AffPol",  "house.polar", "sen.polar"),
+                         labels=c("Affective\nPolarization","House\nPolarization", "Senate\nPolarization")) + scale_y_continuous() + theme(legend.position="bottom") + scale_x_continuous(breaks=seq(1980, 2020, 4))
+
+smoothed_polar_cong_plot
+
+```
+
+Figure \@ref(fig:smoothed-polar) shows a single outlying point in red for the measure of affective polarization taken in 2016. This point shows a decline in the level of affective polarization relative to 2012, a decline that likely has its roots in some of the unique characteristics of Donald Trump, the Republican candidate, and later president, running for office at the time. 
+
+Methodologically, one option is to assign all observations in the data set a corresponding measure of polarization based on its last known value. This would mean, for instance, assigning all of the 63 op-eds written between the 2016 and 2020 elections a value for affective polarization taken from 2016, and similarly, every op-ed a value for Congressional polarization corresponding to the level of polarization in the House or Senate that was in session at the time the op-ed was written. The primary advantage of this option is that it requires the researcher to make few no assumptions regarding how levels of polarization might change within the intervals in which they are formally measured.
+
+Another option is to assume that levels of polarization actually change during the intervals in which they are formally measured. This is a reasonable assumption if we assume that polarization is a latent variable; that is, that there is always some level of political discord in society that is changing, even if we are only able to formally measure this level periodically. Practically, this requires assuming, for instance, that an op-ed written in the fall of 2019 should take on a value of affective polarization that is somewhere in between the level measured at the 2016 election, but closer to the level that is measured at the 2020 election. Using locally weighted regression techniques, I obtain and use point estimates for each year for each type of polarization, corresponding to the smoothed trend lines shown in Figure \@ref(fig:smoothed-polar).^[In the appendix, I conduct a regression analysis (See Table \@ref(tab:ch3appx1)) using non-smoothed estimates of polarization. There are two main differences in results obtained using this "stricter" codification of polarization (non-smoothed estimates of polarization) versus the "smoothed" estimates for polarization that are presented in the remainder of this paper. First, a strict, non-smoothed coding of polarization results in the coefficient for affective polarization not obtaining statistical significance. This is likely driven by the relatively low value of affective polarization obtained at the time of the 2016 election. A second and equally interesting result is that when polarization is coded strictly (non-smoothed), the coefficient for election year is also positive and statistically significant in several (logistic regression) models, whereas the analysis undertaken in the rest of this paper does not reflect the importance of an election year. The reason for this difference is likely the fact that when polarization is coded strictly, election years occur right before a new -- and almost always, higher -- measure of polarization is obtained. These results, however, are actually in total alignment: we would expect the presence of an election year to be statistically significant when polarization is strictly coded (non-smoothed) because the level of polarization in this data set almost always rises immediately after an election year (when a new Congress begins). Similarly, when we use smoothed estimates for polarization, we would expect, as the results show, that the election year itself takes on less importance because we are assuming polarization changes within intervals.] 
+
+I also control for the level of military prestige by including a measure of public trust in the military. This measure comes from Gallup public opinion data that captures the level of trust that the public places in various institutions in America, such as the Presidency, Congress, Church, and the Police [@noauthor_confidence_2020]. 
+
+I include several other control variables. The first is a binary indicator for whether the opinion piece was published during a calendar year in which there was a presidential election. The theoretical basis for including such a control is that in an election year, the commentary published by retired military officers might be more likely to address the candidates or issues at stake in an upcoming election, and thus, the commentary might increasingly violate the principles of civil-military relations. 
+
+Another control variable I include is a lagged level of casualties sustained by the US military in a given calendar year.^[This variable is constructed from a number of sources, and consists of the number of hostile US casualties sustained in a given calendar year per 100,000 active-duty military forces. I include in this measurement those casualties that are the result of what the Department of Defense classifies as either "hostile action" or a "terrorist attack." Annual data is provided from the Department of Defense from 1980-2010. I then used data from the Department of Defense regarding the wars in Iraq and Afghanistan to construct a measurement for years outside of this time range. See @department_of_defense_dcas_2011; @department_of_defense_dcas_2021; @department_of_defense_dcas_2021-1; @department_of_defense_dcas_2021-2; @department_of_defense_dcas_2021-3; @department_of_defense_dcas_2021-4; @department_of_defense_dcas_2021-5; @department_of_defense_dmdc_2021 for more details.] The theoretical basis for including a measurement of casualties is that the presence of casualties impacts the tone and tenor of opinion commentary published by retired military officers. However, it is less clear how and in what direction the presence of casualties would impact retired officer opinion commentary. One can imagine that on one hand, a high rate of casualties could lead to retired military actors increasingly criticizing the President or other civilian officials, or the strategy undertaken in a particular war or military operation, and thus, would result in a higher level of commentary that violates one or more of the principles of civil-military relations. 
+
+On the other hand, one can also imagine that higher casualty rates would induce retired military actors to become more focused on the unfolding military effort such as an operation or war, and that part of such focus would include a deliberate effort by retired military officers to not distract those military forces engaged in such an effort by publishing commentary that strains a nation's civil-military relationship. Through this second logical avenue, the presence of higher casualties might actually result in fewer instances of retired military actor commentary that violates one or more of the central principles of civil-military relations. I lag the level of casualties by one year for logical as well as data reasons. Theoretically, it is at least possible that the level of casualties sustained in a given year will shape the commentary written by retired military officers in the future. Ideally, I would use real-time or only slightly lagged casualty data, i.e., by days, weeks, or at most, months. However, this is not possible with the available data on US casualties. Monthly data for US military casualties does not exist over the entire date range of the data set. By lagging casualty rates by one year across the entire data set, I am at least able to determine if and how the presence of prior casualties drives the tenor of retired officer opinion commentary.  
+
+Models 1-3 rely on OLS regression, as the dependent variable is a measure of the proportion of annual commentary published by retired military officers that violates any of the three central principles of civil-military relations. Models 4-9 rely on logistic regression, where the dependent variable is the log of the odds that a commentary publication authored by a retired military officer violates any of the three central principles of civil-military relations. In these models, because the unit of analysis is the individual piece of authored commentary, I include several other author and source characteristics, including the author's rank and the published source of the commentary piece. Controlling for the published source allows for the possibility that over time, particular newspaper outlets are more likely to publish commentary that violates the principles of civil-military relations than other newspaper sources.^[For one informative view of where media outlets exist along a conservative-liberal spectrum, see @noauthor_allsides_nodate] Due to perfect separation, I drop observations published in the _USA Today_ and _The Los Angeles Times_ from the data set for these models (11 observations dropped). Models 4-6 cluster errors at the author level, while models 7-9 are mixed models that include author random effects. Both of these model designs enable the researcher to better investigate the possibility that changes in the dependent variable are driven by particular authors or types of authors. These results are displayed in Table \@ref(tab:ch3reg1). 
+
+```{r smooth_reg, include=F, echo=F, warning=F, error=F, message=F}
+## smoothed predictions for aff_polar
+loess_polar_aff <- loess(AffPol ~ year, polar_aff)
+loess_polar_aff <- predict(loess_polar_aff, data.frame(year = seq(1979, 2020, 1)), se = FALSE)
+
+## smoothed predictions for house_polar
+polar_house <- polar_cong %>% select(year, house.polar)
+loess_polar_house <- loess(house.polar ~ year, polar_house)
+loess_polar_house <- predict(loess_polar_house, data.frame(year=seq(1979, 2020, 1), se = FALSE))
+
+## smoothed predictions for sen_polar
+polar_sen <- polar_cong %>% select(year, sen.polar)
+loess_polar_sen <- loess(sen.polar ~ year, polar_sen)
+loess_polar_sen <- predict(loess_polar_sen, data.frame(year=seq(1979, 2020, 1), se = FALSE))
+
+# combine data sets
+df_polar_smooth_all <- bind_cols(loess_polar_aff, loess_polar_house, loess_polar_sen)
+df_polar_smooth_all <- df_polar_smooth_all %>% rename(aff.polar.smooth=1, house.polar.smooth=2, sen.polar.smooth=3)
+
+df_polar_smooth_all_join <- df_polar_smooth_all %>% mutate(
+  PubYr=seq(1979, 2020)
+)
+
+# join data sets - need to join others tomorrow with full write up. 
+reg_df_macro_smoothed <- full_join(reg_df_macro, df_polar_smooth_all_join, by= c("PubYr"))
+
+reg_df_smoothed <- full_join(reg_df, df_polar_smooth_all_join, by= c("PubYr")) %>% filter(PubYr!=1980)
+
+reg_df_slim_smoothed <- full_join(reg_df_slim, df_polar_smooth_all_join, by= c("PubYr")) %>% filter(PubYr!=1980)
+
+
+#reg models with smoothed levels of polarization
+# OLS - DV is prop ann pubs violating
+
+smth_prop_ann_violate_house_lagged <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + house.polar.smooth + HostCasRateLagged, data=reg_df_macro_smoothed)
+summary(smth_prop_ann_violate_house_lagged)
+
+smth_prop_ann_violate_sen_lagged <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + sen.polar.smooth + HostCasRateLagged, data=reg_df_macro_smoothed)
+summary(smth_prop_ann_violate_sen_lagged)
+
+smth_prop_ann_violate_aff_lagged <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + aff.polar.smooth + HostCasRateLagged, data=reg_df_macro_smoothed)
+summary(smth_prop_ann_violate_aff_lagged)
+
+# Logistic models - DV is log odds of violations
+
+smth_anyviol_house_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house.polar.smooth + HostCasRateLagged + AuthRank + Source,
+    family=binomial(link="logit"),
+    data=reg_df_slim_smoothed
+    )
+summary(smth_anyviol_house_lagged)
+
+
+smth_anyviol_sen_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + sen.polar.smooth + HostCasRateLagged + AuthRank +  Source ,
+    family=binomial(link="logit"),
+    data=reg_df_slim_smoothed
+    )
+summary(smth_anyviol_sen_lagged)
+
+smth_anyviol_aff_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + aff.polar.smooth + HostCasRateLagged + AuthRank +  Source ,
+    family=binomial(link="logit"),
+    data=reg_df_slim_smoothed
+    )
+summary(smth_anyviol_aff_lagged)
+
+# Then conduct models with robust standard errors at the author level
+smth_anyviol_house_robust_lagged <- robustify(smth_anyviol_house_lagged, cluster=Author)
+summary(smth_anyviol_house_robust_lagged)
+
+smth_anyviol_sen_robust_lagged <- robustify(smth_anyviol_sen_lagged, cluster=Author)
+summary(smth_anyviol_sen_robust_lagged)
+
+smth_anyviol_aff_robust_lagged <- robustify(smth_anyviol_aff_lagged, cluster=Author)
+summary(smth_anyviol_aff_lagged)
+
+# Then conduct mixed models where we include author random effects
+
+smth_anyviol_house_mixed_lagged <- glmer(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house.polar.smooth + HostCasRateLagged + AuthRank + Source + (1 | Author), family=binomial, data=reg_df_slim_smoothed)
+summary(smth_anyviol_house_mixed_lagged)
+
+smth_anyviol_sen_mixed_lagged <- glmer(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + sen.polar.smooth + HostCasRateLagged + AuthRank + Source + (1 | Author), family=binomial, data=reg_df_slim_smoothed)
+summary(smth_anyviol_sen_mixed_lagged)
+
+smth_anyviol_aff_mixed_lagged <- glmer(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + aff.polar.smooth + HostCasRateLagged + AuthRank + Source + (1 | Author), family=binomial, data=reg_df_slim_smoothed)
+summary(smth_anyviol_aff_mixed_lagged)
+
+```
+
+\singlespace
+```{r Regression Results, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(smth_prop_ann_violate_house_lagged, smth_prop_ann_violate_sen_lagged, smth_prop_ann_violate_aff_lagged, smth_anyviol_house_robust_lagged, smth_anyviol_sen_robust_lagged, smth_anyviol_aff_robust_lagged, smth_anyviol_house_mixed_lagged, smth_anyviol_sen_mixed_lagged, smth_anyviol_aff_mixed_lagged,
+          type="latex",
+          label="tab:ch3reg1",
+          title="Regression Results Using Smoothed Values of Polarization, Chapter 3", 
+          covariate.labels = c('Trust in Military', 'Election Year', 'House Polarization', 'Senate Polarization', 'Aff. Polarization', 'Casualty Rate (lagged)', 'Author Rank', 'Washington Post', 'Wall Street Journal'),
+          dep.var.labels = c('Proportion Violating', 'Log Odds of Violating Any Civ-Mil Principles'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "-15 pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser"),
+          float.env="sidewaystable"
+          )
+```
+
+\doublespace
+
+Table \@ref(tab:ch3reg1) reveals several noteworthy results. The first and main result to note is the consistently positive and statistically significant coefficient for polarization, regardless of polarization type. In models 4-6 and 8-9, the respective coefficient for polarization is statistically significant at the 1% level. Additionally, because models 7-9 are mixed models that include author random effects, the fact that all three coefficients for polarization are positive and statistically significant provides moderate evidence that polarization impacts all authors in the data set rather than a small number or a subset of specific authors. In other words, the results are not driven by the commentary of a few authors. Rather, the level of polarization seems to have a much stronger effect on all retired military officers who take up the pen. The consistency of the positive and statistically significant coefficients for polarization suggests that increasing levels of polarization are, by far, the strongest and clearest indicator of whether retired military officer commentary will violate at least one of the principles of civil-military relations.
+
+A second interesting result involves the coefficient for trust in the military. The coefficient for trust in the military is negative and highly statistically significant in models 7-9, but in models 1-3 and 5-6, the coefficient is not statistically significant. The lack of consistent statistical significance for the coefficient for trust in the military ultimately suggests that the prestige of the military is not a primary factor shaping retired military officers to pen opinion pieces that violate one or more of the principles of civil-military relations. However, it should be acknowledged that the negative direction of the coefficient for trust in the military in all but two models (2-3) is nonetheless in the opposite direction of what the theory predicts (the theory predicts that as the level of military prestige rises, military actors are increasingly likely to violate the principles of civil-military relations). 
+
+Finally, it is worth highlighting that Table \@ref(tab:ch3reg1) indicates that relatively few, if any, other variables (of those investigated) influence whether retired military officer commentary adheres to principles of civil-military relations. For example, the rank of an author appears to play little meaningful role in shaping whether an opinion piece adheres to standards of civil-military relations, as the coefficient for author rank is statistically insignificant in all but two models. The same is true for the rate of hostile casualties and source published. In short, the level of polarization -- regardless of polarization type -- seems to matter a great deal in shaping the content of retired officer commentary and in particular, the degree to which such commentary adheres to normative principles. 
+
+### The Substantive Importance of Polarization
+
+Given these main results, how important is the level of polarization in shaping the content of retired military officer commentary? Substantively, the coefficient for polarization in the US House of Representatives of .009 (model 1) indicates that a one unit increase in the mean ideological distance between political parties is associated with a .9% increase in the proportion of annual commentary that violates civil-military relations. This may not seem substantively large, but this depends on how greatly polarization varies over time. For instance, within the House of Representatives in the 112th Congress, which began in January 2011, polarization levels were nearly six points higher than the level that existed in the immediate session of Congress. This would suggest that in the span of just two years -- one session of Congress -- the proportion of annual opinion commentary authored by retired military officers that violates civil-military relations principles increased by 5.4%. 
+
+The coefficients of .122, .084, and .058 for each respective polarization type in models 4-6 correspond to a 12.9, 8.7, and 6.0 percent increase in the the odds that a commentary publication authored by a retired military officer challenges or violates one of the central principles of civil-military relations for every one unit increase in the level of House, Senate, and affective polarization. Again, these levels often change by several units over time, and we will be better able to interpret the significance of these results when we examine predicted probability later in this paper. In short, the results show that as polarization rises, the casual reader of the op-ed section of a major newspaper is increasingly more likely to come across commentary authored by retired military officers that either sharply criticizes civilian leaders, adopts a partisan position, or addresses a topic that is indirectly related to defense issues. 
+
+```{r ch3-by-principle, include=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+
+# Category 2: Now run Logistic and Mixed Model Regression where the DV now becomes the log of the odds that an individual op-ed actually violates one or more of the principles of CMR.   
+# use smoothed variable estimates in chapter, and strict measures in appendix
+
+# DV - violation of civilian control
+
+smth_civcontrol_house_lagged <- glm(CivConViol ~ Inst_Cred_Gallup + elecyear + house.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_civcontrol_house_lagged)
+
+smth_civcontrol_sen_lagged <- glm(CivConViol ~ Inst_Cred_Gallup + elecyear + sen.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_civcontrol_sen_lagged)
+
+smth_civcontrol_aff_lagged <- glm(CivConViol ~ Inst_Cred_Gallup + elecyear + aff.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_civcontrol_aff_lagged)
+
+# DV - violation of non-partisan ethic
+smth_nonpart_house_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + elecyear + house.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_nonpart_house_lagged)
+
+smth_nonpart_sen_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + elecyear + sen.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_nonpart_sen_lagged)
+
+smth_nonpart_aff_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + elecyear + aff.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_nonpart_aff_lagged)
+
+# DV - violation of a norm of non_interference
+
+smth_nonint_house_lagged <- glm(NonIntViol ~ Inst_Cred_Gallup + elecyear + house.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_nonint_house_lagged)
+
+smth_nonint_sen_lagged <- glm(NonIntViol ~ Inst_Cred_Gallup + elecyear + sen.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_nonint_sen_lagged)
+
+smth_nonint_aff_lagged <- glm(NonIntViol ~ Inst_Cred_Gallup + elecyear + aff.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_nonint_aff_lagged)
+
+```
+
+### Testing Violations of Each Central Principle Separately
+
+Now, I regress the log of the odds that an opinion piece violates _each_ principle of civil-military relations separately to determine if we can establish a relationship between the level of polarization and the violation of a specific principle of civil-military relations. In models 1-3, the dependent variable is the log of the odds that an opinion piece authored by a retired military officer violates the principle of civilian control; in models 4-6, the dependent variable is the log of the odds that an opinion publication violates the principle of non-partisanship; and in models 7-9, the dependent variable is the log of the odds that a publication authored by a retired military officer violates the principle of non-interference. These results are displayed in Table \@ref(tab:ch3reg2).
+
+\singlespace
+```{r ch3-Regression Individual Principles, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(smth_civcontrol_house_lagged, smth_civcontrol_sen_lagged, smth_civcontrol_aff_lagged, smth_nonpart_house_lagged, smth_nonpart_sen_lagged, smth_nonpart_aff_lagged, smth_nonint_house_lagged, smth_nonint_sen_lagged, smth_nonint_aff_lagged,
+          type="latex",
+          label="tab:ch3reg2",
+          title="Regression Results: Log Odds of Breaking Individual Central Principles of Civil-Military Relations", 
+          covariate.labels = c('Trust in Military', 'Election Year', 'House Polarization', 'Senate Polarization', 'Aff. Polarization', 'Hostile Casualty Rate (lagged)', 'Rank'),
+          dep.var.labels = c("Violates Civilian Control", 'Violates Non-Partisanship', 'Violates Non-Interference'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "-15pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser"), 
+          float.env="sidewaystable"
+          )
+```
+\doublespace
+
+Table \@ref(tab:ch3reg2) contains a couple of important results. The first is that the coefficient for each type of polarization is positive and highly statistically significant in models 1-3, when the dependent variable corresponds to a violation of the principle of civilian control. This suggests that changes to any level of polarization are strongly associated with an increased likelihood that a retired military officer commentary piece violates the principle of civilian control, which in this paper, was denoted by sharp criticism of a civilian political leader.  
+
+A final result to highlight is that in models 4-6 of Table \@ref(tab:ch3reg2), when the dependent variable corresponds to a violation of the principle of non-partisanship, it is the coefficient for election year that is positive and highly statistically significant, whereas the coefficients for each type of polarization actually switch signs and, in two of the three cases, do not hold statistical significance. Note also that the coefficient for election year in every model _except_ for in models 4-6 is negative and statistically insignificant. What does this mean, and how should we interpret this?
+
+This result is not at odds with the overall narrative that rising polarization is strongly associated with an increase in the likelihood that retired officer commentary violates the principles of civil-military relations. It does mean, however, that retired officer commentary authored in an election year is the clearest predictor of whether such commentary violates the principle of non-partisanship. This is a reasonable expectation, as opinion commentary authored during an election year is intuitively likely to address topics relevant to the candidates who are running for office ahead of an election. 
+
+We can further investigate how an election year and polarization impact the likelihood that a retired military officer opinion publication violates the principle of non-partisanship specifically. I run models 4-6 again, but drop the control for election year, on the basis that perhaps the control for election year is capturing some of the work that polarization might be doing. The results are displayed in Table \@ref(tab:ch3reg3).
+
+```{r ch3 non-part test, include=FALSE, echo=FALSE, message=FALSE}
+## Further Checks on the Violation of the Principle of Non-Partisanship
+## Drop control for election year. 
+
+# DV - violation of non-partisan ethic
+smth_nonpart_house_appx_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + house.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_nonpart_house_appx_lagged)
+
+smth_nonpart_sen_appx_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + sen.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_nonpart_sen_appx_lagged)
+
+smth_nonpart_aff_appx_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + aff.polar.smooth + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_nonpart_aff_appx_lagged)
+
+```
+
+\singlespace
+```{r ch3-more robustness tests, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(smth_nonpart_house_appx_lagged, smth_nonpart_sen_appx_lagged, smth_nonpart_aff_appx_lagged,
+          type="latex",
+          label="tab:ch3reg3",
+          title="Regression Results: Log Odds of Retired Military Officer Commentary Violating the Principle of Non-Partisanship without Controlling for Election Year", 
+          covariate.labels = c('Trust in Military', 'House Polarization', 'Senate Polarization', 'Aff. Polarization', 'Hostile Casualty Rate', 'Rank'),
+          dep.var.labels = c('Violation of the Principle of Non-Partisanship'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "1pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser")
+          )
+
+```
+\doublespace
+
+Table \@ref(tab:ch3reg3) shows that when the controls for election year are removed, the coefficients for polarization remain statistically insignificant, but that the coefficient for author rank is positive and statistically significant. These results suggest that we cannot conclusively state that increasing polarization directly leads to an increase in the likelihood that retired military officer commentary violates the principle of non-partisanship specifically. The positive and statistically significant coefficient for rank of the author matters when the dependent variable is the violation of the principle of non-partisanship. 
+
+If we conceive of violations of the principle of non-partisanship as op-eds that endorse or attack political candidates running for office during an election year, the coefficient for the rank of an author is not intuitively surprising. Indeed, we might expect that military retirees who held higher ranks during their time in service are those that will engage in this type of specific behavior, presumably because the public is more inclined to listen to higher ranking officers. In a way, this result is consistent with the notion that military prestige -- as measured by an author's rank -- shapes one particular type of op-ed that is written by retired military actors. 
+
+Integrating the main regression results with the results of regressing each principle separately leads us to conclude that increasing polarization leads to an increase in the likelihood that retired military officer commentary violates _at least one_ of the principles of civil-military relations, and the principle of civilian control in particular. The data do not allow us to conclusively state that increasing polarization leads to an increase in the likelihood that retired officer commentary will violate each principle separately, however. 
+
+### The Interaction of Polarization and Prestige
+
+I now seek to determine if the data indicate any meaningful relationship between the interaction of polarization and military prestige. This stems from the broader theoretical point made in Chapter 2 that when both polarization and military prestige are high, we are more likely to witness civil-military tension. I therefore include interaction terms for each type of polarization and military prestige. The dependent variable is the proportion of annual commentary (models 1-3) and the log of the odds (models 4-6) that a particular opinion piece violates at least one central principle of civil-military relations. These results are displayed in Table \@ref(tab:ch3-intreg).
+
+```{r ch3-interaction-terms, include=FALSE, warning=FALSE, echo=FALSE, message=FALSE}
+
+# dv - proportion of pubs violating
+
+smth_prop_ann_violate_house_lagged_int <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + house.polar.smooth + HostCasRateLagged + Inst_Cred_Gallup*house.polar.smooth, data=reg_df_macro_smoothed)
+summary(smth_prop_ann_violate_house_lagged_int)
+
+smth_prop_ann_violate_sen_lagged_int <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + sen.polar.smooth + HostCasRateLagged + Inst_Cred_Gallup*sen.polar.smooth, data=reg_df_macro_smoothed)
+summary(smth_prop_ann_violate_sen_lagged_int)
+
+smth_prop_ann_violate_aff_lagged_int <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + aff.polar.smooth + HostCasRateLagged + Inst_Cred_Gallup*aff.polar.smooth, data=reg_df_macro_smoothed)
+summary(smth_prop_ann_violate_aff_lagged_int)
+
+
+# dv - log of the odds a piece violates any principles
+smth_anyviol_house_lagged_int <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house.polar.smooth + HostCasRateLagged + Inst_Cred_Gallup*house.polar.smooth + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_anyviol_house_lagged_int)
+
+smth_anyviol_sen_lagged_int <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + sen.polar.smooth + HostCasRateLagged + Inst_Cred_Gallup * sen.polar.smooth  + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_anyviol_sen_lagged_int)
+
+smth_anyviol_aff_lagged_int <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + aff.polar.smooth + HostCasRateLagged + Inst_Cred_Gallup * aff.polar.smooth  + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df_smoothed
+    )
+summary(smth_anyviol_aff_lagged_int)
+
+
+# Marginal Effects Prep and Check
+mod3_anyviol_house_int_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank + Source + Inst_Cred_Gallup*house_polar,
+    family=binomial(link="logit"),
+    data=reg_df_slim
+    )
+summary(mod3_anyviol_house_int_lagged)
+  
+margins(mod3_anyviol_house_int_lagged, at = list(house_polar = seq(30,110, by=5)))
+summary(margins(mod3_anyviol_house_int_lagged, variables = "Inst_Cred_Gallup", at = list(house_polar = seq(30,110, by=5))))
+
+margins(mod3_anyviol_house_int_lagged, at = list(Inst_Cred_Gallup = seq(20,95, by=5)))
+summary(margins(mod3_anyviol_house_int_lagged, variables = "house_polar", at = list(Inst_Cred_Gallup = seq(20,95, by=5))))
+
+```
+
+\singlespace
+```{r int-terms-ch3, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(smth_prop_ann_violate_house_lagged_int, smth_prop_ann_violate_sen_lagged_int, smth_prop_ann_violate_aff_lagged_int, smth_anyviol_house_lagged_int, smth_anyviol_sen_lagged_int, smth_anyviol_aff_lagged_int, 
+          type="latex",
+          label="tab:ch3-intreg",
+          title="Interacting the Levels of Prestige and Polarization", 
+          covariate.labels = c('Trust in Military', 'Election Year', 'House Polarization',  'Senate Polarization', 'Aff. Polarization', 'Hostile Casualty Rate (lagged)', 'Author Rank', 'Prestige*Polarization (House)', 'Prestige*Polarization(Senate)', 'Prestige*Polarization(Aff.)'),
+          dep.var.labels = c('Proportion Violating', 'Log Odds Any Violation'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "-15 pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser")
+          )
+```
+
+\doublespace
+
+Table \@ref(tab:ch3-intreg) shows that the interaction between the levels of polarization and the prestige of the military do not appear to matter significantly. To see this, note that in every instance in which an interaction term appears to be statistically significant (models 2, 5, and 6), the corresponding coefficient in the same model for polarization is also positive and statistically significant. Overall, these results strongly suggest that it is not the interaction of prestige and polarization that seems to matter, but rather the raw level of polarization that strongly shapes the degree to which retired military officer commentary adheres to normative standards.  
+
+### Predicted Probability
+
+We now shift gears to better understand and interpret the substantive impact of rising polarization on the likelihood that retired military officer commentary violates one or more of the central principles of civil-military relations. To do this, I transform the results of logistic regression models 4 and 6 in Table \@ref(tab:ch3reg1). I fix the year in which a piece is published as an election year, the source in which a piece is published as _The Wall Street Journal_, and hold all other values, such as author rank and level of military prestige, at their respective means, and vary the level of polarization in the US House of Representatives. This result is displayed in Figure \@ref(fig:pred-prob-house). 
+
+```{r predicted probabilities-house, include=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+
+# Hold values of Author Rank and Institutional Credibility at their mean
+# Vary the Level of Senate Polarization from its minimum value to an arbitrary 
+# level of 120, which is higher than it currently is but not theoretically impossible.  
+
+predictiondata <- tibble(house.polar.smooth=seq(min(reg_df_smoothed$house.polar.smooth), 100, by=1), Inst_Cred_Gallup = mean(reg_df_smoothed$Inst_Cred_Gallup), AuthRank=mean(reg_df_smoothed$AuthRank), elecyear=max(reg_df_smoothed$elecyear), HostCasRateLagged=mean(reg_df_smoothed$HostCasRateLagged), Source="WSJ") %>% crossing(any_CMR_viol = c(0,1)) 
+
+
+augment(smth_anyviol_house_lagged, newdata = predictiondata, se_fit=TRUE)
+
+# prediction data
+predictions <- augment(smth_anyviol_house_lagged, newdata=predictiondata, se_fit=TRUE) %>% 
+  mutate(
+    .prob=plogis(.fitted),
+    conf.low = plogis(.fitted - (qnorm(.975) * .se.fit)),
+    conf.high = plogis(.fitted + (qnorm(.975) * .se.fit)),
+    pred_final_rec = case_when(
+      .prob >= .5 ~ "Likely",
+      .prob < .5 ~ " Not likely"
+    )
+  )
+
+predictions %>% arrange(.prob, .fitted, any_CMR_viol, desc(.fitted))
+
+# now let's try some graphs
+# notice that the predictions are not in (0, 1)
+ggplot(predictions) +
+  aes(x = .fitted) +
+  geom_histogram()
+
+# if we wanted predictions on the probability scale,
+#   we predict on the log scale,
+#   then apply inverse-logit (logistic CDF)
+# use plogis(): cumulative probability of the logistic distribution
+
+# demonstration: scatter log odds (x) and predicted probability (y)
+# with 95% CIs
+# (CIs don't look smooth in this example because .se.fit depends on X data)
+predictions %>%
+  ggplot() +
+  aes(x = .fitted, y = .prob) +
+  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +
+  geom_smooth() 
+
+```
+
+```{r predicted probabilities-aff, include=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+
+# Hold values of Author Rank and Institutional Credibility at their mean
+# Vary the Level of House Polarization from its minimum value to an arbitrary 
+# level of 120, which is higher than it currently is but not theoretically impossible.  
+
+predictiondataaff <- tibble(aff.polar.smooth=seq(min(reg_df_smoothed$aff.polar.smooth), 100, by=1), Inst_Cred_Gallup = mean(reg_df_smoothed$Inst_Cred_Gallup), AuthRank=mean(reg_df_smoothed$AuthRank), elecyear=max(reg_df_smoothed$elecyear), HostCasRateLagged=mean(reg_df_smoothed$HostCasRateLagged), Source="WSJ") %>% crossing(any_CMR_viol = c(0,1)) 
+
+augment(smth_anyviol_aff_lagged, newdata = predictiondataaff, se_fit=TRUE)
+
+# prediction data
+predictionsaff <- augment(smth_anyviol_aff_lagged, newdata=predictiondataaff, se_fit=TRUE) %>% 
+  mutate(
+    .prob=plogis(.fitted),
+    conf.low = plogis(.fitted - (qnorm(.975) * .se.fit)),
+    conf.high = plogis(.fitted + (qnorm(.975) * .se.fit)),
+    pred_final_rec = case_when(
+      .prob >= .5 ~ "Likely",
+      .prob < .5 ~ " Not likely"
+    )
+  )
+
+predictionsaff %>% arrange(.prob, .fitted, any_CMR_viol, desc(.fitted))
+
+# now let's try some graphs
+# notice that the predictions are not in (0, 1)
+ggplot(predictionsaff) +
+  aes(x = .fitted) +
+  geom_histogram()
+
+# if we wanted predictions on the probability scale,
+#   we predict on the log scale,
+#   then apply inverse-logit (logistic CDF)
+# use plogis(): cumulative probability of the logistic distribution
+
+# demonstration: scatter log odds (x) and predicted probability (y)
+# with 95% CIs
+# (CIs don't look smooth in this example because .se.fit depends on X data)
+predictionsaff %>%
+  ggplot() +
+  aes(x = .fitted, y = .prob) +
+  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +
+  geom_smooth() 
+
+```
+
+```{r pred-prob-house, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, fig.cap="Predicted Probability of House Polarization\n Levels on Retired Military Officer Opinion Publications Violating Principles of Civil-Military Relations", fig.height=4.5, fig.width=6}
+predictions%>%
+  ggplot() +
+  aes(x = house.polar.smooth, y = .prob) +
+  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +
+  geom_smooth() + labs(
+    x="Level of Polarization in the House (Scaled)",
+    y="Predicted Probability"
+  ) + scale_y_continuous(breaks=seq(-.1, 1.1, .1)) + 
+ geom_vline(xintercept = 59.66, size=.2, colour="dodgerblue") + 
+  geom_vline(xintercept=71.33, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=78.8, size=.2, colour="tomato") + 
+  geom_vline(xintercept=84.27, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=88.6, size=.2, colour="dodgerblue") +
+  geom_text(aes(x=59.66, label="1979",y=.5), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=71.33, label="1993",y=.5), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=78.8, label="2001",y=.5), colour="tomato", angle=90, vjust=-.3, text=element_text(size=9)) + 
+  geom_text(aes(x=84.27, label="2011",y=.65), colour="dodgerblue", angle=90, vjust=-.3, text=element_text(size=9))  + 
+  geom_text(aes(x=88.6, label="2021", y=.65), colour="dodgerblue", angle=90, vjust=1.1, text=element_text(size=9))
+```
+
+The vertical colored lines cross the x-axis at the scaled level of smoothed polarization in a particular year, and the color of the line indicates the party of the President at the time Congress was seated in a particular year, or, in the case of an inaugural year, the party of the president-elect.
+ 
+```{r pred-prob-aff, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, fig.cap="Predicted Probability of Affective Polarization\n Levels on Retired Military Officer Opinion Publications Violating Principles of Civil-Military Relations", fig.height=4.5, fig.width=6}
+predictionsaff%>%
+  ggplot() +
+  aes(x = aff.polar.smooth, y = .prob) +
+  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +
+  geom_smooth() + labs(
+    x="Level of Affective Polarization in the US (Scaled)",
+    y="Predicted Probability"
+  ) + scale_y_continuous(breaks=seq(-.1, 1.1, .1)) + 
+  geom_vline(xintercept = 49.01, size=.2, colour="dodgerblue") + 
+  geom_vline(xintercept=55.1, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=63.77, size=.2, colour="tomato") + 
+  geom_vline(xintercept=80.45, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=72.72, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=92.93, size=.2, colour="dodgerblue") +
+  geom_text(aes(x=49.01, label="1979",y=.5), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=55.1, label="1993",y=.5), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=63.77, label="2001",y=.5), colour="tomato", angle=90, vjust=-.3, text=element_text(size=9)) + 
+  geom_text(aes(x=80.45, label="2009",y=.65), colour="dodgerblue", angle=90, vjust=1.1, text=element_text(size=9)) + 
+  geom_text(aes(x=72.72, label="2011",y=.65), colour="dodgerblue", angle=90, vjust=-.3, text=element_text(size=9))  + 
+  geom_text(aes(x=92.93, label="2021", y=.68), colour="dodgerblue", angle=90, vjust=1.1, text=element_text(size=9))
+```
+
+If we use levels of affective polarization instead, we see a similar picture emerge, as shown in Figure \@ref(fig:pred-prob-aff). The overall trajectories of the curve are similar in both figures, but there are a couple of distinct points of comparison to make.^[The shape of the graph using the level of polarization in the Senate is very nearly the same as when using polarization in the House; therefore, I only include one graph.] 
+
+First, the confidence intervals in each graph tell a slightly different but in some ways similar story. Note that in both graphs, the upper bound of the confidence interval that corresponds to the level of House and affective polarization in 1979 is less than the lower bound of the confidence interval for either level of polarization in 2021. In other words, in 1979, the probability that a publication authored by a retired military officer violated one of the principles of civil-military relations was _at most_ 8% (using the level of polarization in the House, as shown in Figure \@ref(fig:pred-prob-house)) or 13% (using the level of affective polarization, as shown in Figure \@ref(fig:pred-prob-aff)). In 2021, the probability that an opinion publication authored by a retired military officer violates one of the central principles of civil-military relations was _at least_ 17% (using the level of polarization in the House, as shown in \@ref(fig:pred-prob-house)) or 20% (using the level of affective polarization, as shown in Figure \@ref(fig:pred-prob-aff)). This means that what would have been statistically improbable is more or less guaranteed today: roughly one out of every five pieces of opinion commentary authored by a retired military officer will violate one or more of the central principles of civil-military relations. 
+
+The broader point is that the United States is no longer characterized by the relatively tame polarization levels that existed even just a few decades ago. American society has become increasingly marked by intense polarization, reflecting a deep division among citizens over the worldviews, moral values, and common sense of purpose that should guide the state. When we examine the predicted probabilities as shown in Figure \@ref(fig:pred-prob-house) and Figure \@ref(fig:pred-prob-aff), it becomes clear that, assuming polarization continues to rise, the degree to which retired military officers will adhere to the principles of civil-military relations in the future is highly volatile. The range of the confidence intervals grows as polarization takes on higher values. 
+
+If we take these larger confidence intervals at face value, they thus predict that in any given year of relatively high polarization (higher than current levels in 2021), retired military officers may very well publish a lot of commentary that violates the principles of civil-military relations, or they may publish relatively very few that do. This statistical volatility underscores the point that as polarization deepens, retired military officers may end up adhering to the central principles of civil-military relations -- or they may not -- in any particular year or period of time. The broader question this raises is whether such volatility is acceptable, either to the American public, or to any number of other civilian and military actors. Does the nation wish its cadre of retired military officers to speak publicly, and to adhere to the broad principles of civilian control, non-partisanship, and non-interference when they do? To the degree that one wishes the answers to these questions to be yes, the statistical models shown in this paper predict a somewhat grim future if polarization continues to rise.   
+
+### Alternate Explanations
+
+In this section, I address alternate explanations. If polarization is _not_ responsible for the variation in the degree to which retired military officer commentary violates one or more of the central principles of civil-military relations, what else could be responsible? Changes in the conflict and/or threat environment and the possibility of norm change are potential alternate explanations of altering the constraining influence of the the principles of civil-military relations, which in turn could impact the level of political behavior committed by civilian and military actors that violate the principles of civilian control, non-partisanship, and non-interference of the military. I discuss each of these in turn. 
+
+Perhaps military actors are inclined to author opinion commentary that is more quickly primed to criticize civilian leaders when the military is engaged in fighting overseas, or when casualties are incurred. Perhaps the opposite is true, and retired military officers actually wish to be less of a distraction to forces engaged in fighting, and thus speak less on topics that could strain the country's civil-military relationship when troops are deployed overseas participating in the conduct of war. 
+
+Even if we are not sure in which direction or how the threat environment would cause military actors to publish opinion commentary differently, this logic is somewhat compelling. Yet the statistical analysis demonstrated that in all but a few places, the hostile casualty rate was statistically insignificant. Furthermore, in the few times the lagged hostile casualty rate did appear statistically significant, it was always in the negative direction, indicating that rising casualties are associated with fewer opinion commentary pieces authored by retired military officers and less likelihood of an opinion piece violating one or more of the principles of civil-military relations. Thus, there is no support to suggest that rising hostile casualties are responsible for spurring retired military officers to increasingly publish opinion commentary that violates the principles of civil-military relations.
+
+The other point to consider regarding the threat environment is that this is a distinctively complicated variable in the first place, especially in today's environment. The ebb and flow of military operations in Iraq and Afghanistan, and America's military involvement overseas since the attacks of September 11, 2001 underscore this point. It would likely be wrong to categorize any point during the Iraq and Afghanistan wars as being similar to the threat America faced at the height of, for example, World War Two; yet it would also be wrong to classify any part of the post 9/11 world as years of peace for the United States and its military. The US military is clearly engaged globally today, which means that it is a couple of steps away from a crisis somewhere in the world. The combination of the statistically insignificant and negative sign of the hostile casualty rate variable in the statistical analysis, and the complexity of the operating environment faced by US military forces over the past two decades, suggests that the threat environment itself is not a sufficiently compelling explanation for the variation  in retired officer commentary present in the data.  
+
+A more difficult alternate explanation to discard is that of norm change regarding the role of retired military officers altogether. Could it be that from 1979-2020, successive cohorts of retired military officers have adopted a viewpoint that has gradually differed from their predecessors such that whereas older cohorts believed in staying out of politics altogether, whereas newer military retirees simply no longer see such a line as sacrosanct? Such an explanation is certainly possible. Ideally, we would want survey data or first-hand statements from retired military officers, such as that of Omar Bradley's presented in this paper's introduction, that speaks to how these retired officers view their public discourse. 
+
+At the same time, one point works strongly against norm change as an alternate explanation. This involves what is in my view obvious dissonance between what several recent top active military leaders have said regarding military officers staying out of politics, and their subsequent actions immediately or shortly after retirement from active duty. Any explanation, furthermore, has to be able to explain this dissonance. 
+
+This is clearly evident when observing Admiral Mike Mullen, as an example. Mullen penned a rare open letter to the force while serving as the Chairman of the Joint Chiefs of Staff in which he stated, "What I am suggesting - indeed, what the Nation expects - is that military personnel will, in the execution of the mission assigned to them, put aside their partisan leanings. _Political opinions have no place in cockpit or camp or conference room. We do not wear our politics on our sleeve_" [@mullen_chairman_2008, italics mine]. To be clear, Mullen was addressing active officers in his remarks, and not retired military officers directly. But it is unlikely that at the time he penned the open letter, he simultaneously encouraged retired officers to engage in politics, or that he felt indifferent about it. As the Chairman of the Joint Chiefs, he almost certainly understood that there is a relationship between the active-duty officer corps, especially its senior leaders, and its retired officer corps. 
+
+Yet in the years after leaving active duty, it is difficult to conclude that Mullen has been a quiet and apolitical flag officer. The data show that through 2020, Mullen has written six opinion pieces that have been published in major newspapers since leaving active duty, three of which challenge, if not violate, the principles of civilian control and non-partisanship. I do not wish to critique the content of Mullen's opinion pieces, but the titles are instructive: "Bannon Has No Place on the NSC," "The Refugees We Need," and "Banning Transgender Troops Only Hurts Us." While I do not doubt the sincerity of Mullen's opinions, nor the fact that the political positions expressed in these op-eds may be reasonable, I doubt whether an independent observer of these titles would conclude that Mullen does not have an ideological leaning that favors one political party over the other.^[Others may disagree with me on this point, and I respect that. But the point I am making here is that Mullen did not just write one op-ed, nor several op-eds that had no reference to any partisan idea or entity. These are three op-eds that clearly align, intentionally or not, with either a partisan entity or its platform.]
+
+The question then follows: why or how could Mullen, when on active duty, plead with the active force to stay out of politics, but then, as a retired officer, behave in such a way that indicates a willingness to engage?^[Mullen also wrote a lengthy piece in _The Atlantic_ following protests in the summer of 2020 entitled, "I Cannot Remain Silent." Chapter 6 discusses the behavior of retired military officers in 2020 in more detail.] I do not doubt that the distinction between those who serve on active duty and those who are retired is in some ways significant; but it is insufficient, in my view, to say that the norms have changed for retired military officers because the formal and informal prohibitions on their conduct have not changed at all. There has been a distinction between active and retired officers for a long time, at least for the several decades covered in this data set. It is thus far more likely the case, then, that to the extent norms are changing concerning the political conduct of retired military officers, these norms are changing because the retired officers themselves are engaging in conduct that is itself changing the norms. 
+In turn, this then begs the question of why that is the case. This paper has argued that if retired officers are changing the rules of the game, so to speak, they are doing so because of the impact of polarization on both themselves and on the country. Polarization, in other words, seems to be inducing retired military officers to enter the political fray more often and in ways that challenge the very principles these officers plead with others to maintain while on active duty. 
+
+The theory that I have laid out earlier in this paper accords with such an explanation. Retired military officers are increasingly failing to adhere to what are widely known and relatively unchanging aspirational guidelines, standards, and principles. It would seem that increasing polarization, which reflects contestation in the worldviews that shape, influence, and govern society, is profoundly impacting what retired military officers say in public, and how willing they are to violate the central principles of civil-military relations when they speak. 
+
+## Conclusion
+
+### Summary 
+
+Overall, the statistical results in the main table provide moderate support for H1, which stated that military actors increasingly violate the central principles of civil-military relations when polarization is high relative to periods of low polarization. The strongest evidence offered in support of this claim stems from the regression results presented in this chapter. The positive and statistically significant coefficients for all types of polarization -- congressional and affective -- presented in Table \@ref(tab:ch3reg1) indicated that as polarization rises, we can expect both the proportion of annual commentary and the likelihood that a specific editorial authored by a retired military officer violates at least one of the principles of civil-military relations to rise.  
+
+These results were not uniformly robust, however, to regression models where the dependent variable was a violation of each of the three individual principles of civil-military relations. The results suggest that rising polarization levels, regardless of how polarization is measured, increase the likelihood that a piece of opinion commentary authored by a retired military officer will violate the principles of civilian control. However, these results cannot be extended to predict violations of the principle of non-partisanship or non-interference. In total, the results suggest that as polarization rises, there is a clear and increasing likelihood that retired military officer commentary will violate at least one principle of civil-military relations, and the principle of civilian control in particular. As polarization rises, we can and should expect that retired military officers will more frequently criticize civilian leaders through the commentaries they publish. 
+
+This chapter found no support for H2, however, which stated that military actors increasingly violate the central principles of civil-military relations in public and visible ways when military prestige is high relative to periods of low military prestige. In fact, across multiple model specifications, the coefficient for military prestige lacked consistency, both in terms of direction and statistical significance. The only exception to this was the fact that high ranking officers in particular were found to be more likely to violate the principle of non-partisanship in particular when controls for election year are removed, as shown in Table \@ref(tab:ch3reg3). 
+
+Although the majority of opinion commentary authored by retired military officers upholds the principles of civilian control, non-partisanship, and non-interference of the military, the empirical record clearly demonstrates a worrisome trend over the past decade. The opinion commentary authored by retired military officers and published in major US newspapers has increasingly violated one or more of the central principles of civilian control of the military, non-partisanship of the military institution, and a norm of "non-interference" of the military into certain realms of state policy. 
+
+It remains to be seen whether and the degree to which polarization will worsen in the years to come, and whether the retired military officer community as a whole can reverse or at least slow the trends uncovered in this paper, or if retired military officers will even want to slow these trends. If polarization continues to deepen, we should expect retired military officers to increase the level with which they violate historical central principles of civil-military relations, certainly through the op-eds they publish, but perhaps through a variety of other behaviors. Future scholarship should continue to explore this topic in detail. 
+
+More problematic, the worsening behavior of retired military officers as polarization rises may be one very visible indicator of a far greater issue. The theory put forth in this paper stresses polarization not merely as a political phenomenon --- important as that is --- but instead as the growing differences, disharmony, and incompatibility in moral worldviews of a state's citizens that manifest as rising polarization [see @erickson_inescapable_2022, chapter 2 for more details]. To the extent that this is in fact the case, retired military actors who publish opinion pieces that increasingly push against historical principles may merely be harbingers of far worse outcomes for the nation and its military.    
+
+```{r ch3-save-dataframes, include=F, echo=F, warning=F, error=F, message=F}
+ch3_appx_data_list = list(quest_prof=quest_prof, 
+                          reg_df=reg_df, 
+                          reg_df_macro=reg_df_macro, 
+                          reg_df_slim=reg_df_slim, 
+                          mod1_prop_ann_violate_house_lagged = mod1_prop_ann_violate_house_lagged,
+                          mod1_prop_ann_violate_sen_lagged = mod1_prop_ann_violate_sen_lagged,
+                          mod3_anyviol_house_robust_lagged=mod3_anyviol_house_robust_lagged,
+                          mod3_anyviol_sen_robust_lagged=mod3_anyviol_sen_robust_lagged,
+                          mod3_anyviol_aff_robust_lagged=mod3_anyviol_aff_robust_lagged,
+                          mod3_anyviol_house_mixed_lagged=mod3_anyviol_house_mixed_lagged,
+                          mod3_anyviol_sen_mixed_lagged=mod3_anyviol_sen_mixed_lagged,
+                          mod3_anyviol_aff_mixed_lagged=mod3_anyviol_aff_mixed_lagged)
+
+saveRDS(ch3_appx_data_list, "ch3data/ch3_appx_data_list.rds")
+
+rm(list=ls())
+```
+\pagebreak
+
+# Appendix to Chapter 3
+
+This chapter Appendix roughly aligns with the chronological order of the chapter.   
+
+## Word and Data-Base Searches to Obtain Data
+
+I conducted two different sets of searches to obtain the data used in this study using data bases made available through the University of Wisconsin online library. Data collection occurred over the period from April 2020 - March 2021. This first set of search terms was applied to the Factiva and Nexus-Uni data bases. 
+
+In the Factiva Database, I had to select the "type of article" or "subject" (Factiva Database) that I was searching for, and I included options such as "commentaries/opinions," "editorials," and "letters."
+
+The specific terms of search included were as follows:
+
+"retired Army General" or "former Army General" or "retired Navy Admiral" or "former Navy Admiral" or "retired Marine Corps General" or "former Marine Corps General" or "former Air Force General" or "retired Air Force General" or "retired Coast Guard Admiral" or "former Coast Guard Admiral" or "retired from the Marine Corps" or "retired from the Army" or "retired from the Navy" or "retired from the Air Force" or "retired from the Coast Guard" or "supreme commander of" or "commander of" or "Chairman of the Joint Chiefs" or "chairman of the joint chiefs" or "Supreme Commander of" or "Chief of Staff" or "Chief of Naval Operations" or "retired Army" or "retired Navy" or "retired Air Force" or "retired Marine Corps" or "retired Coast Guard" or "retired military" or "commandant of" or "director of" or "retired from the military"
+
+The second set of search terms was applied to a data base known as Pro Quest Historical Newspapers, which the University of Wisconsin also had access to for both the _Wall Street Journal_ and the _New York Times_. Factiva included articles from the Wall Street Journal only back to the middle of 1994, so I relied heavily on Pro Quest to search through the Wall Street Journal from 1979-1994. Unlike the search terms used for Factiva and Nexus-Uni, however, I came to quickly realize that the opinion pieces I sought were not categorized as opinion-editorials or letters to the editor, but rather as "articles."  This required significantly more time searching for the desired data, as more articles had to be searched through and sifted. The specific terms of search included:
+
+(retired OR former OR “chief of staff”) AND (“Army General” OR Gen. OR general OR "Navy Admiral" OR Adm. OR admiral OR "Marine Corps General" OR "Coast Guard Admiral" OR "Air Force General" OR "Chairman of the Joint Chiefs" OR "colonel" OR "captain" OR "commander" OR "chief of naval operations" OR "commandant" OR "director of")
+
+## Observations Violating Principles of Civil-Military Relations 
+
+Table \@ref(tab:appx-ch3-1) contains those observations that violate one or more of the principles of civil-military relations. The table contains the name of the author, the title of the opinion piece, the year in which the opinion piece was authored, the topic addressed by the opinion piece, and a binary indicator of which principle(s) the piece violates.  
+
+\singlespace
+
+```{r appx-ch3-1, include=TRUE, echo=FALSE, message=FALSE, error=FALSE}
+## read in data file and save separate objects
+ch3_appx_data_list = readRDS("ch3data/ch3_appx_data_list.rds")
+quest_prof<-ch3_appx_data_list$quest_prof
+reg_df<- ch3_appx_data_list$reg_df
+reg_df_macro<- ch3_appx_data_list$reg_df_macro 
+reg_df_slim<- ch3_appx_data_list$reg_df_slim 
+mod1_prop_ann_violate_house_lagged<- ch3_appx_data_list$mod1_prop_ann_violate_house_lagged
+mod1_prop_ann_violate_sen_lagged <- ch3_appx_data_list$mod1_prop_ann_violate_sen_lagged
+mod3_anyviol_house_robust_lagged <- ch3_appx_data_list$mod3_anyviol_house_robust_lagged
+mod3_anyviol_sen_robust_lagged <- ch3_appx_data_list$mod3_anyviol_sen_robust_lagged
+mod3_anyviol_aff_robust_lagged <- ch3_appx_data_list$mod3_anyviol_aff_robust_lagged
+mod3_anyviol_house_mixed_lagged <- ch3_appx_data_list$mod3_anyviol_house_mixed_lagged
+mod3_anyviol_sen_mixed_lagged <- ch3_appx_data_list$mod3_anyviol_sen_mixed_lagged
+mod3_anyviol_aff_mixed_lagged <- ch3_appx_data_list$mod3_anyviol_aff_mixed_lagged
+
+#create a table for the Appendix
+TA1 <- quest_prof %>% rename(CivViol=CivConViol, PartViol=NonPartViol, IntViol=NonPartViol) %>% 
+  kable(format="latex", caption="Op-Eds authored by Retired Military Officers that Strongly Criticized Civilian Leaders, Expressed Partisan Positions, or Addressed Topics Outside of Military Expertise, 1979-2020", longtable=T) %>%
+  kable_styling(font_size=9, latex_options="striped", repeat_header_continued=T) %>% 
+  column_spec(1, width="8em") %>% 
+  column_spec(2, width="12em") %>% 
+  column_spec(3:4, width="2.5em") %>%
+  column_spec(5, width="6em") %>%
+  column_spec(6:8, width="4.5em") %>%
+  row_spec(0, bold=T)
+
+TA1
+```
+
+## Main Regression Results Using Strict Levels of Polarization. 
+\doublespace
+
+The majority of this appendix presents the same results shown in the main body of Chapter 3, but using the non-smoothed levels of polarization. 
+
+Table \@ref(tab:ch3appx1) presents the main results using strict (non-smoothed) levels of Congressional and affective polarization; that is, the level of polarization that was most recently measured in a formal way prior to the writing of the opinion piece. As I discuss in the main body of the chapter, there are two major differences between the results shown in Table \@ref(tab:ch3appx1) and the main regression Table from the main body of the chapter (Table \@ref(tab:ch3reg1)).
+
+The first is that in Table \@ref(tab:ch3appx1), the positive and statistically significant finding for measures of congressional polarization is not robust to measures of affective polarization. The second is that in Table \@ref(tab:ch3appx1), the coefficient for election year is positive and statistically significant in some models (4-5). I discuss these differences in the main body of the chapter. 
+
+\singlespace
+```{r ch3-appx-reg results, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(mod1_prop_ann_violate_house_lagged, mod1_prop_ann_violate_sen_lagged, mod3_anyviol_house_robust_lagged, mod3_anyviol_sen_robust_lagged, mod3_anyviol_aff_robust_lagged, mod3_anyviol_house_mixed_lagged, mod3_anyviol_sen_mixed_lagged, mod3_anyviol_aff_mixed_lagged,
+          type="latex",
+          label="tab:ch3appx1",
+          title="Main Regression Results (Non-Smoothed Levels of Polarization), Chapter 3", 
+          covariate.labels = c('Trust in Military', 'Election Year', 'House Polarization', 'Senate Polarization', 'Aff. Polarization', 'Casualty Rate (lagged)', 'Author Rank', 'Washington Post', 'Wall Street Journal'),
+          dep.var.labels = c('Proportion Violating', 'Log Odds of Violating Any Civ-Mil Principles'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "-15 pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser"),
+          float.env="sidewaystable"
+          )
+```
+\doublespace
+
+```{r ch3-appx-by-principle, include=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+
+# Category 2: Now run Logistic and Mixed Model Regression where the DV now becomes the log of the odds that an individual op-ed actually violates one or more of the principles of CMR.   
+
+# DV - violation of civilian control
+
+mod2_civcontrol_house_lagged <- glm(CivConViol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_civcontrol_house_lagged)
+
+mod2_civcontrol_sen_lagged <- glm(CivConViol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_civcontrol_sen_lagged)
+
+mod2_civcontrol_aff_lagged <- glm(CivConViol ~ Inst_Cred_Gallup + elecyear + aff_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_civcontrol_aff_lagged)
+
+# DV - violation of non-partisan ethic
+
+mod2_nonpart_house_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_nonpart_house_lagged)
+
+
+mod2_nonpart_sen_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_nonpart_sen_lagged)
+
+mod2_nonpart_aff_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + elecyear + aff_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_nonpart_aff_lagged)
+
+
+# DV - violation of a norm of non_interference
+
+mod2_nonint_house_lagged <- glm(NonIntViol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_nonint_house_lagged)
+
+
+mod2_nonint_sen_lagged <- glm(NonIntViol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_nonint_sen_lagged)
+
+
+mod2_nonint_aff_lagged <- glm(NonIntViol ~ Inst_Cred_Gallup + elecyear + aff_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_nonint_aff_lagged)
+
+```
+
+Table \@ref(tab:ch3appx2) displays the results of regressing violations of each separate principle using the "stricter" measurements of polarization. 
+
+\singlespace
+```{r ch3-appx-Regression-Individual-Principles, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(mod2_civcontrol_house_lagged, mod2_civcontrol_sen_lagged, mod2_civcontrol_aff_lagged, mod2_nonpart_house_lagged, mod2_nonpart_sen_lagged, mod2_nonpart_aff_lagged, mod2_nonint_house_lagged, mod2_nonint_sen_lagged, mod2_nonint_aff_lagged,
+          type="latex",
+          label="tab:ch3appx2",
+          title="Regression Results: Log Odds of Breaking Individual Central Principles of Civil-Military Relations", 
+          covariate.labels = c('Trust in Military', 'Election Year', 'House Polarization', 'Senate Polarization', 'Aff. Polarization', 'Hostile Casualty Rate (lagged)', 'Rank'),
+          dep.var.labels = c("Violates Civilian Control", 'Violates Non-Partisanship', 'Violates Non-Interference'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "-15pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser"), 
+          float.env="sidewaystable"
+          )
+```
+\doublespace
+
+One important finding is that in models 1-3, the coefficients for house and senate polarization are statistically significant and positive. Note also that in these specifications, the coefficient for election year is not statistically significant, though in each of these models, the sign on the coefficient for election year is positive. 
+
+The story is different, however, in models 4-6, where the dependent variable changes from the log of the odds that a publication violates the principle of civilian control to the principle of non-partisanship. Note that in all of these models, the coefficient for election year is positive and statistically significant, whereas the coefficient for polarization, regardless of type, is negative and statistically significant. These results, together, indicate that it is the presence of an election year that is associated with an increasing likelihood that retired military officer commentary violates the principle of non-partisanship, and that increasing polarization actually has the opposite effect - that increasing polarization makes it less likely a retired officer publication violates the principle of non-partisanship. Models 7-9 indicate that polarization has no impact on the likelihood that a particular commentary piece violates the principle of non-interference. 
+
+The results shown in models 4-6 are particularly surprising, as we would not expect that rising polarization leads to a decrease in the likelihood that retired officer commentary violates the principle of non-partisanship. To further investigate how an election year and polarization impact the likelihood that a retired military officer opinion publication violates the principle of non-partisanship specifically, I run models 4-6 again, but drop the control for election year. The reason for dropping the control for election year is because I suspect that when included, it is perhaps capturing some of the work that polarization might be doing or at least contributing towards. These results are displayed in Table \@ref(tab:ch3appx3).
+
+```{r ch3-appx-non-part test, include=FALSE, echo=FALSE, message=FALSE}
+## Further Checks on the Violation of the Principle of Non-Partisanship
+## Drop control for election year. 
+
+# DV - violation of non-partisan ethic
+mod2_nonpart_house_appx_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + house_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_nonpart_house_appx_lagged)
+
+mod2_nonpart_sen_appx_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + senate_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_nonpart_sen_appx_lagged)
+
+mod2_nonpart_aff_appx_lagged <- glm(NonPartViol ~ Inst_Cred_Gallup + aff_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_nonpart_aff_appx_lagged)
+
+```
+
+\singlespace
+```{r ch3-appx-more-robustness-tests, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(mod2_nonpart_house_appx_lagged, mod2_nonpart_sen_appx_lagged, mod2_nonpart_aff_appx_lagged,
+          type="latex",
+          label="tab:ch3appx3",
+          title="Regression Results: Log Odds of Retired Military Officer Commentary Violating the Principle of Non-Partisanship without Controlling for Election Year", 
+          covariate.labels = c('Trust in Military', 'House Polarization', 'Senate Polarization', 'Aff. Polarization', 'Hostile Casualty Rate', 'Rank'),
+          dep.var.labels = c('Violation of the Principle of Non-Partisanship'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "1pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser")
+          )
+
+```
+\doublespace
+
+Table \@ref(tab:ch3appx3) shows that when the controls for election year are removed, the coefficients for polarization remain negative but now are statistically insignificant, with the exception of model 3 that uses a measure of affective polarization. Combined with the results of models 4-6 in Table Table \@ref(tab:ch3appx2), these results mean that we cannot state that increasing polarization directly leads to an increase in the likelihood that retired military officer commentary violates the principle of non-partisanship in particular. This is an important result, as it provides a cautionary tone for the results of the main regression table. 
+
+The word of caution is simply that increasing polarization seems to lead to an increase in the likelihood that retired military officer commentary violates _at least one_ of the principles of civil-military relations, and the principle of civilian control in particular, given that the coefficients for polarization in models 1-3 in Table \@ref(tab:ch3appx2) were all highly statistically significant and positive. The results therefore do not support the notion that increasing polarization leads to an increase in the likelihood that retired officer commentary will violate each principle, nor that it will necessarily violate the principles of non-partisanship and non-interference at all. 
+
+Based off of the statistical analysis presented here, we can only state that increasing polarization is associated with an increased likelihood that retired military officers will violate at least one of the central principles of civil-military relations, and particularly, the principle of civilian control. Furthermore, this result is true, but only when we use congressional rather than affective measures of polarization.
+
+## Robustness Tests
+
+\doublespace
+
+In this section of the Appendix, I demonstrate a series of robustness checks.
+
+### Robustness to the Trump Presidency Years
+
+I first include a series of robustness tests to the years of the Trump Presidency to determine whether the Trump years are in fact vital to obtaining the result that polarization drives the degree to which retired military officer commentary violates one or more of the principles of civil-military relations. To investigate this possibility, I truncate the data at certain years and then proceed with regression analysis that mirrors the models included in the chapter's main regression table. The results are displayed in Table \@ref(tab:ch3appx4).
+
+```{r ch3-appx-rob-test-trump, include=FALSE, warning=FALSE, echo=FALSE, message=FALSE}
+## Robustness Tests
+# Is the data robust to periods NOT including Trump?
+# Answer: Data is generally NOT robust to data thru 2016, but is generally robust to data thru 2017/2018
+
+# first make a series of dfs that truncate the data
+# at or near the Trump Presidency
+
+violationregdata_thru2015 <- reg_df_macro %>% filter(PubYr <=2015)
+regdata_thru2015 <- reg_df %>% filter(PubYr<= 2015)
+
+violationregdata_thru2016 <- reg_df_macro %>% filter(PubYr <=2016)
+regdata_thru2016 <- reg_df%>% filter(PubYr<= 2016)
+
+violationregdata_thru2017 <- reg_df_macro %>% filter(PubYr <=2017)
+regdata_thru2017 <- reg_df %>% filter(PubYr<= 2017)
+
+violationregdata_thru2018 <- reg_df_macro %>% filter(PubYr <=2018)
+regdata_thru2018 <- reg_df %>% filter(PubYr<= 2018)
+
+# DV - total proportion of annual publications that violate standards, with house and senate polarization
+mod5_prop_ann_violate_house_robtest <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged, data=violationregdata_thru2016)
+summary(mod5_prop_ann_violate_house_robtest)
+
+mod6_prop_ann_violate_house_robtest <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged, data=violationregdata_thru2017)
+summary(mod6_prop_ann_violate_house_robtest)
+
+mod7_prop_ann_violate_house_robtest <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged, data=violationregdata_thru2018)
+summary(mod7_prop_ann_violate_house_robtest)
+
+mod5_prop_ann_violate_sen_robtest <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged, data=violationregdata_thru2016)
+summary(mod5_prop_ann_violate_sen_robtest)
+
+mod6_prop_ann_violate_sen_robtest <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged, data=violationregdata_thru2017)
+summary(mod6_prop_ann_violate_sen_robtest)
+
+mod7_prop_ann_violate_sen_robtest <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged, data=violationregdata_thru2018)
+summary(mod7_prop_ann_violate_sen_robtest)
+
+
+# DV - total # of violations by year, with house and senate polarization
+mod5_num_ann_violate_house_robtest_2015 <- lm(Total_Viol_Count ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged, data=violationregdata_thru2015)
+summary(mod5_num_ann_violate_house_robtest_2015)
+
+mod5_num_ann_violate_house_robtest <- lm(Total_Viol_Count ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged, data=violationregdata_thru2016)
+summary(mod5_num_ann_violate_house_robtest)
+
+mod6_num_ann_violate_house_robtest <- lm(Total_Viol_Count ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged, data=violationregdata_thru2017)
+summary(mod6_num_ann_violate_house_robtest)
+
+mod7_num_ann_violate_house_robtest <- lm(Total_Viol_Count ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged, data=violationregdata_thru2018)
+summary(mod7_num_ann_violate_house_robtest)
+
+mod5_num_ann_violate_sen_robtest_2015 <- lm(Total_Viol_Count ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged, data=violationregdata_thru2015)
+summary(mod5_num_ann_violate_sen_robtest_2015)
+
+mod5_num_ann_violate_sen_robtest <- lm(Total_Viol_Count ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged, data=violationregdata_thru2016)
+summary(mod5_num_ann_violate_sen_robtest)
+
+mod6_num_ann_violate_sen_robtest <- lm(Total_Viol_Count ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged, data=violationregdata_thru2017)
+summary(mod6_num_ann_violate_sen_robtest)
+
+mod7_num_ann_violate_sen_robtest <- lm(Total_Viol_Count ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged, data=violationregdata_thru2018)
+summary(mod7_num_ann_violate_sen_robtest)
+
+# DV - that the op-ed violates any of the central norms of civ-mil relations
+mod5_anyviol_house_robtest <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=regdata_thru2016
+    )
+summary(mod5_anyviol_house_robtest)
+
+mod6_anyviol_house_robtest <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=regdata_thru2017
+    )
+summary(mod6_anyviol_house_robtest)
+
+mod7_anyviol_house_robtest <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=regdata_thru2018
+    )
+summary(mod7_anyviol_house_robtest)
+
+mod5_anyviol_house_robtest_2015 <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=regdata_thru2015
+    )
+summary(mod5_anyviol_house_robtest_2015)
+
+mod5_anyviol_sen_robtest <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=regdata_thru2016
+    )
+summary(mod5_anyviol_sen_robtest)
+
+mod6_anyviol_sen_robtest <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=regdata_thru2017
+    )
+summary(mod6_anyviol_sen_robtest)
+
+mod7_anyviol_sen_robtest <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + AuthRank,
+    family=binomial(link="logit"),
+    data=regdata_thru2018
+    )
+summary(mod7_anyviol_sen_robtest)
+```
+
+The results seem to indicate that including the Trump years matters, but only somewhat. For example, when the dependent variable is the proportion of annual commentary that violates one or more of the central principles of civil-military relations (models 1-4), the coefficient for polarization is not statistically significant in models 1 and 2, when the data is truncated to exclude commentary authored in the years 2018, 2019, and 20. However, when I include the year 2018 (models 3 and 4), polarization becomes statistically significant and positive. 
+
+\singlespace
+```{r ch3-appx-Regression-Robustness-Tests, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(mod6_prop_ann_violate_house_robtest, mod6_prop_ann_violate_sen_robtest, mod7_prop_ann_violate_house_robtest, mod7_prop_ann_violate_sen_robtest, mod5_anyviol_house_robtest_2015, mod5_anyviol_sen_robtest, mod6_anyviol_house_robtest, mod7_anyviol_sen_robtest,
+          type="latex",
+          label="tab:ch3appx4",
+          title="Regression Results: Robustness Checks (Data Cutoff Thru Years Near and During Trump Administration)", 
+          covariate.labels = c('Trust in Military', 'Election Year', 'House Polarization', 'Senate Polarization', 'Hostile Casualty Rate (lagged)', 'Rank'),
+          dep.var.labels = c('Proportion Violating', 'Log Odds of Breaking a Central Principle'),
+          column.labels=c('thru 2017','thru 2017', 'thru 2018', 'thru 2018', 'thru 2015','thru 2016', 'thru 2017', 'thru 2018'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "1pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser"),
+          float.env="sidewaystable"
+          )
+```
+\doublespace
+
+In models 5-8, where the dependent variable is the log of the odds that a particular piece of commentary violates the central principles of civil-military relations, a statistically significant result for polarization is obtained beginning in model 7, and the result holds for model 8. 
+
+Thus, the Trump Presidency years matter in terms of obtaining the positive and statistically significant results for polarization, but only a portion of the Presidency matters (2017 and 2017 matter when the dependent variable is the proportion that violates a central principle of civil-military relations, and only 2017 matters when the dependent variable is the log of the odds that a particular piece violates the principles).
+
+\singlespace
+### Robustness Checks to Interaction of Polarization and Military Prestige
+\doublespace
+
+I now run a series of models that check to see if any interaction between polarization and military prestige matters. The results, which are displayed in Table \@ref(tab:ch3appx5), show that there is no meaningful impact of interacting polarization and military prestige, either when the dependent variable is the total number of pieces authored (model 1), the proportion of annual pieces that violate the principles of civil-military relations (model 2), or the log of the odds that a single piece violates one or more of the central principles (models 3 - 6). 
+
+```{r ch3-appendix-interaction-terms, include=FALSE, warning=FALSE, echo=FALSE, message=FALSE}
+
+# dv - num annual pubs
+mod1_num_ann_pubs_house_lagged_int <- lm(Yrcount ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + Inst_Cred_Gallup * house_polar, data=reg_df_macro)
+summary(mod1_num_ann_pubs_house_lagged_int)
+
+# dv - proportion of pubs violating
+
+mod1_prop_ann_violate_sen_lagged_int <- lm(Prop_Pubs_Viol ~ Inst_Cred_Gallup + elecyear +   senate_polar + HostCasRateLagged + Inst_Cred_Gallup*senate_polar, data=reg_df_macro)
+summary(mod1_prop_ann_violate_sen_lagged_int)
+
+# dv - log of the odds a piece violates
+mod2_anyviol_house_lagged_int <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + Inst_Cred_Gallup*house_polar + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_anyviol_house_lagged_int)
+
+mod2_anyviol_sen_lagged_int <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + Inst_Cred_Gallup * senate_polar  + AuthRank,
+    family=binomial(link="logit"),
+    data=reg_df
+    )
+summary(mod2_anyviol_sen_lagged_int)
+
+mod3_anyviol_house_mixed_lagged_int <- glmer(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + Inst_Cred_Gallup*house_polar + AuthRank + Source + (1 | Author), family=binomial, data=reg_df_slim)
+summary(mod3_anyviol_house_mixed_lagged_int)
+
+
+mod3_anyviol_sen_lagged_int <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + senate_polar + HostCasRateLagged + Inst_Cred_Gallup*senate_polar + AuthRank +Source ,
+    family=binomial(link="logit"),
+    data=reg_df_slim
+    )
+summary(mod3_anyviol_sen_lagged_int)
+
+mod3_anyviol_sen_robust_lagged_int <- robustify(mod3_anyviol_sen_lagged_int, cluster=Author)
+summary(mod3_anyviol_sen_robust_lagged_int)
+
+
+# Marginal Effects Prep and Check
+mod3_anyviol_house_int_lagged <- glm(any_CMR_viol ~ Inst_Cred_Gallup + elecyear + house_polar + HostCasRateLagged + AuthRank + Source + Inst_Cred_Gallup*house_polar,
+    family=binomial(link="logit"),
+    data=reg_df_slim
+    )
+summary(mod3_anyviol_house_int_lagged)
+  
+margins(mod3_anyviol_house_int_lagged, at = list(house_polar = seq(30,110, by=5)))
+summary(margins(mod3_anyviol_house_int_lagged, variables = "Inst_Cred_Gallup", at = list(house_polar = seq(30,110, by=5))))
+
+margins(mod3_anyviol_house_int_lagged, at = list(Inst_Cred_Gallup = seq(20,95, by=5)))
+summary(margins(mod3_anyviol_house_int_lagged, variables = "house_polar", at = list(Inst_Cred_Gallup = seq(20,95, by=5))))
+
+```
+
+\singlespace
+```{r int-terms-ch3-appx, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(mod1_num_ann_pubs_house_lagged_int, mod1_prop_ann_violate_sen_lagged_int, mod2_anyviol_house_lagged_int, mod2_anyviol_sen_lagged_int, mod3_anyviol_house_mixed_lagged_int, mod3_anyviol_sen_robust_lagged_int,
+          type="latex",
+          label="tab:ch3appx5",
+          title="Checking for Impacts of Interacting Prestige with Polarization", 
+          covariate.labels = c('Trust in Military', 'Election Year', 'House Polarization',  'Senate Polarization', 'Hostile Casualty Rate (lagged)', 'Author Rank', 'Washington Post', 'Wall Street Journal', 'Prestige*Polarization (House)', 'Prestige*Polarization(Senate)'),
+          dep.var.labels = c("Num Annual Pubs", 'Proportion Violating', 'Log Odds of Violating Any Civ-Mil Principles'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "1pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser"),
+          float.env="sidewaystable"
+          )
+```
+
+\doublespace
+
+Table \@ref(tab:ch3appx5) shows that when we interact trust in the military with the respective measurements of congressional polarization, the interaction terms are inconsistent in terms of direction and only statistically significant in three of the six models (models 4, 5, and 6). In model 4, the interaction term is statistically significant, but so are the coefficients for both trust in the military and polarization. Both of these are positive, while the interaction term is negative. So it becomes somewhat difficult to really isolate the potential impact of any sort of interaction between the two main independent variables of interest in model 4. Model 5 yields similar difficulties, but in the opposite manner: both of the independent variables by themselves are negative and statistically significant, while the interaction term is minimally positive but statistically significant. The results of model 6 are similar to model 4 in that the interaction term is negative and statistically significant, while the separate coefficients for the variables of military prestige (trust in the military) and polarization are each positive and statistically significant. 
+
+In short, there are really no consistent patterns that emerge when an interaction term between polarization and military prestige are included that merit noteworthy attention. 
+
+### Endogeneity Checks
+
+The last major item of interest in this appendix include a series of checks for endogeneity. In line with the theory developed in Chapter 2, the most potentially problematic relationship involves instances of political behavior that violate the principles of civil-military relations and the level of trust in the military (military prestige). We might be particular concerned that acts of political behavior, in this case, the writing of opinion commentary by retired military officers, somehow drives the level of trust the public places in the military in a meaningful way. 
+
+Table \@ref(tab:ch3appx6) presents the results of several OLS regressions in which the dependent variable is the level of trust the public places in the military. I include several control variables, including dichotomous indicators of instances of commentary that violate one or more of the central principles of civil-military relations (models 1-2), commentary that violates the principle of non-partisanship in particular (model 3), as well as an interaction term that captures the combined effect of polarization and an instance of retired officer commentary violating any of the central principles of civil-military relations or the principle of non-partisanship in particular (models 2 and 3, respectively).  
+
+```{r ch3-endog-test-appx, include=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+## Endogeneity Checks
+# Regress military prestige on crit_part_interfere and polarization
+
+mod4_endog_1 <- lm(Inst_Cred_Gallup ~ any_CMR_viol + senate_polar + elecyear + HostCasRateLagged, data=reg_df)
+summary(mod4_endog_1)
+
+# Now include an interaction term for violation * polarization
+
+mod4_endog_int <- lm(Inst_Cred_Gallup ~ any_CMR_viol + senate_polar + elecyear + HostCasRateLagged + any_CMR_viol*senate_polar, data=reg_df)
+summary(mod4_endog_int)
+
+mod4_endog_int_nonpart <- lm(Inst_Cred_Gallup ~ NonPartViol + house_polar + elecyear + HostCasRateLagged + NonPartViol*house_polar, data=reg_df)
+summary(mod4_endog_int_nonpart)
+```
+
+\singlespace
+```{r ch3-appx-endog-checks-2, include=TRUE, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
+stargazer(mod4_endog_1, mod4_endog_int, mod4_endog_int_nonpart,
+          type="latex",
+          label="tab:ch3appx6",
+          title="Regression Results: Endogeneity Checks (Regress Military Prestige on Polarization and an Instance of Retired Military Actor Opinion Commentary Breaking Any Central Principle / Non-Partisanship in Particular)", 
+          covariate.labels = c('Instance of Violation of Any Central Principle', 'Senate Polarization', 'Violation of Non-Partisanship Principle', 'House Polarization', 'Election Year', 'Hostile Casualty Rate (lagged)', 'Violation of Central Principle * Polarization (Senate)', 'Violation of Non-Partisanship Principle * Polarization (House)'),
+          dep.var.labels = c('Military Prestige'),
+          model.names=TRUE,
+          header=FALSE,
+          column.sep.width = "1pt",
+          align=TRUE,
+          font.size="small",
+          no.space=TRUE,
+          omit.stat=c("f", "ser"),
+          float.env="sidewaystable"
+          )
+```
+\doublespace
+
+The results of Table \@ref(tab:ch3appx6) indicate that there is not a strong and statistically significant relationship between instances of violations to the principles of civil-military relations and the level of trust the public places in the military. The coefficients for instance of violation of any central principle (models 1 and 2) and violation of the principle of non-partisanship (model 3) are all statistically insignificant. The coefficients on the interaction terms in models 2 and 3 are likewise statistically insignificant. Therefore, at least with respect to the behavior of authoring opinion commentary, endogeneity does not appear to pose a significant problem. The level of trust the public places in the military is not the result of instances of opinion commentary violating the central principles of civil-military relations. 
+
+### Acknowlegements
+
+The author would like to thank his dissertation committee for valuable feedback presented on earlier drafts of this paper, especially during his dissertation defense in May 2022. The author would also like to thank participants from the UW-Madison International Relations Colloquium, held on 2 March 2021, for feedback on an early version of this project, which later formed the basis for this chapter of his dissertation.
+
+All regression tables used in Chapter 3 were produced with the help of the Stargazer package, designed by Marek Hlavac [@hlavac_stargazer_2018].
+
+\pagebreak
+\singlespace
+
+
+
+
+
+
+
+
+
+
+

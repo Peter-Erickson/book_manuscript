@@ -115,7 +115,7 @@ The core argument of this book is that the two independent variables of politica
 
 ```{r overview, include=TRUE, echo=FALSE, fig.height=2.5, fig.width=4, fig.cap="The Impact of Polarization and Military Prestige on Political Behaviors Involving the Military"}
 
-include_graphics("../shareddata/Theory.drawio.png") #shared data location
+include_graphics("../shareddata/Theory.drawio.png") 
 ```
 
 ### The Dependent Variable, Political Behaviors Involving the Military
@@ -428,15 +428,15 @@ gg3 <- ggplot(polar_dat_long %>%
                   point.padding = 0.1,
                   segment.color = NA,
                   show.legend = FALSE) +
-              theme(axis.text.x = element_text(angle = 60, hjust = 1), plot.title=element_text(hjust=.5), plot.subtitle=element_text(hjust=.5)) + scale_color_manual(values=c("House"="#c70828","Senate"="#1372ad"), guide="none") +
+              theme(axis.text.x = element_text(angle = 60, hjust = 1), plot.title=element_text(hjust=.5), plot.subtitle=element_text(hjust=.5)) + scale_color_manual(values=c("black","gray55"), guide="none") +
                labs(caption="Data Available from Lewis et. al. (2020) at Voteview.com")
-
 
 gg3
 
+
 ```
 
-Polarization has been measured in a second way in the American politics literature. First derived by Iyengar et al. (2012), measurements of "affective polarization" or "negative partisanship" have been derived by using data from the American National Elections Studies (ANES) [@iyengar_affect_2012]. Beginning in the late 1970s, the ANES has asked a series of "feeling thermometer" questions, in which respondents are asked to provide, on a scale ranging from 0-100, how they feel about a range of topics, including their feelings about political parties. Figure \@ref(fig:affect-polar) graphs the results of how partisans feel about members of their own party, members who affiliate with the opposite party, the difference between these two answers, and a total level of affective polarization, which is the sum of the difference for each of the two main parties in the United States. As Figure \@ref(fig:affect-polar) shows, measurements of how favorable each party is have remained more or less constant over the past several decades. However, partisans have increasingly rated those on the opposite side of the political spectrum as increasingly less favorable over the same time period. In other words, data shows that partisans do not necessarily like the party with whom they affiliate more, but rather that they disdain those on the other side of the aisle at greater levels. 
+Polarization has been measured in a second way in the American politics literature. First derived by Iyengar et al. (2012), measurements of "affective polarization" or "negative partisanship" have been derived by using data from the American National Elections Studies (ANES) [@iyengar_affect_2012]. Beginning in the late 1970s, the ANES has asked a series of "feeling thermometer" questions, in which respondents are asked to provide, on a scale ranging from 0-100, how they feel about a range of topics, including their feelings about political parties. Figure \@ref(fig:affect-polar) graphs the results of how partisans feel about members of their own party, members who affiliate with the opposite party, the difference between these two answers, and a total level of affective polarization, which is the sum of the difference for each of the two main parties in the United States. As Figure \@ref(fig:affect-polar) shows, measurements of how favorable each party is have remained more or less constant over the past several decades. However, partisans have increasingly rated those on the opposite side of the political spectrum as increasingly less favorable over the same time period. The thick black line represents the total overall level of affective polarization over time. The black and gray dot-dashed lines show how Republican and Democratic voters feel about members who identify with their own party. As Figure \@ref(fig:affect-polar) shows, it is clear that partisans do not necessarily like the party with whom they affiliate more, but rather that they disdain those who sit on the other side of the political aisle at increasingly greater levels. 
 
 ```{r affect-polar, include=TRUE, echo=FALSE, message=FALSE, warning=FALSE, fig.height=5.2, fig.width=7.2, fig.cap="Affective Polarization and various 'Feeling Thermometer' Scores in the US, 1978-2020"}
 df <- read_csv("../shareddata/Aff_Polarization.csv")
@@ -444,8 +444,18 @@ df <- read_csv("../shareddata/Aff_Polarization.csv")
 slim_df <- df %>% select(Year:AffPol) %>% na.omit
 melted_df <- melt(slim_df, id="Year")
 
-melted_df %>% ggplot(aes(x=Year, y=value, color=variable)) + geom_point() +
-                       geom_smooth(se=FALSE) + labs(color="ANES\nFeeling Thermometer\nValue") +   scale_color_manual(breaks=c("DemIn", "DemOut", "DemDiff","RepIn","RepOut","RepDiff","AffPol"), labels=c("Democrat-In","Democrat-Out","Democrat-Diff","Republican-In","Republican-Out","Republican-Diff","Affective Polarization"), values=c("red", "blue", "green","dodgerblue","darkorange","cyan1","black")) + theme(legend.position="bottom", plot.title=element_text(hjust=.5))
+
+melted_df %>% ggplot(aes(x=Year, y=value, linetype=variable, color=variable)) +
+  labs(color="ANES\nFeeling Thermometer\nValue", size="ANES\nFeeling Thermometer\nValue", linetype="ANES\nFeeling Thermometer\nValue") +
+                       geom_smooth(aes(size=variable), se=FALSE) + 
+  scale_linetype_manual(values= c("dotdash", "dotted", "solid", "dotdash", "dotted", "solid", "solid"),breaks=c("DemIn", "DemOut", "DemDiff","RepIn","RepOut","RepDiff","AffPol"),
+                labels=c("Democrat-In","Democrat-Out","Democrat-Diff","Republican-In","Republican-Out","Republican-Diff","Affective Polarization")) +
+  scale_color_manual(values =c("gray75", "gray75","gray75", "black", "black", "black", "black"), breaks=c("DemIn", "DemOut", "DemDiff","RepIn","RepOut","RepDiff","AffPol"),
+                labels=c("Democrat-In","Democrat-Out","Democrat-Diff","Republican-In","Republican-Out","Republican-Diff","Affective Polarization")) +
+  scale_size_manual(values=c(1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 3), breaks=c("DemIn", "DemOut", "DemDiff","RepIn","RepOut","RepDiff","AffPol"),
+                labels=c("Democrat-In","Democrat-Out","Democrat-Diff","Republican-In","Republican-Out","Republican-Diff","Affective Polarization"))+
+  theme(legend.position="bottom", plot.title=element_text(hjust=.5), panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+
 
 ```
 
@@ -485,7 +495,7 @@ budgetDF_adj <- budgetDF %>% mutate(
 
 melted_budgetDF <- melt(budgetDF_adj, id="Year")
 
-melted_budgetDF %>% ggplot(aes(x=Year, y=value, color=variable)) + geom_point() + geom_smooth(se=FALSE) + labs(color="Department", subtitle="Data Available from Table 4.1, Outlays by Agency,\n https://obamawhitehouse.archives.gov/omb/budget/Historicals") +   scale_color_manual(values=c("black", "blue")) + theme(legend.position="right", plot.title=element_text(hjust=.5)) +  scale_y_continuous(name="Billions of Dollars (2016 Real Terms)", limits=c(0, 700)) 
+melted_budgetDF %>% ggplot(aes(x=Year, y=value, color=variable)) + geom_point() + geom_smooth(se=FALSE) + labs(color="Department", subtitle="Data Available from Table 4.1, Outlays by Agency,\n https://obamawhitehouse.archives.gov/omb/budget/Historicals") +   scale_color_manual(values=c("black", "grey65")) + theme(legend.position="right", plot.title=element_text(hjust=.5)) +  scale_y_continuous(name="Billions of Dollars (2016 Real Terms)", limits=c(0, 700)) 
 
 
 ```
@@ -506,7 +516,9 @@ df_trust_graph$Institution <-
 ```
 
 ```{r insttrust, warning=FALSE, echo=FALSE, include=TRUE, fig.height=4, fig.width=6, fig.cap = "Public Trust in American Institutions Over Time"}
-df_trust_graph %>% ggplot(aes(x=Year, y=Score)) + geom_line(aes(color=Institution, color = Institution)) + scale_color_manual(values=c("black", "dodgerblue", "darkgreen", "seagreen2", "salmon3")) + labs(x="Year", y="Percent Surveyed Who Place\n A 'Great Deal' or 'Quite a Lot' of Trust In...", caption="Data Available from 'Confidence in Institutions,'\nhttps://news.gallup.com/poll/1597/Confidence-Institutions.aspx")
+df_trust_graph %>% ggplot(aes(x=Year, y=Score)) + geom_line(aes(color = Institution, linetype=Institution)) + scale_color_manual(values=c("black", "black", "gray55", "gray55", "gray35")) + 
+  scale_linetype_manual(values=c("solid", "dotted", "solid", "dashed","dotdash"))+
+  labs(x="Year", y="Percent Surveyed Who Place\n A 'Great Deal' or 'Quite a Lot' of Trust In...", caption="Data Available from 'Confidence in Institutions,'\nhttps://news.gallup.com/poll/1597/Confidence-Institutions.aspx")
 
 ```
 
